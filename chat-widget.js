@@ -241,6 +241,15 @@
 }\
 .lbm-contact-form .lbm-form-btn:hover { background: #d4f96a; }\
 .lbm-contact-form .lbm-form-btn:disabled { opacity: 0.4; cursor: not-allowed; }\
+.lbm-consent {\
+  display: flex; align-items: flex-start; gap: 8px;\
+  font-size: 11px; color: #6b6b6b; line-height: 1.5;\
+  cursor: pointer;\
+}\
+.lbm-consent input[type="checkbox"] {\
+  margin-top: 2px; accent-color: #c8f65a; width: 16px; height: 16px;\
+  flex-shrink: 0; cursor: pointer;\
+}\
 .lbm-contact-form .lbm-form-error {\
   font-size: 11px; color: #ff6b6b; margin: 0; display: none;\
 }\
@@ -308,6 +317,12 @@
   .lbm-contact-form .lbm-form-btn {\
     font-size: 16px; padding: 16px 24px; border-radius: 12px;\
     margin-top: 8px; width: 100%;\
+  }\
+  .lbm-consent {\
+    font-size: 12px; gap: 10px;\
+  }\
+  .lbm-consent input[type="checkbox"] {\
+    width: 20px; height: 20px; margin-top: 1px;\
   }\
   .lbm-slots-container { max-width: 100%; }\
   .lbm-slot {\
@@ -410,6 +425,7 @@
         <input type="text" id="lbm-cf-name" placeholder="Your name" autocomplete="name" />\
         <input type="email" id="lbm-cf-email" placeholder="Email address" autocomplete="email" />\
         <input type="tel" id="lbm-cf-phone" placeholder="Phone number" autocomplete="tel" />\
+        <label class="lbm-consent"><input type="checkbox" id="lbm-cf-consent" /> I agree to receive communications from Logic Based Marketing. No spam, ever.</label>\
         <p class="lbm-form-error" id="lbm-cf-error">Please fill in all fields.</p>\
         <button class="lbm-form-btn" id="lbm-cf-submit">Start chatting</button>\
       </div>\
@@ -435,8 +451,10 @@
       var name = chatWindow.querySelector('#lbm-cf-name').value.trim();
       var email = chatWindow.querySelector('#lbm-cf-email').value.trim();
       var phone = chatWindow.querySelector('#lbm-cf-phone').value.trim();
+      var consent = chatWindow.querySelector('#lbm-cf-consent').checked;
 
       if (!name || !email || !phone) {
+        cfError.textContent = 'Please fill in all fields.';
         cfError.style.display = 'block';
         return;
       }
@@ -444,6 +462,12 @@
       // Basic email validation
       if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
         cfError.textContent = 'Please enter a valid email address.';
+        cfError.style.display = 'block';
+        return;
+      }
+
+      if (!consent) {
+        cfError.textContent = 'Please check the consent box to continue.';
         cfError.style.display = 'block';
         return;
       }
