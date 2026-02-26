@@ -1,16 +1,16 @@
 /**
  * LBM Live Chat Widget
- * Self-contained IIFE — vanilla JS, injects CSS + HTML, matches site dark theme
+ * Self-contained IIFE - vanilla JS, injects CSS + HTML, matches site dark theme
  *
  * Usage: <script src="/chat-widget.js" defer></script>
  *
  * Features:
+ * - Contact form captures name/email/phone BEFORE chat starts
  * - Proactive trigger (12s delay or 60% scroll)
  * - Qualification conversation via Claude API
  * - Time slot picker for booking
  * - Booking confirmation with Google Meet link
  * - Session persistence (sessionStorage)
- * - Captures name, email, phone before booking
  * - GTM dataLayer events
  * - Coordinates with email-popup.js
  */
@@ -18,12 +18,13 @@
 (function() {
   'use strict';
 
-  // ── CONFIG ──
+  // -- CONFIG --
   var API_URL = 'https://lbm-chatbot.thewizard-dd8.workers.dev';
   var PROACTIVE_DELAY = 12000;
   var PROACTIVE_SCROLL = 0.6;
   var DISMISS_COOKIE = 'lbm_chat_dismissed';
   var SESSION_KEY = 'lbm_chat_session';
+  var CONTACT_KEY = 'lbm_chat_contact';
 
   // Excluded pages (sales tools)
   var EXCLUDED = ['/one-pager.html', '/pricing.html', '/proposal.html'];
@@ -32,7 +33,7 @@
     if (path.indexOf(EXCLUDED[i]) !== -1) return;
   }
 
-  // ── STYLES ──
+  // -- STYLES --
   var CSS = '\
 #lbm-chat-bubble {\
   position: fixed; bottom: 24px; right: 24px; z-index: 9990;\
@@ -212,6 +213,37 @@
 .lbm-chat-input-area button:disabled { opacity: 0.4; cursor: not-allowed; }\
 .lbm-chat-input-area button svg { width: 18px; height: 18px; fill: #0a0a0a; }\
 \
+.lbm-contact-form {\
+  flex: 1; padding: 24px 20px; display: flex; flex-direction: column;\
+  justify-content: center; gap: 14px;\
+}\
+.lbm-contact-form h3 {\
+  font-size: 16px; font-weight: 700; color: #fff; margin: 0 0 4px;\
+}\
+.lbm-contact-form p {\
+  font-size: 12px; color: #6b6b6b; margin: 0 0 8px; line-height: 1.5;\
+}\
+.lbm-contact-form input {\
+  background: #161616; border: 1px solid #1e1e1e; border-radius: 10px;\
+  padding: 11px 14px; color: #efefef; font-size: 13px;\
+  font-family: Inter, -apple-system, sans-serif;\
+  outline: none; transition: border-color 0.2s; width: 100%;\
+  box-sizing: border-box;\
+}\
+.lbm-contact-form input:focus { border-color: #c8f65a; }\
+.lbm-contact-form input::placeholder { color: #6b6b6b; }\
+.lbm-contact-form .lbm-form-btn {\
+  padding: 12px 20px; background: #c8f65a; color: #0a0a0a;\
+  font-size: 14px; font-weight: 700; border: none; border-radius: 10px;\
+  cursor: pointer; transition: background 0.2s; margin-top: 4px;\
+  font-family: Inter, -apple-system, sans-serif;\
+}\
+.lbm-contact-form .lbm-form-btn:hover { background: #d4f96a; }\
+.lbm-contact-form .lbm-form-btn:disabled { opacity: 0.4; cursor: not-allowed; }\
+.lbm-contact-form .lbm-form-error {\
+  font-size: 11px; color: #ff6b6b; margin: 0; display: none;\
+}\
+\
 @keyframes lbmSlideUp {\
   from { opacity: 0; transform: translateY(16px); }\
   to { opacity: 1; transform: translateY(0); }\
@@ -236,17 +268,20 @@
 }\
 ';
 
-  // ── STATE ──
+  // -- STATE --
   var chatOpen = false;
   var messages = []; // { role: 'user'|'assistant', content: string }
   var sending = false;
   var proactiveDismissed = false;
   var proactiveShown = false;
+  var contactInfo = null; // { name, email, phone }
+  var contactFormSubmitted = false;
 
   // DOM refs
   var bubble, chatWindow, messagesEl, inputEl, sendBtn, proactiveEl, typingEl;
+  var contactFormEl, chatBody;
 
-  // ── INIT ──
+  // -- INIT --
   function init() {
     // Inject CSS
     var style = document.createElement('style');
@@ -266,15 +301,16 @@
       setupProactiveTrigger();
     }
 
-    // If we have existing messages, render them
+    // If we have existing messages, render them and skip form
     if (messages.length > 0) {
+      showChatView();
       messages.forEach(function(m) {
         appendMessage(m.role === 'user' ? 'user' : 'bot', m.content);
       });
     }
   }
 
-  // ── DOM CREATION ──
+  // -- DOM CREATION --
 
   function createBubble() {
     bubble = document.createElement('button');
@@ -292,7 +328,7 @@
     proactiveEl.id = 'lbm-chat-proactive';
     proactiveEl.innerHTML = '\
       <button class="lbm-pro-close" aria-label="Dismiss">&times;</button>\
-      <p>Most businesses lose $8K\u2013$30K/month in hidden revenue leaks. Want to find out if yours is one of them?</p>\
+      <p>Most businesses lose $8K-$30K/month in hidden revenue leaks. Want to find out if yours is one of them?</p>\
       <button class="lbm-pro-cta">Find out now</button>';
 
     proactiveEl.querySelector('.lbm-pro-close').addEventListener('click', function(e) {
@@ -317,17 +353,78 @@
           <div class="lbm-chat-header-status"><span class="dot"></span>Online</div>\
         </div>\
       </div>\
-      <div class="lbm-chat-messages"></div>\
-      <div class="lbm-chat-input-area">\
+      <div class="lbm-contact-form" id="lbm-contact-form">\
+        <h3>Before we chat...</h3>\
+        <p>So we can give you the most relevant advice and follow up if needed.</p>\
+        <input type="text" id="lbm-cf-name" placeholder="Your name" autocomplete="name" />\
+        <input type="email" id="lbm-cf-email" placeholder="Email address" autocomplete="email" />\
+        <input type="tel" id="lbm-cf-phone" placeholder="Phone number" autocomplete="tel" />\
+        <p class="lbm-form-error" id="lbm-cf-error">Please fill in all fields.</p>\
+        <button class="lbm-form-btn" id="lbm-cf-submit">Start chatting</button>\
+      </div>\
+      <div class="lbm-chat-messages" style="display:none;"></div>\
+      <div class="lbm-chat-input-area" style="display:none;">\
         <input type="text" placeholder="Type a message..." autocomplete="off" />\
         <button aria-label="Send" disabled>\
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>\
         </button>\
       </div>';
 
+    contactFormEl = chatWindow.querySelector('#lbm-contact-form');
     messagesEl = chatWindow.querySelector('.lbm-chat-messages');
-    inputEl = chatWindow.querySelector('input');
-    sendBtn = chatWindow.querySelector('.lbm-chat-input-area button');
+    chatBody = chatWindow.querySelector('.lbm-chat-input-area');
+    inputEl = chatBody.querySelector('input');
+    sendBtn = chatBody.querySelector('button');
+
+    // Contact form submission
+    var cfSubmit = chatWindow.querySelector('#lbm-cf-submit');
+    var cfError = chatWindow.querySelector('#lbm-cf-error');
+
+    cfSubmit.addEventListener('click', function() {
+      var name = chatWindow.querySelector('#lbm-cf-name').value.trim();
+      var email = chatWindow.querySelector('#lbm-cf-email').value.trim();
+      var phone = chatWindow.querySelector('#lbm-cf-phone').value.trim();
+
+      if (!name || !email || !phone) {
+        cfError.style.display = 'block';
+        return;
+      }
+
+      // Basic email validation
+      if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+        cfError.textContent = 'Please enter a valid email address.';
+        cfError.style.display = 'block';
+        return;
+      }
+
+      cfError.style.display = 'none';
+      contactInfo = { name: name, email: email, phone: phone };
+      contactFormSubmitted = true;
+      saveContact();
+
+      // Push to Mailchimp immediately (don't wait for response)
+      fetch(API_URL + '/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactInfo),
+      }).catch(function() { /* silent fail, chat still works */ });
+
+      pushEvent('chat_contact_captured', { method: 'form' });
+
+      // Switch to chat view
+      showChatView();
+
+      // Start conversation with contact info prepended to first message
+      startConversation();
+    });
+
+    // Allow Enter key on form fields
+    var formInputs = contactFormEl.querySelectorAll('input');
+    for (var i = 0; i < formInputs.length; i++) {
+      formInputs[i].addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') cfSubmit.click();
+      });
+    }
 
     inputEl.addEventListener('input', function() {
       sendBtn.disabled = !inputEl.value.trim() || sending;
@@ -340,7 +437,13 @@
     document.body.appendChild(chatWindow);
   }
 
-  // ── CHAT LOGIC ──
+  function showChatView() {
+    contactFormEl.style.display = 'none';
+    messagesEl.style.display = 'flex';
+    chatBody.style.display = 'flex';
+  }
+
+  // -- CHAT LOGIC --
 
   function toggleChat() {
     if (chatOpen) {
@@ -356,18 +459,20 @@
     chatWindow.classList.add('open');
     bubble.classList.add('open');
     hideProactive();
-    inputEl.focus();
 
     pushEvent('chat_opened', { trigger: trigger || 'bubble_click' });
 
-    // Send first bot message if no history
-    if (messages.length === 0) {
-      setTimeout(function() {
-        var firstMessage = "Hey \u2014 welcome to Logic Based Marketing. What kind of business are you running?";
-        messages.push({ role: 'assistant', content: firstMessage });
-        appendMessage('bot', firstMessage);
-        saveSession();
-      }, 600);
+    // If contact already submitted (restored from session), show chat view
+    if (contactFormSubmitted && messages.length === 0) {
+      showChatView();
+      startConversation();
+    } else if (contactFormSubmitted) {
+      showChatView();
+      inputEl.focus();
+    } else {
+      // Show form, focus first field
+      var nameField = chatWindow.querySelector('#lbm-cf-name');
+      if (nameField) setTimeout(function() { nameField.focus(); }, 100);
     }
   }
 
@@ -376,6 +481,54 @@
     window.lbmChatOpen = false;
     chatWindow.classList.remove('open');
     bubble.classList.remove('open');
+  }
+
+  function startConversation() {
+    if (messages.length > 0) return;
+
+    // Send a hidden first message with contact info so the bot knows who they are
+    var contactMsg = '[CONTACT: name=' + contactInfo.name + ', email=' + contactInfo.email + ', phone=' + contactInfo.phone + ']';
+    messages.push({ role: 'user', content: contactMsg });
+    // Don't render this message visually, it's just for the bot
+
+    showTyping();
+    sending = true;
+
+    fetch(API_URL + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: messages }),
+    })
+    .then(function(resp) {
+      if (!resp.ok) throw new Error('API error ' + resp.status);
+      return resp.json();
+    })
+    .then(function(data) {
+      hideTyping();
+      sending = false;
+
+      if (data.reply) {
+        messages.push({ role: 'assistant', content: data.reply });
+        appendMessage('bot', data.reply);
+      }
+
+      if (data.action) {
+        handleAction(data.action);
+      }
+
+      saveSession();
+      inputEl.focus();
+    })
+    .catch(function(err) {
+      hideTyping();
+      sending = false;
+      console.error('LBM Chat error:', err);
+      var firstName = contactInfo.name.split(' ')[0];
+      var greeting = "Hey " + firstName + ", thanks for reaching out. What kind of business are you running?";
+      messages.push({ role: 'assistant', content: greeting });
+      appendMessage('bot', greeting);
+      saveSession();
+    });
   }
 
   function sendMessage() {
@@ -427,7 +580,7 @@
       hideTyping();
       sending = false;
       console.error('LBM Chat error:', err);
-      var errMsg = "I\u2019m having a connection issue. You can reach Tyler directly at tyler@logicbasedmarketing.com or book here: https://koalendar.com/e/revenue-challenge";
+      var errMsg = "I'm having a connection issue. You can reach Tyler directly at tyler@logicbasedmarketing.com or book here: https://koalendar.com/e/revenue-challenge";
       messages.push({ role: 'assistant', content: errMsg });
       appendMessage('bot', errMsg);
       saveSession();
@@ -445,7 +598,7 @@
     }
   }
 
-  // ── RENDERING ──
+  // -- RENDERING --
 
   function appendMessage(type, text) {
     var div = document.createElement('div');
@@ -484,7 +637,7 @@
         btn.classList.add('selected');
 
         // Send the selection as a user message
-        var msg = "I\u2019d like " + slot.display;
+        var msg = "I'd like " + slot.display;
         inputEl.value = msg;
         sendMessage();
       });
@@ -500,7 +653,7 @@
     var card = document.createElement('div');
     card.className = 'lbm-booking-card';
     var html = '<div class="lbm-bc-check">\u2705</div>';
-    html += '<div class="lbm-bc-title">You\u2019re booked!</div>';
+    html += '<div class="lbm-bc-title">You\'re booked!</div>';
     html += '<div class="lbm-bc-row"><span>When:</span> ' + escapeHtml(data.start) + '</div>';
     html += '<div class="lbm-bc-row"><span>What:</span> ' + escapeHtml(data.summary) + '</div>';
     if (data.meetLink) {
@@ -532,7 +685,7 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  // ── PROACTIVE TRIGGER ──
+  // -- PROACTIVE TRIGGER --
 
   function setupProactiveTrigger() {
     var triggered = false;
@@ -578,11 +731,22 @@
     return document.cookie.indexOf(DISMISS_COOKIE + '=1') !== -1;
   }
 
-  // ── SESSION PERSISTENCE ──
+  // -- SESSION PERSISTENCE --
 
   function saveSession() {
     try {
       sessionStorage.setItem(SESSION_KEY, JSON.stringify(messages));
+      if (contactInfo) {
+        sessionStorage.setItem(CONTACT_KEY, JSON.stringify(contactInfo));
+      }
+    } catch (e) { /* quota exceeded */ }
+  }
+
+  function saveContact() {
+    try {
+      if (contactInfo) {
+        sessionStorage.setItem(CONTACT_KEY, JSON.stringify(contactInfo));
+      }
     } catch (e) { /* quota exceeded */ }
   }
 
@@ -592,12 +756,17 @@
       if (stored) {
         messages = JSON.parse(stored);
       }
+      var storedContact = sessionStorage.getItem(CONTACT_KEY);
+      if (storedContact) {
+        contactInfo = JSON.parse(storedContact);
+        contactFormSubmitted = true;
+      }
     } catch (e) {
       messages = [];
     }
   }
 
-  // ── GTM EVENTS ──
+  // -- GTM EVENTS --
 
   function pushEvent(event, params) {
     window.dataLayer = window.dataLayer || [];
@@ -610,7 +779,7 @@
     window.dataLayer.push(data);
   }
 
-  // ── HELPERS ──
+  // -- HELPERS --
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -618,7 +787,7 @@
     return div.innerHTML;
   }
 
-  // ── BOOT ──
+  // -- BOOT --
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
