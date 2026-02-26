@@ -1,13 +1,20 @@
 /* ─── LBM Lead Capture Popup ───
-   Shows after 6s or 50% scroll (whichever first).
-   Cookie prevents re-show for 7 days after dismiss, 30 days after submit.
+   Shows after 12s or 50% scroll (whichever first).
+   Cookie prevents re-show for 7 days after dismiss, 30 days after CTA click.
+   Coordinates with chat-widget.js via window.lbm shared state.
    Integrates with Mailchimp via list-manage endpoint.
 */
 (function() {
   var COOKIE_NAME = 'lbm_popup_seen';
-  var DELAY_MS = 6000;
+  var DELAY_MS = 12000;
   var SCROLL_THRESHOLD = 0.5;
-  var MAILCHIMP_URL = 'https://logicbasedmarketing.us17.list-manage.com/subscribe/post?u=b4333ac3c716522ceb71c266e&id=0734806408';
+
+  // Shared coordination state with chat widget
+  window.lbm = window.lbm || {};
+  window.lbm.popupReady = true;
+  window.lbm.popupVisible = false;
+  window.lbm.popupDismissedAt = 0;
+  window.lbm.popupCTAClicked = false;
 
   // Check cookie
   function getCookie(name) {
@@ -20,7 +27,10 @@
     document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
   }
 
-  if (getCookie(COOKIE_NAME)) return;
+  if (getCookie(COOKIE_NAME)) {
+    window.lbm.popupSuppressed = true;
+    return;
+  }
 
   // Build popup HTML
   var overlay = document.createElement('div');
@@ -67,17 +77,24 @@
   var shown = false;
   function showPopup() {
     if (shown) return;
-    // Don't show if chat widget is open
+    // Don't show if chat widget is open or chat proactive is visible
     if (window.lbmChatOpen) return;
+    if (window.lbm && window.lbm.chatProactiveVisible) return;
     shown = true;
+    window.lbm.popupVisible = true;
     document.body.appendChild(overlay);
     // Force reflow then add class
     overlay.offsetHeight;
     overlay.classList.add('active');
   }
 
-  function closePopup(cookieDays) {
+  function closePopup(cookieDays, wasCTA) {
     overlay.classList.remove('active');
+    window.lbm.popupVisible = false;
+    window.lbm.popupDismissedAt = Date.now();
+    if (wasCTA) {
+      window.lbm.popupCTAClicked = true;
+    }
     setTimeout(function() {
       if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
     }, 300);
@@ -100,13 +117,13 @@
   // Close handlers
   document.addEventListener('click', function(e) {
     if (e.target.id === 'lbm-popup-close' || e.target.id === 'lbm-popup-overlay') {
-      closePopup(7);
+      closePopup(7, false);
     }
     if (e.target.id === 'lbm-popup-cta') {
-      closePopup(30);
+      closePopup(30, true);
     }
   });
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closePopup(7);
+    if (e.key === 'Escape' && window.lbm.popupVisible) closePopup(7, false);
   });
 })();

@@ -6,7 +6,7 @@
  *
  * Features:
  * - Contact form captures name/email/phone BEFORE chat starts
- * - Proactive trigger (12s delay or 60% scroll)
+ * - Proactive trigger (45s delay or 75% scroll, deferred if popup active)
  * - Qualification conversation via Claude API
  * - Time slot picker for booking
  * - Booking confirmation with Google Meet link
@@ -20,11 +20,15 @@
 
   // -- CONFIG --
   var API_URL = 'https://lbm-chatbot.thewizard-dd8.workers.dev';
-  var PROACTIVE_DELAY = 12000;
-  var PROACTIVE_SCROLL = 0.6;
+  var PROACTIVE_DELAY = 45000;
+  var PROACTIVE_SCROLL = 0.75;
+  var POPUP_BUFFER_MS = 15000; // min gap after email popup dismissal
   var DISMISS_COOKIE = 'lbm_chat_dismissed';
   var SESSION_KEY = 'lbm_chat_session';
   var CONTACT_KEY = 'lbm_chat_contact';
+
+  // Shared coordination state with email popup
+  window.lbm = window.lbm || {};
 
   // Excluded pages (sales tools)
   var EXCLUDED = ['/one-pager.html', '/pricing.html', '/proposal.html'];
@@ -812,12 +816,38 @@
   function setupProactiveTrigger() {
     var triggered = false;
 
+    function canShowProactive() {
+      if (triggered || chatOpen || proactiveDismissed) return false;
+      // Don't show if email popup is currently visible
+      if (window.lbm && window.lbm.popupVisible) return false;
+      // Don't show if user clicked the popup CTA (they went to calculator)
+      if (window.lbm && window.lbm.popupCTAClicked) return false;
+      // Don't show within buffer period after popup was dismissed
+      if (window.lbm && window.lbm.popupDismissedAt) {
+        var elapsed = Date.now() - window.lbm.popupDismissedAt;
+        if (elapsed < POPUP_BUFFER_MS) return false;
+      }
+      return true;
+    }
+
     function trigger() {
-      if (triggered || chatOpen || proactiveDismissed) return;
-      // Don't show if email popup is visible
-      var emailOverlay = document.getElementById('email-popup-overlay');
-      if (emailOverlay && emailOverlay.classList.contains('visible')) return;
+      if (!canShowProactive()) {
+        // If blocked by popup buffer, retry in 5s
+        if (window.lbm && window.lbm.popupVisible) {
+          setTimeout(trigger, 5000);
+          return;
+        }
+        if (window.lbm && window.lbm.popupDismissedAt) {
+          var remaining = POPUP_BUFFER_MS - (Date.now() - window.lbm.popupDismissedAt);
+          if (remaining > 0) {
+            setTimeout(trigger, remaining + 500);
+            return;
+          }
+        }
+        return;
+      }
       triggered = true;
+      window.lbm.chatProactiveVisible = true;
       showProactive();
     }
 
@@ -839,6 +869,7 @@
 
   function hideProactive() {
     proactiveEl.classList.remove('visible');
+    if (window.lbm) window.lbm.chatProactiveVisible = false;
   }
 
   function dismissProactive() {
