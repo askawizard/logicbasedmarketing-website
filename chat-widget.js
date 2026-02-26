@@ -19,7 +19,7 @@
   'use strict';
 
   // ── CONFIG ──
-  var API_URL = 'https://lbm-chatbot.YOUR_SUBDOMAIN.workers.dev'; // TODO: Replace after deploy
+  var API_URL = 'https://lbm-chatbot.thewizard-dd8.workers.dev';
   var PROACTIVE_DELAY = 12000;
   var PROACTIVE_SCROLL = 0.6;
   var DISMISS_COOKIE = 'lbm_chat_dismissed';
