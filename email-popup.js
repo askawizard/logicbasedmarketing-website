@@ -7,7 +7,7 @@
   var COOKIE_NAME = 'lbm_popup_seen';
   var DELAY_MS = 6000;
   var SCROLL_THRESHOLD = 0.5;
-  var MAILCHIMP_URL = 'https://logicbasedmarketing.us17.list-manage.com/subscribe/post?u=YOUR_MAILCHIMP_U_ID&id=0734806408';
+  var MAILCHIMP_URL = 'https://logicbasedmarketing.us17.list-manage.com/subscribe/post?u=b4333ac3c716522ceb71c266e&id=0734806408';
 
   // Check cookie
   function getCookie(name) {
