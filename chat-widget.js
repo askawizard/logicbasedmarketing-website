@@ -104,6 +104,7 @@
   background: #c8f65a; border-radius: 50%; margin-right: 4px;\
   animation: lbmPulse 2s infinite;\
 }\
+.lbm-mobile-close { display: none; }\
 \
 .lbm-chat-messages {\
   flex: 1; overflow-y: auto; padding: 16px;\
@@ -257,14 +258,63 @@
   50% { opacity: 0.4; }\
 }\
 \
-@media (max-width: 480px) {\
+@media (max-width: 600px) {\
   #lbm-chat-window {\
-    top: 0; left: 0; right: 0; bottom: 0;\
-    width: 100%; height: 100%;\
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;\
+    width: 100% !important; height: 100% !important;\
+    max-height: 100vh; max-height: 100dvh;\
     border-radius: 0; border: none;\
+    z-index: 99999;\
   }\
-  #lbm-chat-bubble { bottom: 16px; right: 16px; }\
+  #lbm-chat-bubble { bottom: 16px; right: 16px; z-index: 99998; }\
+  #lbm-chat-bubble.open { display: none; }\
   #lbm-chat-proactive { bottom: 84px; right: 16px; left: 16px; max-width: none; }\
+  .lbm-chat-header {\
+    padding: 14px 16px; position: relative;\
+    padding-right: 50px;\
+  }\
+  .lbm-mobile-close {\
+    display: block !important;\
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);\
+    background: none; border: none; color: #6b6b6b; font-size: 28px;\
+    cursor: pointer; padding: 8px; line-height: 1;\
+  }\
+  .lbm-chat-messages {\
+    padding: 12px; gap: 8px;\
+    -webkit-overflow-scrolling: touch;\
+  }\
+  .lbm-msg {\
+    max-width: 90%; font-size: 14px; padding: 12px 16px;\
+  }\
+  .lbm-chat-input-area {\
+    padding: 10px 12px;\
+    padding-bottom: max(10px, env(safe-area-inset-bottom));\
+  }\
+  .lbm-chat-input-area input {\
+    font-size: 16px; padding: 12px 14px;\
+  }\
+  .lbm-chat-input-area button {\
+    width: 44px; height: 44px;\
+  }\
+  .lbm-contact-form {\
+    padding: 24px 20px; justify-content: flex-start; padding-top: 32px;\
+    overflow-y: auto; -webkit-overflow-scrolling: touch;\
+  }\
+  .lbm-contact-form h3 { font-size: 18px; margin-bottom: 4px; }\
+  .lbm-contact-form p { font-size: 13px; margin-bottom: 12px; }\
+  .lbm-contact-form input {\
+    font-size: 16px; padding: 14px 16px; border-radius: 12px;\
+  }\
+  .lbm-contact-form .lbm-form-btn {\
+    font-size: 16px; padding: 16px 24px; border-radius: 12px;\
+    margin-top: 8px; width: 100%;\
+  }\
+  .lbm-slots-container { max-width: 100%; }\
+  .lbm-slot {\
+    padding: 12px 16px; font-size: 13px;\
+  }\
+  .lbm-booking-card { max-width: 95%; padding: 18px; }\
+  .lbm-typing { padding: 14px 20px; }\
 }\
 ';
 
@@ -352,6 +402,7 @@
           <div class="lbm-chat-header-name">Logic Based Marketing</div>\
           <div class="lbm-chat-header-status"><span class="dot"></span>Online</div>\
         </div>\
+        <button class="lbm-mobile-close" aria-label="Close chat">&times;</button>\
       </div>\
       <div class="lbm-contact-form" id="lbm-contact-form">\
         <h3>Before we chat...</h3>\
@@ -426,6 +477,10 @@
       });
     }
 
+    // Mobile close button
+    var mobileClose = chatWindow.querySelector('.lbm-mobile-close');
+    mobileClose.addEventListener('click', function() { closeChat(); });
+
     inputEl.addEventListener('input', function() {
       sendBtn.disabled = !inputEl.value.trim() || sending;
     });
@@ -433,6 +488,27 @@
       if (e.key === 'Enter' && !sendBtn.disabled) sendMessage();
     });
     sendBtn.addEventListener('click', sendMessage);
+
+    // Mobile keyboard handling
+    inputEl.addEventListener('focus', function() {
+      setTimeout(function() {
+        scrollToBottom();
+        // On iOS, scroll the input into view
+        if (isMobile()) {
+          inputEl.scrollIntoView({ block: 'end', behavior: 'smooth' });
+        }
+      }, 300);
+    });
+
+    // Handle visual viewport resize (mobile keyboard open/close)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function() {
+        if (!chatOpen || !isMobile()) return;
+        var vh = window.visualViewport.height;
+        chatWindow.style.height = vh + 'px';
+        setTimeout(scrollToBottom, 50);
+      });
+    }
 
     document.body.appendChild(chatWindow);
   }
@@ -453,12 +529,24 @@
     }
   }
 
+  function isMobile() {
+    return window.innerWidth <= 600;
+  }
+
   function openChat(trigger) {
     chatOpen = true;
     window.lbmChatOpen = true;
     chatWindow.classList.add('open');
     bubble.classList.add('open');
     hideProactive();
+
+    // Lock body scroll on mobile
+    if (isMobile()) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '-' + window.scrollY + 'px';
+    }
 
     pushEvent('chat_opened', { trigger: trigger || 'bubble_click' });
 
@@ -481,6 +569,16 @@
     window.lbmChatOpen = false;
     chatWindow.classList.remove('open');
     bubble.classList.remove('open');
+
+    // Restore body scroll on mobile
+    if (isMobile()) {
+      var scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
   }
 
   function startConversation() {
