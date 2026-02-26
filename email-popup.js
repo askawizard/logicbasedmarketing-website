@@ -67,6 +67,8 @@
   var shown = false;
   function showPopup() {
     if (shown) return;
+    // Don't show if chat widget is open
+    if (window.lbmChatOpen) return;
     shown = true;
     document.body.appendChild(overlay);
     // Force reflow then add class

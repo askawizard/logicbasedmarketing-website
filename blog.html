@@ -31,7 +31,27 @@
   .nav-links a:hover, .nav-links a.active { color: var(--white); }
   .nav-cta { padding: 10px 22px; background: var(--accent); color: var(--black) !important; font-weight: 800 !important; border-radius: 7px; font-size: 13px !important; }
   .nav-cta:hover { background: #d4f96a !important; }
-  @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links a:not(.nav-cta) { display: none; } }
+  /* Hamburger */
+  .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 201; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; flex-wrap: wrap; }
+    .nav-hamburger { display: block; order: 2; }
+    .nav-logo { order: 1; }
+    .nav-links {
+      display: none; flex-direction: column; width: 100%;
+      gap: 0; padding-top: 16px;
+      border-top: 1px solid var(--border); margin-top: 16px;
+      order: 3;
+    }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 15px !important; color: var(--text) !important; }
+    .nav-links a:last-child { border-bottom: none; }
+    .nav-links .nav-cta { margin-top: 8px; text-align: center; display: block; padding: 14px 22px; }
+  }
 
   .page-hero { padding: 140px 24px 60px; text-align: center; border-bottom: 1px solid var(--border); }
   .page-tag { display: inline-block; background: var(--accent-dim); border: 1px solid rgba(200,246,90,0.25); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
@@ -90,6 +110,9 @@
 
 <nav>
   <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
     <a href="/#problem">The Problem</a>
     <a href="/#proof">Case Study</a>
@@ -350,6 +373,25 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<script>
+(function(){
+  var btn = document.querySelector('.nav-hamburger');
+  var links = document.querySelector('.nav-links');
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('active');
+    links.classList.toggle('active');
+    btn.setAttribute('aria-expanded', btn.classList.contains('active'));
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      btn.classList.remove('active');
+      links.classList.remove('active');
+      btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+<script src="/chat-widget.js" defer></script>
 <script src="/email-popup.js" defer></script>
 </body>
 </html>

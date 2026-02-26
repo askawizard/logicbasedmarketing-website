@@ -133,6 +133,13 @@
             transform: translateY(-2px);
         }
 
+        /* Hamburger */
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 201; }
+        .nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+        .nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+        .nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
         /* Main Content */
         main {
             margin-top: 80px;
@@ -503,10 +510,18 @@
                 gap: 1.5rem;
             }
 
+            .nav-hamburger { display: block; }
+            nav { flex-wrap: wrap; }
             .nav-links {
-                gap: 1rem;
-                font-size: 0.85rem;
+                display: none; flex-direction: column; width: 100%;
+                gap: 0; padding-top: 1rem;
+                border-top: 1px solid rgba(200,246,90,0.1); margin-top: 1rem;
             }
+            .nav-links.active { display: flex; }
+            .nav-links li { list-style: none; }
+            .nav-links a { display: block; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 1rem; }
+            .nav-links li:last-child a { border-bottom: none; }
+            .nav-links .nav-cta { margin-top: 8px; text-align: center; display: block; }
 
             section {
                 padding: 3rem 1.5rem;
@@ -523,6 +538,9 @@
     <header>
         <nav>
             <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+            <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog.html">Blog</a></li>
@@ -710,6 +728,25 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<script>
+(function(){
+  var btn = document.querySelector('.nav-hamburger');
+  var links = document.querySelector('.nav-links');
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('active');
+    links.classList.toggle('active');
+    btn.setAttribute('aria-expanded', btn.classList.contains('active'));
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      btn.classList.remove('active');
+      links.classList.remove('active');
+      btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+<script src="/chat-widget.js" defer></script>
 <script src="/email-popup.js" defer></script>
 </body>
 </html>
