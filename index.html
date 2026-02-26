@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+<title>Logic Based Marketing | Revenue Leak Diagnostic for $3M-$15M Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="description" content="Your dashboard says you're fine. Your bank account says otherwise. Tyler Sass finds the revenue leaks your systems can't show you. $161K/month found in 30 days. Real company.">
+<meta property="og:title" content="Logic Based Marketing. You Don't Have a Leads Problem">
+<meta property="og:description" content="Your dashboard says you're fine. Your bank account says otherwise. I find the gap. $161K/month found in 30 days. Real company. Real numbers.">
+<meta property="og:url" content="https://logicbasedmarketing.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://logicbasedmarketing.com/images/headshot.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Logic Based Marketing. You Don't Have a Leads Problem">
+<meta name="twitter:description" content="Your dashboard says you're fine. Your bank account says otherwise. I find the gap.">
+<meta name="twitter:image" content="https://logicbasedmarketing.com/images/headshot.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black:  #0a0a0a;
+    --dark:   #111111;
+    --card:   #161616;
+    --border: #1e1e1e;
+    --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10);
+    --red:    #ff5252;
+    --text:   #efefef;
+    --muted:  #6b6b6b;
+    --white:  #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    padding: 10px 22px;
+    background: var(--accent);
+    color: var(--black) !important;
+    font-weight: 800 !important;
+    border-radius: 7px;
+    font-size: 13px !important;
+    letter-spacing: 0.02em;
+  }
+  .nav-cta:hover { background: #d4f96a !important; color: var(--black) !important; }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .container-sm { max-width: 760px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 160px;
+    padding-bottom: 80px;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,246,90,0.25);
+    color: var(--accent);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 16px; border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-tag-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .hero-h1 {
+    font-size: clamp(38px, 6.5vw, 76px);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    margin-bottom: 24px;
+    max-width: 880px;
+    margin-left: auto; margin-right: auto;
+  }
+  .hero-h1 em { font-style: normal; color: var(--accent); }
+  .hero-h1 .cross {
+    position: relative; display: inline-block;
+    color: var(--muted);
+  }
+  .hero-h1 .cross::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%; height: 3px;
+    background: var(--red);
+    transform: rotate(-2deg);
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--accent);
+    color: var(--black);
+    font-weight: 800; font-size: 15px;
+    border-radius: 10px; text-decoration: none;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: #d4f96a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,246,90,0.25); }
+  .btn-secondary {
+    display: inline-block;
+    padding: 16px 32px;
+    background: transparent;
+    color: var(--text);
+    font-weight: 600; font-size: 15px;
+    border-radius: 10px; text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  /* PROOF STRIP */
+  .proof-strip {
+    display: flex; justify-content: center; align-items: center;
+    gap: 40px; flex-wrap: wrap;
+    padding: 28px 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    max-width: 900px; margin: 0 auto;
+  }
+  .proof-stat { text-align: center; }
+  .proof-num { font-size: 28px; font-weight: 900; color: var(--white); letter-spacing: -0.03em; display: block; line-height: 1; }
+  .proof-num span { color: var(--accent); }
+  .proof-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 5px; display: block; }
+  .proof-divider { width: 1px; height: 40px; background: var(--border); }
+  @media (max-width: 600px) { .proof-divider { display: none; } }
+
+  /* ── THE PROBLEM ── */
+  #problem { background: var(--dark); }
+  .section-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 14px; display: block;
+  }
+  .section-h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800; color: var(--white);
+    letter-spacing: -0.03em; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-p { font-size: 17px; color: var(--muted); line-height: 1.7; max-width: 600px; }
+
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; margin-top: 48px;
+  }
+  @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; } }
+
+  .problem-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px;
+  }
+  .problem-card-say { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .problem-card-say strong { color: var(--red); }
+  .problem-card-q {
+    font-size: 16px; color: var(--text); font-weight: 600;
+    font-style: italic; margin-bottom: 12px; line-height: 1.4;
+    padding-left: 14px; border-left: 2px solid var(--border);
+  }
+  .problem-card-a {
+    font-size: 13px; color: var(--muted); line-height: 1.55;
+    padding-left: 14px;
+  }
+  .problem-card-a strong { color: var(--accent); }
+
+  /* ── HOW IT WORKS ── */
+  .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .step {
+    display: grid; grid-template-columns: 64px 1fr;
+    gap: 24px; align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent-dim); border: 1px solid rgba(200,246,90,0.25);
+    color: var(--accent); font-size: 18px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* ── CASE STUDY ── */
+  #proof { background: var(--dark); }
+  .proof-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+  }
+  .proof-header {
+    padding: 28px 32px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .proof-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--accent-dim); border: 1px solid rgba(200,246,90,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .proof-header-text {}
+  .proof-co { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 2px; }
+  .proof-co-desc { font-size: 12px; color: var(--muted); }
+  .proof-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 700px) { .proof-stats { grid-template-columns: 1fr 1fr; } }
+  .proof-stat-cell {
+    padding: 24px; border-right: 1px solid var(--border); text-align: center;
+  }
+  .proof-stat-cell:last-child { border-right: none; }
+  .proof-cell-num { font-size: 24px; font-weight: 900; color: var(--white); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .proof-cell-num.red { color: var(--red); }
+  .proof-cell-num.green { color: var(--accent); }
+  .proof-cell-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+  .proof-findings { padding: 32px; }
+  .findings-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+  .finding-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .finding-row:last-child { border-bottom: none; }
+  .finding-text { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
+  .finding-text span { color: var(--muted); font-size: 12px; display: block; margin-top: 2px; }
+  .finding-amt { font-size: 16px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .finding-amt.red { color: var(--red); }
+
+  /* ── OFFER STACK ── */
+  .offer-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 16px; margin-top: 48px;
+  }
+  @media (max-width: 900px) { .offer-grid { grid-template-columns: 1fr; } }
+  .offer-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px;
+    display: flex; flex-direction: column;
+  }
+  .offer-card.hero-card {
+    border-color: var(--accent);
+    background: linear-gradient(160deg, rgba(200,246,90,0.06), var(--card));
+    position: relative;
+  }
+  .offer-badge {
+    position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: var(--black);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .offer-tag { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .offer-tag.g { color: var(--accent); }
+  .offer-name { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.2; }
+  .offer-price { font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
+  .offer-price.g { color: var(--accent); }
+  .offer-period { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .offer-divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .offer-list { list-style: none; display: flex; flex-direction: column; gap: 9px; flex: 1; margin-bottom: 20px; }
+  .offer-list li { font-size: 13px; color: var(--text); padding-left: 18px; position: relative; line-height: 1.4; }
+  .offer-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 11px; top: 1px; }
+  .offer-cta {
+    display: block; text-align: center; padding: 13px;
+    border-radius: 8px; font-size: 14px; font-weight: 800;
+    text-decoration: none; transition: all 0.2s; margin-top: auto;
+  }
+  .offer-cta.primary { background: var(--accent); color: var(--black); }
+  .offer-cta.primary:hover { background: #d4f96a; transform: translateY(-1px); }
+  .offer-cta.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .offer-cta.ghost:hover { border-color: var(--text); }
+  .guarantee-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-results { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+  .about-result {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .about-result-text { font-size: 13px; color: var(--text); line-height: 1.4; }
+  .about-result-amt { font-size: 16px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .about-img-placeholder {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    aspect-ratio: 4/5; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px; color: var(--muted);
+    font-size: 14px; text-align: center; padding: 24px;
+  }
+  .about-img-placeholder .icon { font-size: 40px; }
+
+  /* ── CALCULATOR CALLOUT ── */
+  #calculator-section { background: var(--dark); }
+  .calc-callout {
+    background: linear-gradient(135deg, rgba(200,246,90,0.06), rgba(200,246,90,0.02));
+    border: 1px solid rgba(200,246,90,0.2);
+    border-radius: 20px; padding: 56px 40px; text-align: center;
+  }
+  .calc-callout h2 { font-size: clamp(26px,4vw,40px); font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.2; }
+  .calc-callout p { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 auto 32px; line-height: 1.65; }
+  .calc-preview {
+    display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .calc-preview-stat { text-align: center; }
+  .calc-preview-n { font-size: 22px; font-weight: 800; color: var(--red); letter-spacing: -0.02em; }
+  .calc-preview-l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+
+  /* ── TESTIMONIALS / SOCIAL PROOF ── */
+  .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+  @media (max-width: 768px) { .results-grid { grid-template-columns: 1fr; } }
+  .result-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;
+  }
+  .result-metric { font-size: 32px; font-weight: 900; color: var(--accent); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+  .result-desc { font-size: 13px; color: var(--text); line-height: 1.55; margin-bottom: 10px; }
+  .result-source { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--dark); }
+  .faq-list { margin-top: 40px; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+  .faq-q { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; cursor: pointer; }
+  .faq-a { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .faq-a strong { color: var(--text); }
+
+  /* ── FINAL CTA ── */
+  #cta-bottom {
+    background: var(--accent); padding: 80px 24px; text-align: center;
+  }
+  #cta-bottom h2 { font-size: clamp(28px,5vw,52px); font-weight: 900; color: var(--black); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+  #cta-bottom p { font-size: 16px; color: rgba(0,0,0,0.6); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  #cta-bottom .btn-dark {
+    display: inline-block; padding: 18px 40px;
+    background: var(--black); color: var(--accent);
+    font-size: 16px; font-weight: 800; border-radius: 10px;
+    text-decoration: none; transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  #cta-bottom .btn-dark:hover { background: #111; transform: translateY(-2px); }
+  #cta-bottom .guarantee { font-size: 12px; color: rgba(0,0,0,0.45); margin-top: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); border-top: 1px solid var(--border);
+    padding: 40px 24px; text-align: center;
+  }
+  .footer-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .footer-logo span { color: var(--white); }
+  footer p { font-size: 12px; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+  <div class="nav-links">
+    <a href="#problem">The Problem</a>
+    <a href="#proof">Case Study</a>
+    <a href="#calculator-section">Calculator</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://koalendar.com/e/revenue-challenge" class="nav-cta">Book Free Audit →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container-sm">
+    <div class="hero-tag"><div class="hero-tag-dot"></div> For E-Commerce & Product Businesses · $3M–$10M Revenue</div>
+    <h1 class="hero-h1">
+      Your ad platform says you're<br>
+      <span class="cross">profitable</span>.<br>
+      Your bank account <em>disagrees</em>.
+    </h1>
+    <p class="hero-sub">
+      I found $161K/month in hidden losses at a product business doing $3M+. Their ad platform said CAC was $181. Real CAC was $2,800. I find the gap between what your dashboards show and what's actually happening to your cash.
+    </p>
+    <div class="hero-ctas">
+      <a href="#calculator-section" class="btn-primary">Find My Revenue Leak →</a>
+      <a href="#proof" class="btn-secondary">See Real Results</a>
+    </div>
+  </div>
+
+  <div class="proof-strip">
+    <div class="proof-stat">
+      <span class="proof-num"><span>$161K</span></span>
+      <span class="proof-label">monthly leak found: e-commerce brand, 30 days</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="proof-num">16<span>×</span></span>
+      <span class="proof-label">net income growth: distribution client</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="proof-num"><span>$68M</span></span>
+      <span class="proof-label">pipeline generated on $80k budget</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="proof-num">500<span>%</span></span>
+      <span class="proof-label">paid media conversion lift: zero extra spend</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <span class="section-tag">The Pattern I See Every Time</span>
+    <h2 class="section-h2">If this sounds familiar,<br>here's what the data usually shows.</h2>
+    <p class="section-p">I've seen this across 15 years, 40+ businesses, and every industry. The language changes. The underlying pattern doesn't.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"If we just had more leads, we'd be fine."</div>
+        <div class="problem-card-a">There are usually leads already in the system that aren't being worked. The follow-up is broken, the pipeline is untracked, and <strong>nobody knows which leads are worth chasing</strong> because the attribution doesn't exist.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"We're growing but things feel tighter than they should."</div>
+        <div class="problem-card-a">This usually means there's no clean view of the actual operational numbers. <strong>Cash in, cash out, and cash on hand aren't connected to the decisions being made.</strong> The business is flying blind on whether growth is actually profitable.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"We're launching something new. That's going to fix everything."</div>
+        <div class="problem-card-a">New initiatives often pull focus from the core business before the core is fixed. <strong>What builds a company is not what grows it.</strong> Launching new before fixing what's broken is how a business goes from $8M back to $3M.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"We just need to find the right marketer."</div>
+        <div class="problem-card-a">The job posting usually asks one person to do paid ads, SEO, content, email, analytics, and management for $75K. <strong>When you've cycled through three hires in two years,</strong> the problem is almost never the person — it's the structure they're being dropped into.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"I know some of my vendors are screwing me. I just don't know which ones."</div>
+        <div class="problem-card-a">This feeling usually means there's no acquisition data connecting vendor spend to actual revenue. <strong>You're paying for activity reports, not results.</strong> The vendor knows it. You suspect it. Nobody can prove it yet.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-say"><strong>When you're thinking:</strong></div>
+        <div class="problem-card-q">"We have tons of tools. Things are still falling through the cracks."</div>
+        <div class="problem-card-a">The tools usually overlap, contradict each other, and cost a fortune — with no systems connecting them. <strong>Every decision gets made from whatever dashboard is open,</strong> which is never the full picture.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="method">
+  <div class="container">
+    <span class="section-tag">The Methodology</span>
+    <h2 class="section-h2">Three things. In order.<br>Every time.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title">Find the Constraint</div>
+          <div class="step-desc">Pull the core data: QuickBooks P&amp;L and transaction detail, ecommerce platform, CRM, ad platforms, email, and analytics. Reconcile everything. Find where the numbers stop matching. Your ad platform shows ROAS. I show you what you actually spent to get that customer when you count everything. Those two numbers are almost never the same.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title">Fix It: With Dollar Amounts Attached</div>
+          <div class="step-desc">Not recommendations. Prioritized actions in order of dollar impact, with the math showing exactly what each one is worth. Vendor replacements identified. Attribution methodology built. The 90-day playbook sequenced so you know exactly what to do first.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title">Keep the Clarity Every Month</div>
+          <div class="step-desc">The leaks move. New costs appear. Decisions get made on stale data. The monthly retainer keeps you current. Same methodology, updated data, one new finding every month. The longer you stay, the more valuable the trend data becomes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section id="proof">
+  <div class="container">
+    <span class="section-tag">Real Numbers. Real Company.</span>
+    <h2 class="section-h2">What the data revealed<br>and what it was worth</h2>
+
+    <div class="proof-card" style="margin-top:40px;">
+      <div class="proof-header">
+        <div class="proof-icon">📦</div>
+        <div class="proof-header-text">
+          <div class="proof-co">B2B Distribution Company. Client A</div>
+          <div class="proof-co-desc">Multi-channel ecommerce + phone sales + B2B distribution · $3M–$15M revenue band</div>
+        </div>
+      </div>
+
+      <div class="proof-stats">
+        <div class="proof-stat-cell">
+          <div class="proof-cell-num">$806K</div>
+          <div class="proof-cell-label">Monthly Revenue</div>
+        </div>
+        <div class="proof-stat-cell">
+          <div class="proof-cell-num red">$957K</div>
+          <div class="proof-cell-label">Monthly Costs</div>
+        </div>
+        <div class="proof-stat-cell">
+          <div class="proof-cell-num red">–$150K</div>
+          <div class="proof-cell-label">Net Monthly Loss</div>
+        </div>
+        <div class="proof-stat-cell">
+          <div class="proof-cell-num red">$1.19</div>
+          <div class="proof-cell-label">Spent Per $1 Earned</div>
+        </div>
+      </div>
+
+      <div class="proof-findings">
+        <div class="findings-title">What I Found and What It's Worth</div>
+        <div class="finding-row">
+          <div class="finding-text">
+            Phone sales ($186K/mo, 107 orders) had zero channel attribution. Invisible to every marketing decision.
+            <span>Built the attribution methodology → rolled every phone close back to its originating channel.</span>
+          </div>
+          <div class="finding-amt">$186K<br><span style="font-size:11px;color:var(--muted);font-weight:400;">attributed</span></div>
+        </div>
+        <div class="finding-row">
+          <div class="finding-text">
+            Ad platforms reported $181 to acquire a customer. Real cost per customer: $2,800.
+            <span>The gap: $2,619 per customer. Every budget decision was built on the wrong number.</span>
+          </div>
+          <div class="finding-amt red">15×<br><span style="font-size:11px;color:var(--muted);font-weight:400;">cost gap</span></div>
+        </div>
+        <div class="finding-row">
+          <div class="finding-text">
+            $56K/month in blanket discounts with no data showing they were necessary to close sales.
+            <span>Elimination candidate. Pure margin recovery.</span>
+          </div>
+          <div class="finding-amt">$56K<br><span style="font-size:11px;color:var(--muted);font-weight:400;">/month</span></div>
+        </div>
+        <div class="finding-row">
+          <div class="finding-text">
+            Klaviyo email program rebuilt: 1 email/2 weeks → 2–3/week + 8 automation funnels.
+            <span>$400/month subscription. Current performance: 112× ROAS.</span>
+          </div>
+          <div class="finding-amt green">112×<br><span style="font-size:11px;color:var(--muted);font-weight:400;">ROAS</span></div>
+        </div>
+        <div class="finding-row" style="border:none;">
+          <div class="finding-text">
+            <strong style="color:var(--white);">Four levers entirely in their control</strong>: payroll right-sizing, shipping recovery, discount elimination, payment processor consolidation.
+            <span>Conservative recovery: no new customers required.</span>
+          </div>
+          <div class="finding-amt green">$161K<br><span style="font-size:11px;color:var(--muted);font-weight:400;">/month</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS GRID -->
+<section id="results">
+  <div class="container">
+    <span class="section-tag">More Results</span>
+    <h2 class="section-h2">Across different businesses,<br>the same pattern holds.</h2>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-metric">16×</div>
+        <div class="result-desc">Net income growth for a B2B distributor. Removed $150K in vendor waste, killed a $1M COGS project returning $100K, rebuilt the acquisition engine.</div>
+        <div class="result-source">B2B Distribution</div>
+      </div>
+      <div class="result-card">
+        <div class="result-metric">$68M</div>
+        <div class="result-desc">Pipeline generated for a B2B financial services firm on an $80K budget. Data-driven targeting, content education engine, attribution built from scratch.</div>
+        <div class="result-source">B2B Financial Services</div>
+      </div>
+      <div class="result-card">
+        <div class="result-metric">500%</div>
+        <div class="result-desc">Paid media conversion increase for an air purifier manufacturer. Built HubSpot CRM, rebuilt attribution. Zero additional ad spend.</div>
+        <div class="result-source">B2B Equipment Manufacturing</div>
+      </div>
+      <div class="result-card">
+        <div class="result-metric">95% ↓</div>
+        <div class="result-desc">Cost per lead reduction for real estate agencies. CPL dropped from $140 to $7 by fixing the conversion layer before adding traffic.</div>
+        <div class="result-source">Real Estate Services</div>
+      </div>
+      <div class="result-card">
+        <div class="result-metric">48 hrs</div>
+        <div class="result-desc">Calendar booked full for a service business in 48 hours. Fixed the outreach methodology and the follow-up sequence. No new channels needed.</div>
+        <div class="result-source">Professional Services</div>
+      </div>
+      <div class="result-card">
+        <div class="result-metric">112×</div>
+        <div class="result-desc">$400/month Klaviyo account sending one email every two weeks. Rebuilt with 8 automation funnels and real attribution. 112x ROAS.</div>
+        <div class="result-source">Ecommerce · Multi-channel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CALCULATOR CALLOUT -->
+<section id="calculator-section">
+  <div class="container">
+    <div class="calc-callout">
+      <h2>How much is your business<br>silently losing right now?</h2>
+      <p>90 seconds. 7 questions. Get your estimated revenue leak, then book a free call to get the real number verified.</p>
+      <div class="calc-preview">
+        <div class="calc-preview-stat"><div class="calc-preview-n">$0</div><div class="calc-preview-l">Before the calculator</div></div>
+        <div style="color:var(--muted);font-size:24px;font-weight:300;">→</div>
+        <div class="calc-preview-stat"><div class="calc-preview-n">$???</div><div class="calc-preview-l">Your number</div></div>
+      </div>
+      <a href="/calculator.html" class="btn-primary">Run the Free Calculator →</a>
+      <p style="font-size:12px;color:rgba(200,246,90,0.5);margin-top:16px;line-height:1.5;">Free. Takes 90 seconds. If the full $500 diagnostic doesn't find $50K in recoverable losses, you pay nothing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT STARTS -->
+<section id="offer">
+  <div class="container-sm">
+    <span class="section-tag">How It Works</span>
+    <h2 class="section-h2">Run the calculator.<br>Book the free call.<br>Get the real number.</h2>
+    <p class="section-p" style="margin-top:16px;">The calculator gives you the estimate. The audit call is where I verify it against your actual data for free. If the numbers are there, we talk about next steps. If they're not, you walk away with more clarity than you came in with.</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:40px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;display:flex;align-items:flex-start;gap:20px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(200,246,90,0.25);color:var(--accent);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;">Run the Revenue Leak Calculator</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.6;">7 questions. 90 seconds. You'll see an estimated dollar amount. This is what your business is likely losing right now based on your answers.</div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;display:flex;align-items:flex-start;gap:20px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(200,246,90,0.25);color:var(--accent);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;">Book Your Free Revenue Audit Call</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.6;">I look at your actual numbers, not estimates. We verify what the calculator found against your real data. You find out exactly where the leak is and what it's worth.</div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid rgba(200,246,90,0.2);border-radius:14px;padding:24px 28px;display:flex;align-items:flex-start;gap:20px;background:linear-gradient(135deg,rgba(200,246,90,0.06),var(--card));">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--black);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;">Decide With Full Information</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.6;">You'll know exactly what I found, what it's worth, and what fixing it looks like. No pressure. You decide if it makes sense to go further with the actual numbers in hand.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="https://koalendar.com/e/revenue-challenge" class="btn-primary">Book Your Free Audit Call →</a>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;">No pitch. No obligation. Just the numbers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--dark);">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="section-tag">Tyler Sass. Fractional CRO</span>
+        <h2 class="section-h2">I'm not a CFO.<br>I'm not an agency.</h2>
+        <p class="section-p" style="margin-bottom:16px;">CFOs look at financial data and play defense. Agencies look at their channel and optimize their own metrics. I look at acquisition data AND operational data together to find where revenue is leaking, which vendors are bleeding you dry, and where the money is hiding.</p>
+        <p class="section-p">The CFO tells you how much you lost. I tell you why, who's taking it, and what to do first.</p>
+        <div class="about-results">
+          <div class="about-result">
+            <div class="about-result-text">Net income: $250K → $4M<br><span style="font-size:11px;color:var(--muted);">Industrial distributor · vendor waste + acquisition rebuild</span></div>
+            <div class="about-result-amt">16×</div>
+          </div>
+          <div class="about-result">
+            <div class="about-result-text">Pipeline generated on $80K budget<br><span style="font-size:11px;color:var(--muted);">B2B financial services</span></div>
+            <div class="about-result-amt">$68M</div>
+          </div>
+          <div class="about-result">
+            <div class="about-result-text">Paid media conversions lifted<br><span style="font-size:11px;color:var(--muted);">Air purifier manufacturer · zero extra spend</span></div>
+            <div class="about-result-amt">+500%</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img src="images/headshot.jpg" alt="Tyler Sass. Logic Based Marketing"
+          style="width:100%; border-radius:16px; aspect-ratio:4/5; object-fit:cover; object-position:top; display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container-sm">
+    <span class="section-tag">Questions</span>
+    <h2 class="section-h2">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What's the money-back guarantee, exactly?</div>
+        <div class="faq-a">Simple: if I complete the audit and don't surface at least <strong>$50,000 in recoverable losses</strong>, you pay nothing. The only conditions are that you provide the required data exports and show up to the findings call. That's it. I take the risk, not you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What data do I need to provide?</div>
+        <div class="faq-a">Seven exports: QuickBooks P&L + Transaction Detail, your ecommerce platform, Google Analytics, ad platform reports, email platform, and your CRM. I send you a step-by-step guide. <strong>Most clients gather everything in under 2 hours.</strong></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is this different from a bookkeeper or fractional CFO?</div>
+        <div class="faq-a">A bookkeeper ensures records are accurate. A CFO focuses on financial modeling and forecasting. <strong>I sit at the intersection of marketing, operations, and finance</strong>. Specifically focused on the gap between what your systems report and what's actually happening. Most of the leaks I find are invisible to both.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why does this cost $500 when you're finding $161K in losses?</div>
+        <div class="faq-a">Because the $500 is the entry point, not the business. The refund requirement filters for serious founders. The findings call is where the real conversation about ongoing work happens. <strong>The $500 is the lowest-risk way to prove what's in your business before committing to anything bigger.</strong></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm already using AI tools?</div>
+        <div class="faq-a">Then this is urgent. AI tools produce outputs based on what they're fed. If your data is fragmented, unattributed, or unreconciled, <strong>AI scales bad decisions, not good ones.</strong> Fixing the data foundation is what makes every AI tool you're already paying for actually work.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta-bottom">
+  <div class="container-sm">
+    <h2>The money is already<br>in your business.</h2>
+    <p>Find out exactly where it's going. Run the calculator to get the estimate, then book a free call to get the real number from your actual data.</p>
+    <a href="https://koalendar.com/e/revenue-challenge" class="btn-dark">Book Your Free Revenue Audit →</a>
+    <div class="guarantee">No obligation · No pitch · $161K/month found in 30 days · real company · real numbers</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Logic<span>Based</span> Marketing</div>
+  <p style="margin-top:8px;margin-bottom:12px;">Revenue Intelligence for $3M–$15M founder-led businesses</p>
+  <p><a href="/calculator.html">Revenue Leak Calculator</a> &nbsp;·&nbsp; <a href="/blog.html">Blog</a> &nbsp;·&nbsp; <a href="https://koalendar.com/e/revenue-challenge">Book Free Audit</a> &nbsp;·&nbsp; <a href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a></p>
+  <p style="margin-top:16px;">© 2026 Logic Based Marketing · Tyler Sass</p>
+</footer>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script src="/email-popup.js" defer></script>
+</body>
+</html>

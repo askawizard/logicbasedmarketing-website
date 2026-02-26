@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+<title>Revenue Operations Blog | B2B Data & Guides</title>
+<meta name="description" content="Data-driven guides on revenue operations, customer acquisition cost, and marketing attribution. Why $3M–$15M founder-led businesses lose $50K–$200K/month.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
+<meta property="og:image" content="https://logicbasedmarketing.com/images/headshot.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a; --dark: #111111; --card: #161616;
+    --border: #1e1e1e; --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10); --red: #ff5252;
+    --text: #efefef; --muted: #6b6b6b; --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(10,10,10,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta { padding: 10px 22px; background: var(--accent); color: var(--black) !important; font-weight: 800 !important; border-radius: 7px; font-size: 13px !important; }
+  .nav-cta:hover { background: #d4f96a !important; }
+  @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links a:not(.nav-cta) { display: none; } }
+
+  .page-hero { padding: 140px 24px 60px; text-align: center; border-bottom: 1px solid var(--border); }
+  .page-tag { display: inline-block; background: var(--accent-dim); border: 1px solid rgba(200,246,90,0.25); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+  .page-h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: var(--white); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .page-sub { font-size: 17px; color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.65; }
+
+  .blog-grid-section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+
+  .featured-article { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 48px; margin-bottom: 64px; }
+  @media (max-width: 900px) { .featured-article { grid-template-columns: 1fr; } }
+  .featured-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .featured-title { font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: var(--white); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+  .featured-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .featured-title a:hover { color: var(--accent); }
+  .featured-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .featured-meta { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .featured-meta span { color: var(--accent); }
+  .featured-stats { display: flex; flex-direction: column; gap: 16px; }
+  .featured-stat-card { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .featured-stat-card .num { font-size: 32px; font-weight: 900; color: var(--red); letter-spacing: -0.02em; line-height: 1; }
+  .featured-stat-card .num.g { color: var(--accent); }
+  .featured-stat-card .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 6px; }
+
+  .articles-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 64px; }
+  @media (max-width: 900px) { .articles-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) and (min-width: 600px) { .articles-grid { grid-template-columns: 1fr 1fr; } }
+
+  .article-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; transition: border-color 0.2s; }
+  .article-card:hover { border-color: rgba(200,246,90,0.3); }
+  .article-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .article-title { font-size: 18px; font-weight: 700; color: var(--white); letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 10px; }
+  .article-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .article-title a:hover { color: var(--accent); }
+  .article-excerpt { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 20px; }
+  .article-meta { font-size: 11px; color: #444; display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+  .article-read-time { color: var(--muted); }
+  .article-link { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 0.05em; }
+  .article-link:hover { color: #d4f96a; }
+
+  .cta-banner { background: var(--accent); border-radius: 20px; padding: 56px 48px; text-align: center; margin: 0 24px 80px; max-width: 1052px; margin-left: auto; margin-right: auto; }
+  .cta-banner h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; color: var(--black); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+  .cta-banner p { font-size: 16px; color: rgba(0,0,0,0.6); margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .cta-btn { display: inline-block; padding: 16px 36px; background: var(--black); color: var(--accent); font-size: 15px; font-weight: 800; border-radius: 10px; text-decoration: none; transition: all 0.2s; }
+  .cta-btn:hover { background: #111; transform: translateY(-2px); }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+  .footer-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .footer-logo span { color: var(--white); }
+  footer p { font-size: 12px; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+  <div class="nav-links">
+    <a href="/#problem">The Problem</a>
+    <a href="/#proof">Case Study</a>
+    <a href="/calculator.html">Calculator</a>
+    <a href="/blog.html" class="active">Blog</a>
+    <a href="https://koalendar.com/e/revenue-challenge" class="nav-cta">Book Free Audit →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-tag">Revenue Intelligence</div>
+  <h1 class="page-h1">Data-Driven Guides for<br>Growing Businesses</h1>
+  <p class="page-sub">No fluff. No stock photo language. Just the numbers, the methodology, and what to do about it.</p>
+</div>
+
+<div class="blog-grid-section">
+
+  <!-- FEATURED -->
+  <div class="featured-article">
+    <div>
+      <div class="featured-label">★ Featured Guide</div>
+      <h2 class="featured-title"><a href="/blog/fully-loaded-blended-cac.html">Fully Loaded Blended CAC: The Number Your Business Needs But Probably Doesn't Know</a></h2>
+      <div class="featured-meta">By Tyler Sass &nbsp;·&nbsp; <span>15 min read</span> &nbsp;·&nbsp; Revenue Operations</div>
+      <p class="featured-desc">Your ad platform says your CAC is $181. Your real CAC is $2,800. The gap between those two numbers is driving every bad decision your business is making. This is how to find the real number and what to do when you see it.</p>
+      <a href="/blog/fully-loaded-blended-cac.html" class="article-link" style="font-size:14px;">Read the Full Guide →</a>
+    </div>
+    <div class="featured-stats">
+      <div class="featured-stat-card">
+        <div class="num">15×</div>
+        <div class="lbl">Average CAC gap: reported vs. real</div>
+      </div>
+      <div class="featured-stat-card">
+        <div class="num g">$161K</div>
+        <div class="lbl">Monthly recovery found in 30 days</div>
+      </div>
+      <div class="featured-stat-card">
+        <div class="num">$1.19</div>
+        <div class="lbl">Spent per $1 earned: before the fix</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLES GRID -->
+  <div class="articles-section-label">All Guides</div>
+  <div class="articles-grid">
+
+    <div class="article-card">
+      <div class="article-cat">Revenue Operations</div>
+      <h3 class="article-title"><a href="/blog/cac30-metric.html">CAC30: The KPI That Tells You If You Can Afford to Grow</a></h3>
+      <p class="article-excerpt">LTV:CAC looks great on paper. CAC30 tells you if you can actually afford to keep acquiring customers. The formula, benchmarks, and why this metric changes every growth decision you make.</p>
+      <div class="article-meta">
+        <span class="article-read-time">14 min read</span>
+        <a href="/blog/cac30-metric.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Statistics &amp; Data</div>
+      <h3 class="article-title"><a href="/blog/revenue-operations-statistics-2026.html">Revenue Operations Statistics 2026: 47 Data Points on RevOps Performance, Alignment, and Growth</a></h3>
+      <p class="article-excerpt">47 revenue operations statistics for 2026 — covering team alignment, funnel performance, CAC benchmarks, and why RevOps-aligned businesses grow 3x faster.</p>
+      <div class="article-meta">
+        <span class="article-read-time">12 min read</span>
+        <a href="/blog/revenue-operations-statistics-2026.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Statistics &amp; Data</div>
+      <h3 class="article-title"><a href="/blog/customer-acquisition-cost-statistics-2026.html">Customer Acquisition Cost Statistics 2026: 41 CAC Benchmarks Across Industries</a></h3>
+      <p class="article-excerpt">41 customer acquisition cost statistics and industry benchmarks for 2026. See how your CAC compares — and why most businesses are calculating it wrong.</p>
+      <div class="article-meta">
+        <span class="article-read-time">11 min read</span>
+        <a href="/blog/customer-acquisition-cost-statistics-2026.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Revenue Operations</div>
+      <h3 class="article-title"><a href="/blog/fully-loaded-blended-cac.html">Fully Loaded Blended CAC: The Number Your Ad Dashboard Is Hiding</a></h3>
+      <p class="article-excerpt">Marketing CAC is what your ad platforms show you. Fully Loaded Blended CAC is what's actually happening. Learn how to calculate the real number and why the gap destroys profitable growth decisions.</p>
+      <div class="article-meta">
+        <span class="article-read-time">15 min read</span>
+        <a href="/blog/fully-loaded-blended-cac.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Business Growth</div>
+      <h3 class="article-title"><a href="/blog/10m-wall.html">The $10M Wall: Why Growing Businesses Stop Growing (And It's Not What They Think)</a></h3>
+      <p class="article-excerpt">There's a wall most founder-led businesses hit somewhere between $3M and $15M. Every instinct says to add more: more staff, more ads, more channels. The data says something different.</p>
+      <div class="article-meta">
+        <span class="article-read-time">12 min read</span>
+        <a href="/blog/10m-wall.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Marketing Attribution</div>
+      <h3 class="article-title"><a href="/blog/marketing-attribution-guide.html">Marketing Attribution for Small Business: Why Your Data Is Wrong and How to Fix It</a></h3>
+      <p class="article-excerpt">Phone sales with no channel data. Prior-period invoice collections counted as new revenue. Five payment processors running simultaneously. How attribution breaks and the methodology to fix it.</p>
+      <div class="article-meta">
+        <span class="article-read-time">14 min read</span>
+        <a href="/blog/marketing-attribution-guide.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Revenue Operations</div>
+      <h3 class="article-title"><a href="/blog/revenue-operations-small-business.html">Revenue Operations for Small Business: What It Is, Why It Matters, and How to Build It</a></h3>
+      <p class="article-excerpt">Most founders think RevOps is for enterprise companies with 500-person revenue teams. Wrong. It's more critical at the $3M–$15M stage and you don't need a $300K hire to build it.</p>
+      <div class="article-meta">
+        <span class="article-read-time">13 min read</span>
+        <a href="/blog/revenue-operations-small-business.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Vendor Management</div>
+      <h3 class="article-title"><a href="/blog/how-to-fire-bad-marketing-vendor.html">How to Know When to Fire Your Marketing Agency (And What to Do Before You Hire the Next One)</a></h3>
+      <p class="article-excerpt">Most founders have fired at least 3 agencies and immediately hired the same problem with a different name. The issue isn't the agency. It's that you don't have the data to evaluate whether any agency is actually performing.</p>
+      <div class="article-meta">
+        <span class="article-read-time">12 min read</span>
+        <a href="/blog/how-to-fire-bad-marketing-vendor.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEW POSTS SECTION -->
+  <div class="articles-section-label" style="margin-top:48px;">New: Industry Research &amp; Tools</div>
+  <div class="articles-grid">
+
+    <div class="article-card">
+      <div class="article-cat">Industry Study</div>
+      <h3 class="article-title"><a href="/blog/revenue-leak-report.html">The Revenue Leak Report: What $3M–$15M Founder-Led Businesses Lose to Broken Operations</a></h3>
+      <p class="article-excerpt">Original analysis from 15+ years and 40+ engagements. 94% of founder-led businesses have at least one material revenue leak. The median finding: $68K/month in recoverable losses.</p>
+      <div class="article-meta">
+        <span class="article-read-time">18 min read</span>
+        <a href="/blog/revenue-leak-report.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Methodology</div>
+      <h3 class="article-title"><a href="/blog/revenue-leak-audit-process.html">The Revenue Leak Audit: The 6-Step Process I Use to Find $50K–$200K in 30 Days</a></h3>
+      <p class="article-excerpt">The exact process behind the Revenue Leak Diagnostic. Step-by-step: how to pull the real CAC number, map attribution, audit email, review LTV:CAC by cohort, and find the operational misallocation.</p>
+      <div class="article-meta">
+        <span class="article-read-time">16 min read</span>
+        <a href="/blog/revenue-leak-audit-process.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Revenue Operations</div>
+      <h3 class="article-title"><a href="/blog/founder-guide-revenue-operations.html">Revenue Operations for Founders: The Complete Guide to Building Your Revenue Machine</a></h3>
+      <p class="article-excerpt">The 4,000-word founder's guide to RevOps. What it actually is, the 7 systems that drive it, when to build vs. hire vs. use a fractional, and the first 30 days of building it right.</p>
+      <div class="article-meta">
+        <span class="article-read-time">20 min read</span>
+        <a href="/blog/founder-guide-revenue-operations.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Diagnostics</div>
+      <h3 class="article-title"><a href="/blog/23-signs-revenue-operations-broken.html">23 Signs Your Revenue Operations Are Broken (And What Each One Is Costing You)</a></h3>
+      <p class="article-excerpt">Each sign comes with what it costs if uncorrected and what it tells you about root cause. If you recognize 5 or more, you have a revenue leak worth diagnosing.</p>
+      <div class="article-meta">
+        <span class="article-read-time">14 min read</span>
+        <a href="/blog/23-signs-revenue-operations-broken.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Hiring</div>
+      <h3 class="article-title"><a href="/blog/pre-growth-hire-checklist.html">The Pre-Growth-Hire Checklist: 17 Things to Audit Before You Add to Your Marketing Team</a></h3>
+      <p class="article-excerpt">If 5 or more items are incomplete, fix operations before adding headcount. A great marketing hire given a broken system produces broken results faster.</p>
+      <div class="article-meta">
+        <span class="article-read-time">13 min read</span>
+        <a href="/blog/pre-growth-hire-checklist.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Practitioner</div>
+      <h3 class="article-title"><a href="/blog/what-40-businesses-taught-real-cac.html">What 40+ Businesses Taught Me About the Real Cost of a New Customer</a></h3>
+      <p class="article-excerpt">15 years. 40+ Revenue Leak Diagnostics. The patterns, the numbers, and what separates operators who find leaks from those who don't — including the full $161K/month story.</p>
+      <div class="article-meta">
+        <span class="article-read-time">15 min read</span>
+        <a href="/blog/what-40-businesses-taught-real-cac.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS PAGES SECTION -->
+  <div class="articles-section-label" style="margin-top:48px;">Statistics &amp; Research</div>
+  <div class="articles-grid">
+
+    <div class="article-card">
+      <div class="article-cat">Statistics</div>
+      <h3 class="article-title"><a href="/blog/revenue-operations-statistics.html">Revenue Operations Statistics 2026: 41 Key Stats on Growth, Alignment, and Revenue Leakage</a></h3>
+      <p class="article-excerpt">41 revenue operations statistics from Forrester, McKinsey, Aberdeen, Salesforce, and more. Organized by category with citations for every stat.</p>
+      <div class="article-meta">
+        <span class="article-read-time">10 min read</span>
+        <a href="/blog/revenue-operations-statistics.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Statistics</div>
+      <h3 class="article-title"><a href="/blog/marketing-attribution-statistics.html">Marketing Attribution Statistics 2026: 38 Stats on Multi-Touch, Data Gaps, and Revenue Impact</a></h3>
+      <p class="article-excerpt">38 attribution statistics covering multi-touch adoption, platform reporting gaps, and the revenue cost of bad attribution. Every stat sourced.</p>
+      <div class="article-meta">
+        <span class="article-read-time">10 min read</span>
+        <a href="/blog/marketing-attribution-statistics.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Statistics</div>
+      <h3 class="article-title"><a href="/blog/customer-acquisition-cost-statistics.html">Customer Acquisition Cost Statistics 2026: 42 Stats on CAC, ROAS, and What Businesses Actually Spend</a></h3>
+      <p class="article-excerpt">42 CAC statistics covering blended vs. platform-reported costs, industry benchmarks, LTV:CAC ratios, payback periods, and hidden costs. All sourced.</p>
+      <div class="article-meta">
+        <span class="article-read-time">10 min read</span>
+        <a href="/blog/customer-acquisition-cost-statistics.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="article-cat">Tools</div>
+      <h3 class="article-title"><a href="/blog/best-tools-fractional-cro-revops.html">Best Tools for Fractional CROs and RevOps Leaders 2026: 22 Tools That Actually Move Revenue</a></h3>
+      <p class="article-excerpt">22 tools used across 40+ engagements. Attribution, CRM, email, analytics, prospecting, and RevOps infrastructure. No affiliate links. No sponsored placements.</p>
+      <div class="article-meta">
+        <span class="article-read-time">12 min read</span>
+        <a href="/blog/best-tools-fractional-cro-revops.html" class="article-link">Read →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <h2>Find out what the data shows<br>in your business.</h2>
+    <p>The Revenue Leak Calculator takes 90 seconds. You'll get an estimated dollar figure, then book a free call to verify it against your actual numbers.</p>
+    <a href="/calculator.html" class="cta-btn">Run the Free Calculator →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Logic<span>Based</span> Marketing</div>
+  <p style="margin-top:8px;margin-bottom:12px;">Revenue Intelligence for $3M–$15M founder-led businesses</p>
+  <p><a href="/calculator.html">Revenue Leak Calculator</a> &nbsp;·&nbsp; <a href="/blog.html">Blog</a> &nbsp;·&nbsp; <a href="https://koalendar.com/e/revenue-challenge">Book Free Audit</a> &nbsp;·&nbsp; <a href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a></p>
+  <p style="margin-top:16px;">© 2026 Logic Based Marketing · Tyler Sass</p>
+</footer>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script src="/email-popup.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+    <meta name="description" content="15 years, 40+ diagnostics: real customer acquisition cost lessons. Platform reports $181. Actual blended CAC: $2,800. The operators who find leaks vs. those who don't.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Real CAC Lessons from 40+ Businesses">
+    <meta property="og:description" content="15 years, 40+ diagnostics: real customer acquisition cost lessons. Platform reports $181. Actual blended CAC: $2,800. The operators who find leaks vs. those who don't.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://logicbasedmarketing.com/blog/what-40-businesses-taught-real-cac.html">
+    <meta property="og:image" content="https://logicbasedmarketing.com/images/og-default.jpg">
+    <meta property="article:published_time" content="2026-02-25T00:00:00Z">
+    <meta property="article:author" content="Tyler Sass">
+    <link rel="canonical" href="https://logicbasedmarketing.com/blog/what-40-businesses-taught-real-cac.html">
+    <title>Real CAC Lessons from 40+ Businesses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            border-bottom: 1px solid #1a1a1a;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        header .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 16px;
+            color: #c8f65a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .logo:hover {
+            color: #b8e540;
+        }
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        nav a {
+            color: #e8e8e8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #c8f65a;
+        }
+        .cta-button {
+            background: #c8f65a !important;
+            color: #0a0a0a !important;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .cta-button:hover {
+            background: #b8e540 !important;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 80px;
+        }
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: #e8e8e8;
+        }
+        .meta {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 20px;
+        }
+        .meta span {
+            display: flex;
+            gap: 8px;
+        }
+        .intro {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #d0d0d0;
+        }
+        .callout {
+            background: #1a1a1a;
+            border-left: 4px solid #c8f65a;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        .callout p {
+            margin: 0;
+            line-height: 1.7;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #c8f65a;
+            color: #e8e8e8;
+        }
+        p {
+            margin-bottom: 18px;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+        strong {
+            color: #c8f65a;
+        }
+        a {
+            color: #c8f65a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #b8e540;
+            text-decoration: underline;
+        }
+        .stat-block {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+            border-left: 4px solid #c8f65a;
+        }
+        .stat-block .number {
+            color: #c8f65a;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .stat-block p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .case-study {
+            background: rgba(200, 246, 90, 0.05);
+            border-left: 4px solid #c8f65a;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 2px;
+        }
+        .case-study p {
+            margin-bottom: 12px;
+        }
+        .case-study p:last-child {
+            margin-bottom: 0;
+        }
+        .key-finding {
+            margin: 25px 0;
+            padding: 20px;
+            background: #1a1a1a;
+            border-left: 3px solid #c8f65a;
+            border-radius: 2px;
+        }
+        .cta-section {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 40px;
+            margin: 50px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .cta-section p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+        .cta-section a {
+            display: inline-block;
+            background: #c8f65a;
+            color: #0a0a0a;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        .cta-section a:hover {
+            background: #b8e540;
+        }
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .footer-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        footer p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        footer a {
+            color: #c8f65a;
+        }
+        ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        ul li {
+            margin-bottom: 12px;
+            color: #d0d0d0;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            nav {
+                gap: 15px;
+            }
+            nav a {
+                font-size: 13px;
+            }
+            .cta-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">Logic Based Marketing</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/blog.html">Blog</a>
+                <a href="/calculator.html">Free Assessment</a>
+                <a href="/calculator.html" class="cta-button">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <h1>What 40+ Businesses Taught Me About the Real Cost of a New Customer</h1>
+            
+            <div class="meta">
+                <span>Tyler Sass</span>
+                <span>Feb 25, 2026</span>
+                <span>13 min read</span>
+            </div>
+
+            <div class="intro">
+                <p>The most important number in a founder-led business is almost always wrong.</p>
+                <p>I ran my first revenue operations audit in 2010 with a $2M B2B SaaS company running Google Ads and email campaigns for two years. The CFO sent me their ROAS reports claiming a blended CAC of $180. I spent a week tracing every dollar: media spend, tool costs, salaries for people managing the channels, hosting, everything.</p>
+                <p>The real number was $2,400.</p>
+                <p>That was the beginning of a 15-year pattern. Since then I've run diagnostic audits on more than 40 founder-led businesses. The story is always the same. Different businesses, industries, and products. Same fundamental mistake: the number they think is real CAC isn't even close.</p>
+            </div>
+
+            <div class="callout">
+                <p><strong>The thesis:</strong> Most businesses know their platform ROAS. Almost none know their blended CAC. The gap between those two numbers is where the leak happens—this is the story of what I found when I started closing it.</p>
+            </div>
+
+            <h2>The Number Every Business Gets Wrong</h2>
+
+            <p>Blended CAC is the real cost of a new customer when you add up all channels, all costs, and all time. Most businesses track it wrong. Here is why.</p>
+
+            <p>A founder sees the Facebook dashboard. It says they acquired 50 customers for $5,000. They think the CAC is $100. Then they look at Google. It says they acquired 30 customers for $2,100. CAC is $70. So they add them together and say the blended CAC is $85.</p>
+
+            <p>That math is confidently wrong. They forgot the email tool ($300/month). The content writer ($2,000/month). The ads manager salary ($4,000/month). The Shopify store ($30/month). The analytics tool ($200/month). The hosting. The landing page. The CRM.</p>
+
+            <p>All of that touches the customer before they sign. None of it is baked into the platform ROAS numbers. When you add it all up, the real CAC is often 3x to 5x higher than the dashboard number.</p>
+
+            <p>This matters because every decision after this point is made on bad data. You spend more on the channel that "performs" at $70 CAC. But the real cost is $350. You think you are scaling. You are actually going broke faster.</p>
+
+            <h2>What I Found in the First 10 Audits</h2>
+
+            <p>The first 10 businesses I audited had attribution chaos. Every channel claimed credit for the same customers. Facebook reported a conversion. Google also reported a conversion on the same customer, same day. The email tool reported a conversion too. Which one actually acquired the customer?</p>
+
+            <p>In one case, a $3M SaaS company told me they were spending 60% of their budget on Facebook because Facebook showed the best ROAS. When I traced their actual customers backward through their full journey, 70% of those customers started with a Google search, went dormant for two weeks, and then came back from a Facebook ad. Facebook got credit. Google got nothing. The spend allocation was backward.</p>
+
+            <p>They were overinvesting in Facebook and underinvesting in Google. Not because Facebook was worse. Because the attribution model was wrong. The company had made a high-confidence decision on broken data.</p>
+
+            <div class="key-finding">
+                <strong>Finding:</strong> 100% of the first 10 businesses had attribution that was either broken or invisible. Most could not even articulate how they were assigning credit. They just read the platform reports and assumed they were accurate.
+            </div>
+
+            <h2>What Changed in Audits 11-25: The Email and Retention Pattern</h2>
+
+            <p>Around audit 11, I started noticing a recurring pattern. Almost every business had a retention channel that was technically live but functionally dormant. Most of the time it was email.</p>
+
+            <p>They had an email list. Sometimes a big one. 5,000 people. 10,000 people. But the email program was just a welcome sequence and occasional promotions. No nurture. No re-engagement. No expansion. Just welcome and dust.</p>
+
+            <p>Email is the fastest ROI channel available to most founder-led businesses. But it only works if you design it. A welcome sequence is not a program.</p>
+
+            <div class="case-study">
+                <p><strong>The Klaviyo Story:</strong> I was auditing a $4M e-commerce company. They were running a Klaviyo account for three years. Their monthly spend was $400. I asked about the email automations. They showed me one: a welcome sequence, three emails, three days. That was it. A $400/month tool running one sequence.</p>
+                <p>I spent a day redesigning their automation architecture. Eight sequences: welcome (obvious), post-purchase product education, abandoned cart, browse abandonment, loyalty tier unlock, win-back for lapsed customers, referral incentive, and upsell for single-product customers. We connected them to segments and behaviors.</p>
+                <p>Six weeks in, their email ROAS was 112x. Not 12x. 112x. The tool had not changed. The data had not changed. Only the design had changed. They had a retention channel worth six figures in annual revenue that they had been ignoring.</p>
+            </div>
+
+            <p>This taught me something fundamental: most businesses are not failing because they lack channels. They are failing because they have channels that are built but not designed. The opportunity is not "add email." It is "actually use the email you already have."</p>
+
+            <h2>The Pricing Gap Discovery</h2>
+
+            <p>Around audit 15, I started asking a question I should have asked in audit 1: "When was the last time you recalculated your LTV:CAC ratio after a pricing change?"</p>
+
+            <p>The answer was almost always the same: "We have never done that."</p>
+
+            <p>Here is the hidden leak this creates. A company raises prices 20%. Revenue goes up. Everyone celebrates. Nobody recalculates unit economics. The CAC did not change, but the LTV went up 20%. So the LTV:CAC ratio improved. That is actually good. You are more efficient.</p>
+
+            <p>But here is what happens more often. A company discounts prices by 15% to close faster. Revenue goes up in volume but down in margin. LTV drops. CAC stays the same (you are still spending the same to acquire them). The LTV:CAC ratio degrades silently. You are now acquiring customers at worse unit economics than you were before. You do not know it because nobody recalculated.</p>
+
+            <p>The company grows revenue faster. They feel successful. Six months later they notice margins are compressed and profitability is down. They do not know why. The reason is sitting in a pricing decision they made six months ago that they never stress-tested against unit economics.</p>
+
+            <div class="key-finding">
+                <strong>Finding:</strong> Of the 40+ businesses I audited, only 7 had recalculated their LTV:CAC ratio within the previous 12 months. The others had made pricing changes without testing the impact on unit economics. Confidently degrading their margins.
+            </div>
+
+            <div style="background:linear-gradient(135deg,rgba(200,246,90,0.08),rgba(200,246,90,0.02));border:1px solid rgba(200,246,90,0.25);border-radius:16px;padding:32px;margin:40px 0;text-align:center;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c8f65a;margin-bottom:10px;">FREE TOOL</div>
+  <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3;">How much is your business silently losing?</div>
+  <div style="font-size:14px;color:#6b6b6b;margin-bottom:20px;line-height:1.6;">90 seconds. 7 questions. See your estimated revenue leak — free, no email required.</div>
+  <a href="/calculator.html" style="display:inline-block;padding:14px 28px;background:#c8f65a;color:#0a0a0a;font-size:14px;font-weight:800;border-radius:8px;text-decoration:none;transition:all 0.2s;">Run the Free Calculator →</a>
+</div>
+
+        <h2>The $161K Month</h2>
+
+            <p>The largest leak I have ever found was with a Las Vegas-based distribution company called Prime USA Scales. They sold commercial scales and measurement equipment to restaurants, bakeries, and industrial clients. Revenue was around $1.8M annually. Growth had stalled for two years.</p>
+
+            <p>They were running Google Ads, Facebook Ads, and a small email program. The Google dashboard said they were acquiring customers at $181 per lead, converting at 25%, so CAC was around $724. They thought they had a reasonable acquisition model.</p>
+
+            <p>I spent three weeks on the audit. I traced every customer from the moment they touched the first channel all the way through to signed contract. The real story was very different.</p>
+
+            <p>Google was getting the first click. But on average, customers clicked through 8.3 times before converting. Some of those clicks were Google, some were Facebook retargeting, some were email, some were direct visits. When I assigned credit properly using time-decay attribution, Google got about 35% of the credit, Facebook got 20%, email got 25%, and direct got 20%.</p>
+
+            <p>That shifted the entire spend decision. The company thought Google was the star. Google was actually the entry point for customers who needed to be nurtured. Email and direct were doing the heavy lifting.</p>
+
+            <p>But there was a bigger number waiting. When I calculated the true blended CAC, I added it all up: media spend, the sales development rep salary, the salesman salary (partially), the CRM, the website hosting, the tools, everything. The real CAC was $2,800, not $181.</p>
+
+            <p>Then I asked the question that always finds leaks: "Of the 100 customers you acquired last year, how many are still customers today?" Retention was 64%. The company was celebrating growth but losing one-third of their customers. They were also not tracking expansion revenue. Customers bought one scale. They never bought another. The upsell motion did not exist.</p>
+
+            <p>When I recalculated LTV accounting for real retention and lack of expansion, then calculated CAC correctly, their unit economics were underwater. They were acquiring customers at $2,800 and earning only $2,100 in lifetime profit. They were losing money on every acquisition.</p>
+
+            <p>I told them the truth: "You do not have a growth problem. You have a unit economics problem. You are not growing your way out of this. You are growing your way deeper in."</p>
+
+            <p>So we rebuilt. We fixed the attribution model. We redesigned the email program from a one-sequence welcome to a real nurture architecture that held customers post-sale. We implemented a simple upsell process: one automated email sequence 30 days after purchase asking customers if they wanted to solve another measurement challenge. We stopped running loss-making campaigns.</p>
+
+            <p>Six months in, retention went from 64% to 82%. Expansion revenue went from zero to $18K per month. CAC stayed at $2,800 (we were still running the same campaigns) but LTV went from $2,100 to $7,200. That $161K per month in recoverable losses became profit.</p>
+
+            <p>This was not a marketing problem. This was an operations problem that looked like a marketing problem because the blended CAC number was hidden.</p>
+
+            <h2>What Separates the Operators Who Find Leaks Early</h2>
+
+            <p>After running 40+ audits, I have noticed that the businesses that find leaks faster have three things in common.</p>
+
+            <p><strong>First:</strong> They calculate blended CAC monthly—not quarterly or yearly, every month. They know the real number and watch it change. When it creeps up, they investigate immediately instead of assuming it's noise. Businesses that find leaks late wait until crisis strikes before examining the number.</p>
+
+            <p><strong>Second:</strong> They track LTV:CAC as a primary metric, not a quarterly review item. It sits on their dashboard. They know what a healthy ratio looks like for their business (usually 3:1 or better). When the ratio degrades, it's a signal. They ask: Why did it move? What changed? They don't assume it's normal variation.</p>
+
+            <p><strong>Third:</strong> They treat rising CAC as a signal, not noise. If blended CAC goes from $500 to $650, most businesses think "Well, channels get more expensive." They keep spending. Operators who find leaks early ask "Why? Is this margin compression? Attribution creep? Am I scaling a more expensive channel?" They investigate before crisis hits.</p>
+
+            <p>These three habits separate the operators from the gamblers. The operators know their numbers. When something moves, they know why.</p>
+
+            <h2>The Pattern Across 40+ Audits</h2>
+
+            <p>Here is what the aggregate data shows:</p>
+
+            <div class="stat-block">
+                <div class="number">94%</div>
+                <p>of businesses audited had at least one material revenue leak (defined as hidden costs or missed revenue worth at least 10% of current profitability).</p>
+            </div>
+
+            <div class="stat-block">
+                <div class="number">$68,000</div>
+                <p>median recoverable revenue loss per business audited (monthly recurring impact). Range: $12K to $161K.</p>
+            </div>
+
+            <div class="stat-block">
+                <div class="number">71%</div>
+                <p>of leaks were caused by CAC miscalculation (platform ROAS misrepresenting true blended cost).</p>
+            </div>
+
+            <div class="stat-block">
+                <div class="number">14 months</div>
+                <p>average time between the leak beginning and the business identifying it (range: 2 months to 40 months). Most businesses only notice when profitability drops hard.</p>
+            </div>
+
+            <div class="stat-block">
+                <div class="number">62%</div>
+                <p>of businesses had never calculated a real attribution model. They were making budget decisions based on platform claims.</p>
+            </div>
+
+            <div class="stat-block">
+                <div class="number">88%</div>
+                <p>of businesses had retention or expansion channels that were technically built but operationally unused (email sequences, loyalty programs, referral systems running at 10% of capacity).</p>
+            </div>
+
+            <h2>What This Means for Your Business</h2>
+
+            <p>You do not need to wait for an audit to start. You do not need to hire an external person to tell you whether your numbers are real. You can do this yourself. This week.</p>
+
+            <p>Here is the simple version of what I do in a 30-day diagnostic.</p>
+
+            <p><strong>Step 1: Calculate your blended CAC.</strong> Not the platform number. The real number. Add up every dollar you spent on acquisition last month: ad spend, tools, salaries (allocated), hosting, everything. Divide by the number of customers you acquired. That is the real number.</p>
+
+            <p><strong>Step 2: Compare it to what your platforms say.</strong> If Facebook says your CAC is $200 and your blended CAC is $800, congratulations, you found a gap. That gap is where the leak is hiding.</p>
+
+            <p><strong>Step 3: Trace your best customers backward.</strong> Pick your last 20 customers (the ones who stay longest, spend the most, fit your ICP best). Where did they come from? What channels touched them? In what order? You will start to see a pattern of which channels are entry points and which are closers. That tells you how to allocate budget.</p>
+
+            <p><strong>Step 4: Calculate your real LTV.</strong> Take your last 50 customers. How long do they stay? What do they spend over that lifetime (not including acquisition cost)? That is your LTV. Divide your blended CAC by this number. That is your real unit economics.</p>
+
+            <p><strong>Step 5: Identify the leak.</strong> Is CAC too high? Is LTV too low? Is retention the problem? Is there an expansion channel you are not using? That is the starting point for fixing the leak.</p>
+
+            <p>This takes a spreadsheet and three hours. Most founders do not do it because they are afraid of what they will find. You should be more afraid of not finding it.</p>
+
+            <div class="cta-section">
+                <p>Curious what your real number is? The Revenue Leak Assessment walks through all five steps and gives you a priority roadmap.</p>
+                <a href="/calculator.html">Start Your Free Assessment</a>
+            </div>
+
+            <h2>Related Reading</h2>
+
+            <p>If you want to go deeper on any of these topics:</p>
+            <ul>
+                <li><a href="/blog/revenue-leak-report.html">The Revenue Leak Report</a></li>
+                <li><a href="/blog/revenue-leak-audit-process.html">The Revenue Leak Audit Process</a></li>
+                <li><a href="/blog/fully-loaded-blended-cac.html">How to Calculate Your Fully-Loaded Blended CAC</a></li>
+                <li><a href="/blog/customer-acquisition-cost-statistics.html">Customer Acquisition Cost Statistics</a></li>
+            </ul>
+
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>Logic Based Marketing finds the $50K-$200K in recoverable revenue hiding in your current funnel.</p>
+            <p style="margin-top: 15px; color: #666;">Copyright 2026 Logic Based Marketing. All rights reserved.</p>
+            <p style="margin-top: 15px;"><a href="/">Home</a> | <a href="/blog.html">Blog</a> | <a href="/calculator.html">Free Assessment</a></p>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What 40+ Businesses Taught Me About the Real Cost of a New Customer",
+        "description": "15 years. 40+ Revenue Leak Diagnostics. Here is what I actually found about customer acquisition cost, ROAS gaps, and what separates the operators who find leaks from those who don't.",
+        "datePublished": "2026-02-25T00:00:00Z",
+        "author": {
+            "@type": "Person",
+            "name": "Tyler Sass"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Logic Based Marketing",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://logicbasedmarketing.com/images/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://logicbasedmarketing.com/blog/what-40-businesses-taught-real-cac.html"
+        }
+    }
+    </script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script src="/email-popup.js" defer></script>
+</body>
+</html>

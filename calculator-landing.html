@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+<title>Revenue Leak Calculator | Find Hidden Revenue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black:  #0a0a0a;
+    --dark:   #111111;
+    --card:   #161616;
+    --border: #1e1e1e;
+    --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10);
+    --red:    #ff5252;
+    --amber:  #f5a623;
+    --text:   #efefef;
+    --muted:  #6b6b6b;
+    --white:  #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--black);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 13px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-back {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--white); }
+  @media (max-width: 600px) { nav { padding: 16px 20px; } }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 24px 56px;
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,246,90,0.25);
+    color: var(--accent);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 16px; border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .tag-dot {
+    width: 6px; height: 6px; background: var(--accent);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-size: clamp(32px, 5.5vw, 62px);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  /* ── PROOF BAR ── */
+  .proof-bar {
+    display: flex; align-items: center; justify-content: center;
+    gap: 32px; flex-wrap: wrap;
+    padding: 0 24px 60px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .proof-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+  }
+  .proof-item svg { flex-shrink: 0; }
+  .proof-divider { width: 1px; height: 18px; background: var(--border); }
+  @media (max-width: 600px) { .proof-divider { display: none; } }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr; }
+    .form-col { order: -1; }
+  }
+
+  /* ── LEFT: WHAT YOU GET ── */
+  .left-col h2 {
+    font-size: 22px; font-weight: 800; color: var(--white);
+    margin-bottom: 8px; letter-spacing: -0.02em;
+  }
+  .left-col .sub {
+    font-size: 14px; color: var(--muted); margin-bottom: 32px;
+  }
+
+  .leak-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .leak-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0; margin-top: 2px;
+  }
+  .leak-icon.red { background: rgba(255,82,82,0.12); }
+  .leak-icon.amber { background: rgba(245,166,35,0.12); }
+  .leak-icon.green { background: rgba(200,246,90,0.10); }
+
+  .leak-card h3 {
+    font-size: 14px; font-weight: 700; color: var(--white);
+    margin-bottom: 4px; letter-spacing: -0.01em;
+  }
+  .leak-card p {
+    font-size: 13px; color: var(--muted); line-height: 1.5;
+  }
+
+  /* ── PROOF BOX ── */
+  .proof-box {
+    margin-top: 28px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,246,90,0.2);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .proof-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .proof-stat {
+    font-size: 32px; font-weight: 900; color: var(--white);
+    letter-spacing: -0.04em; line-height: 1;
+    margin-bottom: 6px;
+  }
+  .proof-stat span { color: var(--accent); }
+  .proof-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.5;
+  }
+
+  /* ── RIGHT: FORM ── */
+  .form-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    position: sticky;
+    top: 24px;
+  }
+  @media (max-width: 600px) { .form-col { padding: 28px 20px; } }
+
+  .form-headline {
+    font-size: 20px; font-weight: 800; color: var(--white);
+    letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .form-sub {
+    font-size: 13px; color: var(--muted); margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .field { margin-bottom: 16px; }
+  label {
+    display: block;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 7px;
+  }
+  input, select {
+    width: 100%;
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 15px;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input::placeholder { color: var(--muted); }
+  input:focus, select:focus {
+    border-color: rgba(200,246,90,0.4);
+    box-shadow: 0 0 0 3px rgba(200,246,90,0.08);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b6b6b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  select option { background: #1a1a1a; color: var(--white); }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    letter-spacing: -0.01em;
+    transition: background 0.2s, transform 0.1s;
+    font-family: 'Inter', sans-serif;
+  }
+  .submit-btn:hover { background: #d4f96a; }
+  .submit-btn:active { transform: scale(0.99); }
+
+  .form-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── THANK YOU STATE ── */
+  .thank-you {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .thank-you .check {
+    width: 56px; height: 56px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,246,90,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+  }
+  .thank-you h3 {
+    font-size: 20px; font-weight: 800; color: var(--white);
+    margin-bottom: 10px; letter-spacing: -0.02em;
+  }
+  .thank-you p {
+    font-size: 14px; color: var(--muted);
+    margin-bottom: 24px; line-height: 1.6;
+  }
+  .book-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 14px; font-weight: 800;
+    border-radius: 9px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: background 0.2s;
+  }
+  .book-btn:hover { background: #d4f96a; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  footer p { font-size: 13px; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  @media (max-width: 600px) {
+    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+  <a href="/" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M8.5 3L4.5 7L8.5 11" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to site
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag"><span class="tag-dot"></span> Free. 90 Seconds</div>
+  <h1>Find Out How Much Your Business Is <em>Actually Losing</em></h1>
+  <p class="hero-sub">
+    Most $3M–$15M businesses are bleeding money that won't show up in their ad platform, their CRM, or their P&L. Answer 7 quick questions and see exactly where yours is going.
+  </p>
+</div>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-item">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <path d="M7.5 1L9.2 5.5H14L10.4 8.3L11.7 13L7.5 10.3L3.3 13L4.6 8.3L1 5.5H5.8L7.5 1Z" fill="#c8f65a"/>
+    </svg>
+    Free, no credit card
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <circle cx="7.5" cy="7.5" r="6.5" stroke="#6b6b6b" stroke-width="1.2"/>
+      <path d="M7.5 4V7.5L9.5 9.5" stroke="#6b6b6b" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Takes 90 seconds
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <path d="M2.5 8L5.5 11L12.5 4" stroke="#c8f65a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Personalized to your answers
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <rect x="2" y="2" width="11" height="11" rx="2" stroke="#6b6b6b" stroke-width="1.2"/>
+      <path d="M5 7.5H10M5 5H10M5 10H8" stroke="#6b6b6b" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Results sent to your inbox
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: WHAT WE FIND -->
+  <div class="left-col">
+    <h2>What the Calculator Finds</h2>
+    <p class="sub">These are the four places $3M–$15M businesses lose money invisibly.</p>
+
+    <div class="leak-card">
+      <div class="leak-icon red">📊</div>
+      <div>
+        <h3>Broken Attribution</h3>
+        <p>Your ad platforms report one CAC. Your real blended CAC is something else entirely. The gap is where the money disappears.</p>
+      </div>
+    </div>
+
+    <div class="leak-card">
+      <div class="leak-icon amber">🔀</div>
+      <div>
+        <h3>Disconnected Systems</h3>
+        <p>QuickBooks, Shopify, your CRM, ad platforms. When they don't talk to each other, you're making decisions on incomplete data.</p>
+      </div>
+    </div>
+
+    <div class="leak-card">
+      <div class="leak-icon red">💸</div>
+      <div>
+        <h3>Invisible Cost Bleed</h3>
+        <p>Discounting, free shipping, agency spend with no attribution, collection timing gaps. Each one small. Together, they're catastrophic.</p>
+      </div>
+    </div>
+
+    <div class="leak-card">
+      <div class="leak-icon green">🤖</div>
+      <div>
+        <h3>AI-Readiness Gap</h3>
+        <p>Every AI tool you want to plug in requires clean data to work. If your data is broken, your AI spend is wasted before you start.</p>
+      </div>
+    </div>
+
+    <!-- PROOF -->
+    <div class="proof-box">
+      <div class="proof-label">Real Client Result. January 2026</div>
+      <div class="proof-stat"><span>$161K</span>/month</div>
+      <div class="proof-desc">Found in recoverable losses for a $9M/year distribution company. Four levers entirely inside their existing business. Zero new customers required.</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="form-col">
+    <div id="form-section">
+      <div class="form-headline">Ready to See Your Numbers?</div>
+      <p class="form-sub">Takes 90 seconds. You'll see exactly where the money is going, broken down by category with dollar amounts.</p>
+      <a href="/calculator.html" class="submit-btn" style="display:block;text-align:center;text-decoration:none;margin-top:24px;">Start the Free Calculator →</a>
+      <p class="form-note">No credit card. No pitch. Just your numbers.</p>
+      <a href="https://koalendar.com/e/revenue-challenge" class="book-btn" style="display:block;text-align:center;text-decoration:none;margin-top:16px;">Or book a free 15-min call instead →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Logic Based Marketing · Tyler Sass</p>
+  <p><a href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a></p>
+</footer>
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script src="/email-popup.js" defer></script>
+</body>
+</html>

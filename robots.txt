@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /pricing.html
+Disallow: /one-pager.html
+Disallow: /proposal.html
+
+Sitemap: https://logicbasedmarketing.com/sitemap.xml

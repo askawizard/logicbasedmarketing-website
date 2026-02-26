@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing. Logic Based Marketing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .intro {
+            font-size: 18px;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin: 80px 0;
+        }
+
+        .tier {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 40px;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tier:hover {
+            border-color: #c8f65a;
+            box-shadow: 0 0 20px rgba(200, 246, 90, 0.1);
+        }
+
+        .tier-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 700;
+            color: #c8f65a;
+            margin-bottom: 4px;
+        }
+
+        .price-period {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        .tier-description {
+            font-size: 14px;
+            color: #a0a0a0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .features li {
+            padding: 10px 0;
+            font-size: 14px;
+            color: #c0c0c0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li:before {
+            content: "✓ ";
+            color: #c8f65a;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #c8f65a;
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background: #b8e64a;
+            transform: translateY(-2px);
+        }
+
+        .guarantee {
+            background: #1a2a1a;
+            border: 1px solid #3a5a3a;
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 12px;
+            color: #a0d0a0;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .roi-section {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .roi-section h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .roi-section p {
+            font-size: 16px;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .roi-highlight {
+            color: #c8f65a;
+            font-weight: 600;
+        }
+
+        .faq {
+            max-width: 700px;
+            margin: 80px auto;
+        }
+
+        .faq h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 32px;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 24px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.7;
+        }
+
+        .final-cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            border-bottom: 1px solid #2a2a2a;
+            margin: 80px 0;
+        }
+
+        .final-cta h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 16px;
+            color: #b0b0b0;
+            margin-bottom: 28px;
+        }
+
+        .final-cta .cta-button {
+            width: auto;
+            padding: 14px 40px;
+            font-size: 16px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .intro {
+                font-size: 16px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .price {
+                font-size: 28px;
+            }
+
+            .roi-section,
+            .final-cta {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Logic Based Marketing</h1>
+            <p class="intro">How We Work Together</p>
+            <p style="font-size: 16px; color: #888; margin-top: 16px;">Every engagement starts with the $500 Diagnostic. Here's how to think about what comes after.</p>
+        </header>
+
+        <div class="pricing-grid">
+            <!-- Tier 1: Diagnostic -->
+            <div class="tier">
+                <div class="tier-name">The Diagnostic</div>
+                <div class="price">$500</div>
+                <div class="price-period">One-time investment</div>
+                <p class="tier-description">
+                    A 2-hour working session where we analyze your revenue engine and identify immediate opportunities.
+                </p>
+                <ul class="features">
+                    <li>Full review of your last 12 months of data</li>
+                    <li>Identify revenue leaks and inefficiencies</li>
+                    <li>Actionable recommendations you can implement today</li>
+                    <li>Assessment of your growth potential</li>
+                </ul>
+                <a href="https://koalendar.com/e/revenue-challenge" class="cta-button">Book Free Audit</a>
+                <div class="guarantee">
+                    Money-back guarantee: If you don't find at least $500 in actionable insights during the session, we'll refund your investment. No questions asked.
+                </div>
+            </div>
+
+            <!-- Tier 2: Core Retainer -->
+            <div class="tier">
+                <div class="tier-name">Core Retainer</div>
+                <div class="price">$3,500</div>
+                <div class="price-period">Per month</div>
+                <p class="tier-description">
+                    Ongoing CRO partnership for businesses ready to scale systematically and optimize revenue per customer.
+                </p>
+                <ul class="features">
+                    <li>Monthly revenue and cost analysis</li>
+                    <li>Vendor optimization and renegotiation</li>
+                    <li>Marketing channel analysis and recommendations</li>
+                    <li>Process improvements for your sales team</li>
+                    <li>Real-time data review and problem-solving</li>
+                    <li>Prioritized execution roadmap</li>
+                </ul>
+                <a href="https://koalendar.com/e/revenue-challenge" class="cta-button">Book Free Audit</a>
+            </div>
+
+            <!-- Tier 3: Full Implementation -->
+            <div class="tier">
+                <div class="tier-name">Full Implementation</div>
+                <div class="price">Custom</div>
+                <div class="price-period">By inquiry</div>
+                <p class="tier-description">
+                    Hands-on execution of major revenue initiatives, system integrations, or complete operational overhauls.
+                </p>
+                <ul class="features">
+                    <li>Strategy + full execution</li>
+                    <li>New system implementation</li>
+                    <li>Team training and process design</li>
+                    <li>Vendor migration and integration</li>
+                    <li>Custom reporting and dashboards</li>
+                    <li>Extended support and optimization</li>
+                </ul>
+                <a href="https://koalendar.com/e/revenue-challenge" class="cta-button">Book Free Audit</a>
+            </div>
+        </div>
+
+        <div class="roi-section">
+            <h2>The Math Behind the Retainer</h2>
+            <p>
+                At <span class="roi-highlight">$3,500/month</span>, you need to find <span class="roi-highlight">$3,500 in monthly savings or revenue</span> to break even. This isn't a guess. It's where we start our conversation.
+            </p>
+            <p style="margin-top: 16px;">
+                Across client work, we typically identify <span class="roi-highlight">$40,000–$160,000 in annual opportunities</span>. By month two, the retainer usually pays for itself within the first vendor swap or operational fix.
+            </p>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">What's the guarantee on the Diagnostic?</div>
+                <div class="faq-answer">
+                    Simple: If we don't identify at least $500 worth of actionable insights during your 2-hour session, we'll refund your fee entirely. We've never had to issue a refund. This should tell you something about how thorough we are.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What data do I need to provide?</div>
+                <div class="faq-answer">
+                    The last 12 months of data from your accounting system (QuickBooks), e-commerce or CRM platform, ad accounts, email platform, and Google Analytics. We provide a detailed guide with step-by-step instructions for each system. Most clients spend 45 minutes to 1 hour gathering everything.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How long until I see results from the retainer?</div>
+                <div class="faq-answer">
+                    Quick wins often show up in week one (like finding unused software subscriptions). Revenue-impacting changes usually show results within 30–60 days. The best results compound over 3–6 months as we systematically optimize each channel.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if we're already working with another agency?</div>
+                <div class="faq-answer">
+                    We work well alongside other agencies. The Diagnostic is designed to give you clarity on what's working and what's not across your entire business. Sometimes that means staying the course; sometimes it means making changes. Either way, you'll have data-backed recommendations.
+                </div>
+            </div>
+        </div>
+
+        <div class="final-cta">
+            <h2>Ready to Find Your Hidden Revenue?</h2>
+            <p>The $500 Diagnostic is the first step. Let's see what we can uncover.</p>
+            <a href="https://koalendar.com/e/revenue-challenge" class="cta-button">Book Free Audit</a>
+        </div>
+
+        <footer>
+            <p>Logic Based Marketing. Fractional CRO services for growing businesses.</p>
+        </footer>
+    </div>
+</body>
+</html>
