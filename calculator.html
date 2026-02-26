@@ -639,6 +639,142 @@
     color: var(--muted); margin-top: 12px; line-height: 1.5;
   }
 
+  /* ── REVENUE HEALTH GRADE ── */
+  .grade-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .grade-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .grade-circle-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+  }
+  .grade-ring {
+    width: 140px;
+    height: 140px;
+    transform: rotate(-90deg);
+  }
+  .grade-ring-bg {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 8;
+  }
+  .grade-ring-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 408;
+    stroke-dashoffset: 408;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+  .grade-letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: gradeReveal 0.6s ease 1.2s forwards;
+  }
+  @keyframes gradeReveal {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    60%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  .grade-detail {
+    text-align: left;
+    max-width: 320px;
+  }
+  .grade-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .grade-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .grade-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .grade-scale {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+  }
+  .grade-pip {
+    width: 36px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    opacity: 0.2;
+    transition: opacity 0.4s ease;
+  }
+  .grade-pip.active {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(255,255,255,0.1);
+  }
+
+  /* ── PROGRESS STEP DOTS ── */
+  .progress-dots {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .progress-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  .progress-dot.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .progress-dot.done {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--black);
+  }
+
   /* RESET */
   .reset-btn {
     display: block;
@@ -702,9 +838,14 @@
 
   <!-- PROGRESS -->
   <div class="progress-wrap" id="progress-wrap">
-    <div class="progress-labels">
-      <span class="progress-step-label" id="prog-label">Question 1 of 7</span>
-      <span class="progress-step-label" id="prog-pct" style="color:var(--muted);">14%</span>
+    <div class="progress-dots" id="progress-dots">
+      <div class="progress-dot active" data-step="1">1</div>
+      <div class="progress-dot" data-step="2">2</div>
+      <div class="progress-dot" data-step="3">3</div>
+      <div class="progress-dot" data-step="4">4</div>
+      <div class="progress-dot" data-step="5">5</div>
+      <div class="progress-dot" data-step="6">6</div>
+      <div class="progress-dot" data-step="7">7</div>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progress-bar" style="width:14%;"></div>
@@ -958,6 +1099,31 @@
       <div class="results-sub">Based on your answers. These are conservative estimates.</div>
     </div>
 
+    <!-- REVENUE HEALTH GRADE -->
+    <div class="grade-card" id="grade-card">
+      <div class="grade-row">
+        <div class="grade-circle-wrap">
+          <svg class="grade-ring" viewBox="0 0 140 140">
+            <circle class="grade-ring-bg" cx="70" cy="70" r="65"></circle>
+            <circle class="grade-ring-fill" id="grade-ring-fill" cx="70" cy="70" r="65"></circle>
+          </svg>
+          <div class="grade-letter" id="grade-letter">?</div>
+        </div>
+        <div class="grade-detail">
+          <div class="grade-label" id="grade-label" style="color:var(--muted);">Revenue Health Grade</div>
+          <div class="grade-title" id="grade-title">Calculating...</div>
+          <div class="grade-desc" id="grade-desc"></div>
+        </div>
+      </div>
+      <div class="grade-scale">
+        <div class="grade-pip" id="pip-A" style="background:#4ade80;color:#0a0a0a;">A</div>
+        <div class="grade-pip" id="pip-B" style="background:#22d3ee;color:#0a0a0a;">B</div>
+        <div class="grade-pip" id="pip-C" style="background:#fbbf24;color:#0a0a0a;">C</div>
+        <div class="grade-pip" id="pip-D" style="background:#fb923c;color:#0a0a0a;">D</div>
+        <div class="grade-pip" id="pip-F" style="background:#ff4444;color:#0a0a0a;">F</div>
+      </div>
+    </div>
+
     <!-- BIG NUMBER -->
     <div class="big-number-card">
       <div class="big-number-label">Estimated Annual Revenue Leak</div>
@@ -1079,8 +1245,21 @@
   function updateProgress(current, total) {
     const pct = Math.round((current / 7) * 100);
     document.getElementById('progress-bar').style.width = pct + '%';
-    document.getElementById('prog-label').textContent = `Question ${current} of 7`;
-    document.getElementById('prog-pct').textContent = pct + '%';
+
+    // Update step dots
+    document.querySelectorAll('.progress-dot').forEach(dot => {
+      const step = parseInt(dot.dataset.step);
+      dot.classList.remove('active', 'done');
+      if (step < current) {
+        dot.classList.add('done');
+        dot.textContent = '\u2713';
+      } else if (step === current) {
+        dot.classList.add('active');
+        dot.textContent = step;
+      } else {
+        dot.textContent = step;
+      }
+    });
   }
 
   // ── Email Gate ──
@@ -1244,6 +1423,60 @@
       document.getElementById('ai-section').style.display = 'block';
     }
 
+    // ── Revenue Health Grade ──
+    const leakPct = (total / rev) * 100;
+    let grade, gradeColor, gradeTitle, gradeDesc;
+
+    if (leakPct < 5) {
+      grade = 'A'; gradeColor = '#4ade80';
+      gradeTitle = 'Minimal Leakage';
+      gradeDesc = 'Your operations are tight. You may still have blind spots, but your data foundation is stronger than most.';
+    } else if (leakPct < 15) {
+      grade = 'B'; gradeColor = '#22d3ee';
+      gradeTitle = 'Below Average Leakage';
+      gradeDesc = 'You have some data gaps but they are manageable. A focused audit could close them fast.';
+    } else if (leakPct < 30) {
+      grade = 'C'; gradeColor = '#fbbf24';
+      gradeTitle = 'Moderate Leakage';
+      gradeDesc = 'You are losing real money to data gaps. Most of your competitors are in the same boat, but fixing this is a clear competitive advantage.';
+    } else if (leakPct < 50) {
+      grade = 'D'; gradeColor = '#fb923c';
+      gradeTitle = 'Significant Leakage';
+      gradeDesc = 'Your business has serious revenue leaks across multiple areas. Every month you wait compounds the damage.';
+    } else {
+      grade = 'F'; gradeColor = '#ff4444';
+      gradeTitle = 'Critical Leakage';
+      gradeDesc = 'Your data infrastructure has critical gaps. You are likely making major decisions based on wrong numbers. This needs immediate attention.';
+    }
+
+    // Animate the grade ring
+    const ring = document.getElementById('grade-ring-fill');
+    ring.style.stroke = gradeColor;
+    const healthScore = Math.max(0, 100 - leakPct);
+    const circumference = 408;
+    const offset = circumference - (healthScore / 100) * circumference;
+    setTimeout(() => { ring.style.strokeDashoffset = offset; }, 200);
+
+    // Set grade letter
+    const letterEl = document.getElementById('grade-letter');
+    letterEl.textContent = grade;
+    letterEl.style.color = gradeColor;
+    // Reset animation
+    letterEl.style.animation = 'none';
+    letterEl.offsetHeight;
+    letterEl.style.animation = 'gradeReveal 0.6s ease 1.2s forwards';
+
+    // Set grade details
+    document.getElementById('grade-label').style.color = gradeColor;
+    document.getElementById('grade-title').textContent = gradeTitle;
+    document.getElementById('grade-desc').textContent = gradeDesc;
+
+    // Highlight the active grade pip
+    ['A','B','C','D','F'].forEach(g => {
+      const pip = document.getElementById('pip-' + g);
+      pip.classList.toggle('active', g === grade);
+    });
+
     // Show results
     const panel = document.getElementById('results-panel');
     panel.classList.add('visible');
@@ -1279,7 +1512,11 @@
     document.getElementById('progress-wrap').style.display = 'block';
     document.getElementById('q1').classList.add('active');
     document.getElementById('gate-form').reset();
-    updateProgress(1, 6);
+    // Reset grade animation
+    document.getElementById('grade-ring-fill').style.strokeDashoffset = '408';
+    document.getElementById('grade-letter').style.opacity = '0';
+    document.querySelectorAll('.grade-pip').forEach(p => p.classList.remove('active'));
+    updateProgress(1, 7);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
