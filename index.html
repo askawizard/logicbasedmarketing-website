@@ -184,6 +184,55 @@
   }
   .btn-secondary:hover { border-color: var(--text); }
 
+  /* LIVE COUNTER */
+  .live-counter {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(200,246,90,0.04), transparent);
+    border: 1px solid rgba(200,246,90,0.12);
+    border-radius: 14px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .live-counter-number {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .live-counter-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .live-counter-label strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+  .live-counter-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  .live-counter-updated {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+
   /* PROOF STRIP */
   .proof-strip {
     display: flex; justify-content: center; align-items: center;
@@ -461,6 +510,12 @@
       <a href="#calculator-section" class="btn-primary">Find My Revenue Leak →</a>
       <a href="#proof" class="btn-secondary">See Real Results</a>
     </div>
+  </div>
+
+  <div class="live-counter" id="live-counter">
+    <div class="live-counter-number"><span class="live-counter-dot"></span><span id="counter-value">$0</span></div>
+    <div class="live-counter-label">in revenue leaks identified in <strong id="counter-year">2026</strong></div>
+    <div class="live-counter-updated" id="counter-updated"></div>
   </div>
 
   <div class="proof-strip">
@@ -814,6 +869,62 @@
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<script>
+(function(){
+  var counterEl = document.getElementById('counter-value');
+  var yearEl = document.getElementById('counter-year');
+  var updatedEl = document.getElementById('counter-updated');
+  var animated = false;
+
+  function formatDollar(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function animateCounter(target) {
+    if (animated) return;
+    animated = true;
+    var duration = 2000;
+    var startTime = performance.now();
+    function step(now) {
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(target * eased);
+      counterEl.textContent = formatDollar(current);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function formatDate(dateStr) {
+    var d = new Date(dateStr + 'T00:00:00');
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  fetch('/data/proof-counter.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      yearEl.textContent = data.year;
+      if (data.lastUpdated) {
+        updatedEl.textContent = 'Updated ' + formatDate(data.lastUpdated);
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            animateCounter(data.yearlyTotal);
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(document.getElementById('live-counter'));
+    })
+    .catch(function() {
+      document.getElementById('live-counter').style.display = 'none';
+    });
+})();
+</script>
 
 <script>
 (function(){
