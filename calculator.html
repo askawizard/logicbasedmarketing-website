@@ -6,6 +6,21 @@
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WWQCMM9');</script>
 <!-- End Google Tag Manager -->
+<!-- Facebook Pixel — UNCOMMENT AND ADD YOUR PIXEL ID WHEN READY
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID_HERE');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', {content_name: 'Revenue Leak Calculator'});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
+-->
+<!-- To activate: 1) Create pixel at facebook.com/events_manager  2) Replace YOUR_PIXEL_ID_HERE  3) Remove the comment wrappers -->
 <title>Revenue Leak Calculator | Find Hidden Revenue</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1194,6 +1209,36 @@
 </form>
 
 <script>
+  // ── UTM Capture ──
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    utmKeys.forEach(function(key) {
+      var val = params.get(key);
+      if (val) sessionStorage.setItem(key, val);
+    });
+  })();
+  function getUTM(key) { return sessionStorage.getItem(key) || ''; }
+
+  // ── Analytics Helper ──
+  function pushEvent(event, params) {
+    window.dataLayer = window.dataLayer || [];
+    var data = { event: event, page_path: window.location.pathname };
+    data.utm_source = getUTM('utm_source');
+    data.utm_medium = getUTM('utm_medium');
+    data.utm_campaign = getUTM('utm_campaign');
+    data.utm_content = getUTM('utm_content');
+    if (params) {
+      for (var k in params) {
+        if (params.hasOwnProperty(k)) data[k] = params[k];
+      }
+    }
+    window.dataLayer.push(data);
+  }
+
+  // Fire calculator page view
+  pushEvent('calculator_started');
+
   // ── State ──
   const answers = {};        // numeric values used for calculation
   const answerLabels = {};   // human-readable labels sent to Mailchimp
@@ -1225,6 +1270,8 @@
     // Capture the human-readable label for Mailchimp
     const labelEl = el.querySelector('.option-text');
     answerLabels[`q${q}`] = labelEl ? labelEl.textContent.trim() : String(val);
+    // Track question answered
+    pushEvent('calculator_question_answered', { question_number: parseInt(q), answer: answerLabels['q' + q] });
     const nextBtn = document.getElementById(`next${q}`);
     if (nextBtn) { nextBtn.classList.add('enabled'); }
   }
@@ -1280,6 +1327,7 @@
     document.getElementById('gate-number').textContent = fmt(total);
 
     document.getElementById('email-gate').classList.add('visible');
+    pushEvent('calculator_email_gate_shown', { estimated_leak: fmt(total) });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1309,7 +1357,7 @@
           window._mcScript.parentNode.removeChild(window._mcScript);
         }
       };
-      // Build query string with all merge fields
+      // Build query string with all merge fields (includes UTM for source attribution)
       const params = new URLSearchParams({
         EMAIL:    email,
         FNAME:    fname,
@@ -1323,9 +1371,16 @@
         AITOOLS:  answerLabels.q6 || '',
         BIZAGE:   answerLabels.q7 || '',
         LEAKAMT:  fmt(total),
+        UTM_SRC:  getUTM('utm_source'),
+        UTM_MED:  getUTM('utm_medium'),
+        UTM_CMP:  getUTM('utm_campaign'),
         b_b4333ac3c716522ceb71c266e_0734806408: '',
         c: '_mcCallback'
       });
+      // Track lead captured in GA4
+      pushEvent('calculator_lead_captured', { grade: '', leak_amount: fmt(total), email_captured: true });
+      // FB Pixel Lead event — UNCOMMENT WHEN PIXEL IS INSTALLED
+      // if (typeof fbq === 'function') fbq('track', 'Lead', { value: total, currency: 'USD', content_name: 'Calculator Lead' });
       // Inject script tag — Mailchimp natively supports this JSONP pattern
       window._mcScript = document.createElement('script');
       window._mcScript.src = MAILCHIMP_URL + '&' + params.toString();
@@ -1476,6 +1531,9 @@
       const pip = document.getElementById('pip-' + g);
       pip.classList.toggle('active', g === grade);
     });
+
+    // Track results viewed with grade
+    pushEvent('calculator_results_viewed', { grade: grade, leak_percentage: Math.round(leakPct), leak_total: fmt(total), leak_monthly: fmt(monthly) });
 
     // Show results
     const panel = document.getElementById('results-panel');
