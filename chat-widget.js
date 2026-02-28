@@ -899,6 +899,12 @@
     try {
       if (contactInfo) {
         sessionStorage.setItem(CONTACT_KEY, JSON.stringify(contactInfo));
+        // Set persistent known-contact cookie for abandon tracking (90-day expiry)
+        if (contactInfo.email) {
+          var expires = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString();
+          document.cookie = 'lbm_known_email=' + encodeURIComponent(contactInfo.email) +
+            ';expires=' + expires + ';path=/;SameSite=Lax;Secure';
+        }
       }
     } catch (e) { /* quota exceeded */ }
   }

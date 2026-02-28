@@ -1223,6 +1223,8 @@
 
   // Fire calculator page view
   pushEvent('calculator_started');
+  // Dispatch custom event for abandon-tracking.js
+  window.dispatchEvent(new CustomEvent('lbm:calculator_started'));
 
   // ── State ──
   const answers = {};        // numeric values used for calculation
@@ -1364,6 +1366,8 @@
       });
       // Track lead captured in GA4
       pushEvent('calculator_lead_captured', { grade: '', leak_amount: fmt(total), email_captured: true });
+      // Dispatch custom event for abandon-tracking.js
+      window.dispatchEvent(new CustomEvent('lbm:calculator_completed'));
       // FB Pixel Lead event — UNCOMMENT WHEN PIXEL IS INSTALLED
       // if (typeof fbq === 'function') fbq('track', 'Lead', { value: total, currency: 'USD', content_name: 'Calculator Lead' });
       // Inject script tag — Mailchimp natively supports this JSONP pattern
@@ -1376,6 +1380,13 @@
           window._mcScript.parentNode.removeChild(window._mcScript);
         }
       }, 8000);
+    }
+
+    // Set persistent known-contact cookie for abandon tracking (90-day expiry)
+    if (email) {
+      var expires = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = 'lbm_known_email=' + encodeURIComponent(email) +
+        ';expires=' + expires + ';path=/;SameSite=Lax;Secure';
     }
 
     // Hide gate, show results

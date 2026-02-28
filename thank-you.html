@@ -305,7 +305,10 @@
     page_path: '/thank-you.html',
     conversion_type: 'koalendar_booking'
   });
+  // Signal abandon-tracking that booking completed (clears booking-abandon timer)
+  window.dispatchEvent(new CustomEvent('lbm:booking_completed'));
 </script>
+<script src="/abandon-tracking.js" defer></script>
 
 </body>
 </html>
