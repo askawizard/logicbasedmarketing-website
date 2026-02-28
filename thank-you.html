@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WWQCMM9');</script>
+<!-- End Google Tag Manager -->
+<title>You're Booked! | Logic Based Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black:  #0a0a0a;
+    --dark:   #111111;
+    --card:   #161616;
+    --border: #1e1e1e;
+    --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10);
+    --text:   #efefef;
+    --muted:  #6b6b6b;
+    --white:  #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: center;
+    padding: 18px 48px;
+    background: rgba(10,10,10,0.92);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 13px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); }
+
+  /* ── HERO ── */
+  .ty-hero {
+    padding: 80px 24px 60px;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .ty-check {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(200,246,90,0.12); border: 2px solid rgba(200,246,90,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    animation: tyPop 0.5s ease;
+  }
+  .ty-check svg { width: 40px; height: 40px; fill: var(--accent); }
+  .ty-hero h1 {
+    font-size: clamp(28px, 5vw, 40px); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .ty-hero h1 span { color: var(--accent); }
+  .ty-hero p {
+    font-size: 16px; color: var(--muted); line-height: 1.7;
+    max-width: 520px; margin: 0 auto;
+  }
+
+  /* ── WHAT TO EXPECT ── */
+  .ty-expect {
+    padding: 0 24px 60px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .ty-expect h2 {
+    font-size: 20px; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 24px; text-align: center;
+  }
+  .ty-steps {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .ty-step {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .ty-step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(200,246,90,0.1); border: 1px solid rgba(200,246,90,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .ty-step-text h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .ty-step-text p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── PROOF SECTION ── */
+  .ty-proof {
+    padding: 60px 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--dark);
+  }
+  .ty-proof-inner {
+    max-width: 680px; margin: 0 auto; text-align: center;
+  }
+  .ty-proof-tag {
+    display: inline-block; background: rgba(200,246,90,0.1);
+    border: 1px solid rgba(200,246,90,0.25);
+    color: var(--accent); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .ty-proof h2 {
+    font-size: clamp(22px, 4vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 32px;
+  }
+  .ty-stats {
+    display: flex; justify-content: center; gap: 32px;
+    flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .ty-stat { text-align: center; }
+  .ty-stat-num {
+    display: block; font-size: 32px; font-weight: 900;
+    color: var(--accent); letter-spacing: -0.02em; line-height: 1;
+  }
+  .ty-stat-label {
+    display: block; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-top: 6px;
+  }
+
+  /* ── CASE STUDY PREVIEW ── */
+  .ty-case {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; text-align: left;
+    max-width: 560px; margin: 0 auto;
+  }
+  .ty-case-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  .ty-case h3 {
+    font-size: 16px; font-weight: 700; margin-bottom: 12px;
+  }
+  .ty-case p {
+    font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px;
+  }
+  .ty-case-stats {
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .ty-case-stat {
+    background: rgba(200,246,90,0.06); border: 1px solid rgba(200,246,90,0.15);
+    border-radius: 8px; padding: 10px 16px; text-align: center;
+  }
+  .ty-case-stat strong {
+    display: block; font-size: 18px; font-weight: 800; color: var(--accent);
+  }
+  .ty-case-stat span {
+    font-size: 10px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 24px;
+    text-align: center; font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  .footer-logo {
+    font-size: 13px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .footer-logo span { color: var(--white); }
+
+  @keyframes tyPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .ty-hero { padding: 60px 20px 40px; }
+    .ty-expect { padding: 0 20px 40px; }
+    .ty-step { padding: 16px 18px; gap: 12px; }
+    .ty-proof { padding: 40px 20px; }
+    .ty-stats { gap: 20px; }
+    .ty-case { padding: 20px; }
+    .ty-case-stats { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+</nav>
+
+<!-- HERO -->
+<section class="ty-hero">
+  <div class="ty-check">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </div>
+  <h1>You're <span>booked</span>.</h1>
+  <p>Check your email for the calendar invite with the Google Meet link. Tyler will be on the call personally — no assistants, no runaround.</p>
+</section>
+
+<!-- WHAT TO EXPECT -->
+<section class="ty-expect">
+  <h2>What happens next</h2>
+  <div class="ty-steps">
+    <div class="ty-step">
+      <div class="ty-step-num">1</div>
+      <div class="ty-step-text">
+        <h3>Check your inbox</h3>
+        <p>You'll get a calendar invite with a Google Meet link within a few minutes. If you don't see it, check spam.</p>
+      </div>
+    </div>
+    <div class="ty-step">
+      <div class="ty-step-num">2</div>
+      <div class="ty-step-text">
+        <h3>Show up with questions</h3>
+        <p>This isn't a pitch. It's a working session. Bring your biggest frustration with your marketing numbers and we'll dig in.</p>
+      </div>
+    </div>
+    <div class="ty-step">
+      <div class="ty-step-num">3</div>
+      <div class="ty-step-text">
+        <h3>Get real answers</h3>
+        <p>You'll leave the call knowing exactly where your revenue is leaking and what to do about it — whether you work with Tyler or not.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="ty-proof">
+  <div class="ty-proof-inner">
+    <div class="ty-proof-tag">Why founders trust this process</div>
+    <h2>The numbers behind the method</h2>
+
+    <div class="ty-stats">
+      <div class="ty-stat">
+        <span class="ty-stat-num">$3.7M</span>
+        <span class="ty-stat-label">Client savings identified</span>
+      </div>
+      <div class="ty-stat">
+        <span class="ty-stat-num">16x</span>
+        <span class="ty-stat-label">Net income growth</span>
+      </div>
+      <div class="ty-stat">
+        <span class="ty-stat-num">$50K+</span>
+        <span class="ty-stat-label">Guaranteed or free</span>
+      </div>
+    </div>
+
+    <!-- Case Study Card -->
+    <div class="ty-case">
+      <div class="ty-case-label">Case Study</div>
+      <h3>Prime USA Scales — E-Commerce</h3>
+      <p>Their ad platforms reported a $181 customer acquisition cost. The real blended CAC was $2,800. Tyler found $161K/month in recoverable losses within 30 days — and grew net income 16x.</p>
+      <div class="ty-case-stats">
+        <div class="ty-case-stat">
+          <strong>$161K/mo</strong>
+          <span>Losses found</span>
+        </div>
+        <div class="ty-case-stat">
+          <strong>$181 → $2,800</strong>
+          <span>Real vs reported CAC</span>
+        </div>
+        <div class="ty-case-stat">
+          <strong>30 days</strong>
+          <span>Time to findings</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Logic<span>Based</span> Marketing</div>
+  <p style="margin-top:8px;">Revenue Intelligence for $3M-$10M founder-led businesses</p>
+  <p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="/calculator.html">Revenue Leak Calculator</a> &nbsp;·&nbsp; <a href="/blog.html">Blog</a> &nbsp;·&nbsp; <a href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a></p>
+  <p style="margin-top:12px;"><a href="https://www.facebook.com/profile.php?id=61586913237446" target="_blank">Facebook</a> &nbsp;·&nbsp; <a href="https://x.com/TheWizardSpoke" target="_blank">X</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/tyler-sass-85237b97/" target="_blank">LinkedIn</a></p>
+  <p style="margin-top:16px;">&copy; 2026 Logic Based Marketing &middot; Tyler Sass</p>
+</footer>
+
+<!-- CONVERSION TRACKING: Fire Schedule event for FB Pixel via GTM -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'booking_completed',
+    page_path: '/thank-you.html',
+    conversion_type: 'koalendar_booking'
+  });
+</script>
+
+</body>
+</html>
