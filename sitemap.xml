@@ -124,6 +124,13 @@
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://logicbasedmarketing.com/privacy.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
   <!-- AwardsBait -->
   <url>
     <loc>https://logicbasedmarketing.com/blog/best-tools-fractional-cro-revops.html</loc>

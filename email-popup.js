@@ -83,6 +83,7 @@
     shown = true;
     window.lbm.popupVisible = true;
     document.body.appendChild(overlay);
+    pushEvent('popup_shown');
     // Force reflow then add class
     overlay.offsetHeight;
     overlay.classList.add('active');
@@ -114,12 +115,26 @@
   }
   window.addEventListener('scroll', onScroll);
 
+  // GTM dataLayer push
+  function pushEvent(event, params) {
+    window.dataLayer = window.dataLayer || [];
+    var data = { event: event, page_path: window.location.pathname };
+    if (params) {
+      for (var k in params) {
+        if (params.hasOwnProperty(k)) data[k] = params[k];
+      }
+    }
+    window.dataLayer.push(data);
+  }
+
   // Close handlers
   document.addEventListener('click', function(e) {
     if (e.target.id === 'lbm-popup-close' || e.target.id === 'lbm-popup-overlay') {
+      pushEvent('popup_dismissed');
       closePopup(7, false);
     }
     if (e.target.id === 'lbm-popup-cta') {
+      pushEvent('popup_cta_clicked', { destination: '/calculator.html' });
       closePopup(30, true);
     }
   });
