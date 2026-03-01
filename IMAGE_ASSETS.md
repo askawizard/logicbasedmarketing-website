@@ -182,7 +182,7 @@ The existing `headshot.jpg` (800×800px) should have derivatives for different c
 
 ### Priority Tier 6: Case Study Visuals
 
-Redacted screenshots and before/after comparisons add credibility to "Prime USA Scales" references.
+Redacted screenshots and before/after comparisons add credibility to "[ANONYMIZED CLIENT]" references.
 
 **Why:** "We found $161K/month in losses" is stronger with visual evidence. Screenshots (redacted) > testimonial text.
 
@@ -355,7 +355,7 @@ Create 5–7 icons representing the Logic Based Marketing process:
 
 ## Questions for Tyler
 
-1. **Case Study Screenshots:** Do you have redacted dashboard/conversion funnel screenshots from Prime USA Scales? These would dramatically improve credibility.
+1. **Case Study Screenshots:** Do you have redacted dashboard/conversion funnel screenshots from [ANONYMIZED CLIENT]? These would dramatically improve credibility.
 2. **Tyler Headshot:** Want a professional photo shoot to create multiple variants (wide, square, vertical) for different page contexts?
 3. **Animation Budget:** Are animated GIFs or SVG animations acceptable for data viz? (Can increase engagement by 10–15%.)
 4. **Color Variants:** Any reason not to use lime accent (#c8f65a) in infographics, or prefer white/gray neutrality?
