@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Remove www (canonical to non-www)
+RewriteCond %{HTTP_HOST} ^www\.logicbasedmarketing\.com$ [NC]
+RewriteRule ^(.*)$ https://logicbasedmarketing.com/$1 [R=301,L]
+
+# Serve .html files without the extension
+# If the request doesn't have an extension and a .html file exists, serve it
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
