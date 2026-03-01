@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /pricing.html
 Disallow: /one-pager.html
 Disallow: /proposal.html
+Disallow: /assets/ig/
 
 Sitemap: https://logicbasedmarketing.com/sitemap.xml
