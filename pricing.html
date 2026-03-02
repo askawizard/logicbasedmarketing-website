@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing. Logic Based Marketing</title>
+    <title>How It Works. Logic Based Marketing</title>
     <style>
         * {
             margin: 0;
@@ -73,17 +73,13 @@
             margin-bottom: 12px;
         }
 
-        .price {
-            font-size: 36px;
-            font-weight: 700;
+        .tier-label {
+            font-size: 12px;
+            font-weight: 600;
             color: #c8f65a;
-            margin-bottom: 4px;
-        }
-
-        .price-period {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 24px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .tier-description {
@@ -110,7 +106,7 @@
         }
 
         .features li:before {
-            content: "✓ ";
+            content: "\2713 ";
             color: #c8f65a;
             font-weight: 600;
             margin-right: 8px;
@@ -262,10 +258,6 @@
                 gap: 24px;
             }
 
-            .price {
-                font-size: 28px;
-            }
-
             .roi-section,
             .final-cta {
                 padding: 32px 20px;
@@ -278,14 +270,13 @@
         <header>
             <h1>I'll Find You $50,000 In Wasted Ad Spend.</h1>
             <p class="intro">Every engagement starts with the $500 Challenge. I calculate your real blended CAC using your accounting data and your sales platform. No pixels. No attribution models. Just math your CPA already verified.</p>
-            <p style="font-size: 16px; color: #888; margin-top: 16px;">If I don't find $50K+, full refund. If I do, your $500 becomes credit toward any package below.</p>
+            <p style="font-size: 16px; color: #888; margin-top: 16px;">If I don't find $50K+, full refund. If I do, your deposit becomes credit toward any package.</p>
         </header>
 
         <!-- $500 Challenge -->
         <div style="background: #1a1a1a; border: 2px solid #c8f65a; border-radius: 8px; padding: 40px; margin: 60px 0 20px; text-align: center;">
-            <div style="font-size: 12px; font-weight: 600; color: #c8f65a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Step 1 — Every Engagement Starts Here</div>
+            <div style="font-size: 12px; font-weight: 600; color: #c8f65a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Step 1. Every Engagement Starts Here</div>
             <div style="font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px;">The $500 Challenge</div>
-            <div style="font-size: 36px; font-weight: 700; color: #c8f65a; margin: 16px 0;">$500</div>
             <p style="color: #a0a0a0; max-width: 500px; margin: 0 auto 24px; font-size: 15px;">Pull two reports. Show up. I calculate your real blended CAC using your accounting data and your sales platform. You see the gap between what your vendors claim and what your bank account says. In real dollars, by vendor. Everyone else argues about pixels. I just look at the checkbook.</p>
             <div class="guarantee" style="max-width: 500px; margin: 0 auto 24px;">
                 Guarantee: If I don't find at least $50,000 in recoverable losses, you get a full refund. No questions asked.
@@ -294,17 +285,16 @@
         </div>
 
         <div style="text-align: center; margin: 40px 0 60px;">
-            <div style="font-size: 14px; color: #666;">↓ After the Challenge, pick the level of support you need ↓</div>
+            <div style="font-size: 14px; color: #666;">After the Challenge, pick the level of support you need. Pricing is discussed on your call.</div>
         </div>
 
         <div class="pricing-grid">
             <!-- Tier 1: The Money CAC30 Report -->
             <div class="tier">
+                <div class="tier-label">Self-Implement</div>
                 <div class="tier-name">The Money CAC30 Report</div>
-                <div class="price">$1,000</div>
-                <div class="price-period">One-time · <span style="color: #c8f65a;">$500 after Challenge credit</span></div>
                 <p class="tier-description">
-                    You want the findings and the plan — you'll implement it yourself or hand it to your team.
+                    You want the findings and the plan. You'll implement it yourself or hand it to your team.
                 </p>
                 <ul class="features">
                     <li>Written CAC30 report with every leak and dollar amount</li>
@@ -319,9 +309,8 @@
             <!-- Tier 2: The Money Machine Leak Finder (HIGHLIGHTED) -->
             <div class="tier" style="border-color: #c8f65a; box-shadow: 0 0 20px rgba(200, 246, 90, 0.15);">
                 <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #c8f65a; color: #000; font-size: 11px; font-weight: 700; padding: 4px 16px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">Most Popular</div>
+                <div class="tier-label">Done For You</div>
                 <div class="tier-name">The Money Machine Leak Finder</div>
-                <div class="price">$5,000</div>
-                <div class="price-period">One-time · <span style="color: #c8f65a;">$4,500 after Challenge credit</span></div>
                 <p class="tier-description">
                     The Challenge FINDS the waste. This GETS it back. I install the CAC30 system in your business, run the experiments, train your team. $50K in savings in 60 days, or I work free until we hit it. My time is the collateral.
                 </p>
@@ -339,9 +328,8 @@
 
             <!-- Tier 3: The In-House CAC30 Implementation -->
             <div class="tier">
+                <div class="tier-label">Full Integration</div>
                 <div class="tier-name">The In-House CAC30 Implementation</div>
-                <div class="price">$25,000+</div>
-                <div class="price-period">One-time · $25K local (Vegas), $50K national · <span style="color: #c8f65a;">$500 credit applied</span></div>
                 <p class="tier-description">
                     I become your fractional CRO. In your building, with your team. I don't teach the system. I run it. Your entire revenue operation, optimized.
                 </p>
@@ -352,7 +340,7 @@
                     <li>Custom dashboards and real-time CAC30 reporting</li>
                     <li>Vendor management and accountability</li>
                     <li>Team training on the CAC30 system</li>
-                    <li>Priority access — I'm on your team</li>
+                    <li>Priority access. I'm on your team</li>
                 </ul>
                 <a href="https://logicbasedmarketing.com/calculator.html" class="cta-button">Start with the $500 Challenge</a>
             </div>
@@ -361,10 +349,10 @@
         <div class="roi-section">
             <h2>The Math</h2>
             <p>
-                The $500 Challenge costs <span class="roi-highlight">$500</span>. If we find the leaks, that $500 becomes credit. Our largest finding to date is <span class="roi-highlight">$161K/month in recoverable losses</span>. At $5,000 for the Leak Finder — with a guarantee I'll GET you $50K in savings — the ROI is measured in weeks, not months.
+                Our largest finding to date is <span class="roi-highlight">$161K/month in recoverable losses</span>. One client was spending $2,800 per customer and their dashboard said $181. Finding that gap changed the entire trajectory of the business.
             </p>
             <p style="margin-top: 16px;">
-                One client was spending $2,800 per customer and their dashboard said $181. <span class="roi-highlight">Finding that gap paid for 32× the cost of the engagement.</span>
+                The $500 Challenge is designed to show you a gap like this in your business. If the gap exists, we'll walk through exactly how to close it on the call.
             </p>
         </div>
 
@@ -372,9 +360,9 @@
             <h2>Frequently Asked Questions</h2>
 
             <div class="faq-item">
-                <div class="faq-question">What happens to my $500 after the Challenge?</div>
+                <div class="faq-question">What happens after the $500 Challenge?</div>
                 <div class="faq-answer">
-                    If we find $50K+ in recoverable losses, your $500 becomes store credit toward any package. If we don't find $50K+, you get a full cash refund. The only requirements are that you provide the requested data exports and attend the findings session.
+                    If we find $50K+ in recoverable losses, your $500 becomes credit toward any package. If we don't find $50K+, you get a full cash refund. The only requirements are that you provide the requested data exports and attend the findings session. On the findings call, we walk through the results and discuss which level of support makes sense for your business.
                 </div>
             </div>
 
@@ -386,28 +374,28 @@
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">What's the difference between the CAC30 Report and the Leak Finder?</div>
+                <div class="faq-question">What's the difference between the packages?</div>
                 <div class="faq-answer">
-                    The Money CAC30 Report tells you what's broken and how to fix it — you implement it yourself. The Money Machine Leak Finder means I do it for you: 8 weeks, weekly calls, CAC30 system installed, experimentation model running, and a guarantee I'll GET you $50K in savings or I work free until I do.
+                    The CAC30 Report tells you what's broken and how to fix it. You implement it yourself. The Leak Finder means I do it for you: hands-on implementation, weekly calls, the CAC30 system installed, and a guarantee on results. The In-House Implementation means I'm in your building running your revenue operation as your fractional CRO. We'll discuss pricing and fit on your call.
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Do I need a long-term commitment?</div>
                 <div class="faq-answer">
-                    No. The Challenge is one session. The CAC30 Report and Leak Finder are one-time engagements with defined deliverables. The In-House Implementation is project-based. Nothing auto-renews. Continuity is always optional and pitched separately.
+                    No. The Challenge is one session. Every other engagement is project-based with defined deliverables. Nothing auto-renews. Continuity is always optional and discussed separately.
                 </div>
             </div>
         </div>
 
         <div class="final-cta">
             <h2>Your Ad Platform Says You're Profitable. Your Bank Account Disagrees.</h2>
-            <p>The $500 Challenge finds out why. And it becomes credit if you want to fix it.</p>
+            <p>The $500 Challenge finds out why. And your deposit becomes credit if you want to fix it.</p>
             <a href="https://logicbasedmarketing.com/calculator.html" class="cta-button" style="width: auto; padding: 14px 40px;">Book Your $500 Challenge</a>
         </div>
 
         <footer>
-            <p>Logic Based Marketing. Revenue operations for $3M–$10M founder-led businesses. &nbsp;&middot;&nbsp; <a href="/privacy.html" style="color:inherit;">Privacy Policy</a></p>
+            <p>Logic Based Marketing. Revenue operations for $3M to $10M founder-led businesses. &nbsp;&middot;&nbsp; <a href="/privacy.html" style="color:inherit;">Privacy Policy</a></p>
             <p style="margin-top:8px;font-size:11px;color:#444;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.5;">Results referenced on this site reflect specific client engagements and are not guaranteed. Individual results vary based on industry, data quality, and business model.</p>
             <p style="margin-top:8px;"><a href="https://www.facebook.com/profile.php?id=61586913237446" target="_blank" style="color:inherit;text-decoration:none;">Facebook</a> · <a href="https://x.com/TheWizardSpoke" target="_blank" style="color:inherit;text-decoration:none;">X</a> · <a href="https://www.linkedin.com/in/tyler-sass-85237b97/" target="_blank" style="color:inherit;text-decoration:none;">LinkedIn</a></p>
         </footer>

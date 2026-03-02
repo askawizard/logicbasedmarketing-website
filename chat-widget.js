@@ -31,7 +31,7 @@
   window.lbm = window.lbm || {};
 
   // Excluded pages (sales tools)
-  var EXCLUDED = ['/one-pager.html', '/pricing.html', '/proposal.html'];
+  var EXCLUDED = ['/one-pager.html', '/pricing.html', '/proposal.html', '/calculator.html', '/calculator-landing.html'];
   var path = window.location.pathname;
   for (var i = 0; i < EXCLUDED.length; i++) {
     if (path.indexOf(EXCLUDED[i]) !== -1) return;
