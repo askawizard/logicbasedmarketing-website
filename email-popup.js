@@ -38,16 +38,16 @@
   overlay.innerHTML = [
     '<div id="lbm-popup">',
     '  <button id="lbm-popup-close" aria-label="Close">&times;</button>',
-    '  <div class="lbm-popup-tag">FREE TOOL</div>',
-    '  <h2>How much is your business silently losing?</h2>',
-    '  <p>90 seconds. 7 questions. Get your estimated blended CAC — then book a free call to verify it against your real data.</p>',
+    '  <div class="lbm-popup-tag">FREE IN 90 SECONDS</div>',
+    '  <h2>Your ad platforms say it\'s working. Your bank account says it\'s not.</h2>',
+    '  <p>Most businesses are paying 5 to 15x more per customer than their dashboards show. 7 real questions. 90 seconds. See the gap between what vendors report and what you actually pay.</p>',
     '  <div class="lbm-popup-stats">',
-    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">$161K</span><span class="lbm-popup-label">found in 30 days</span></div>',
-    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">16&times;</span><span class="lbm-popup-label">net income growth</span></div>',
-    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">Free</span><span class="lbm-popup-label">no strings attached</span></div>',
+    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">$161K</span><span class="lbm-popup-label">waste found in 30 days</span></div>',
+    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">15.5&times;</span><span class="lbm-popup-label">real vs. reported CAC</span></div>',
+    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">Free</span><span class="lbm-popup-label">no email required</span></div>',
     '  </div>',
-    '  <a href="/calculator.html" id="lbm-popup-cta">Run the Free Blended CAC Calculator &rarr;</a>',
-    '  <div class="lbm-popup-sub">Free. No email required. Takes 90 seconds.</div>',
+    '  <a href="/calculator" id="lbm-popup-cta">Calculate Your Real Blended CAC &rarr;</a>',
+    '  <div class="lbm-popup-sub">Then book a free 15-minute call to verify it against your real numbers.</div>',
     '</div>'
   ].join('\n');
 
