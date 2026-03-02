@@ -40,13 +40,13 @@
     '  <button id="lbm-popup-close" aria-label="Close">&times;</button>',
     '  <div class="lbm-popup-tag">FREE TOOL</div>',
     '  <h2>How much is your business silently losing?</h2>',
-    '  <p>90 seconds. 7 questions. Get your estimated revenue leak — then book a free call to verify it against your real data.</p>',
+    '  <p>90 seconds. 7 questions. Get your estimated blended CAC — then book a free call to verify it against your real data.</p>',
     '  <div class="lbm-popup-stats">',
     '    <div class="lbm-popup-stat"><span class="lbm-popup-num">$161K</span><span class="lbm-popup-label">found in 30 days</span></div>',
     '    <div class="lbm-popup-stat"><span class="lbm-popup-num">16&times;</span><span class="lbm-popup-label">net income growth</span></div>',
-    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">$50K+</span><span class="lbm-popup-label">guaranteed or free</span></div>',
+    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">Free</span><span class="lbm-popup-label">no strings attached</span></div>',
     '  </div>',
-    '  <a href="/calculator.html" id="lbm-popup-cta">Run the Free Revenue Leak Calculator &rarr;</a>',
+    '  <a href="/calculator.html" id="lbm-popup-cta">Run the Free Blended CAC Calculator &rarr;</a>',
     '  <div class="lbm-popup-sub">Free. No email required. Takes 90 seconds.</div>',
     '</div>'
   ].join('\n');
