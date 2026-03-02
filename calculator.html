@@ -258,6 +258,18 @@
     margin-top: 4px;
   }
 
+  .skip-option {
+    border-style: dashed;
+    opacity: 0.7;
+  }
+  .skip-option:hover {
+    opacity: 1;
+  }
+  .skip-option.selected {
+    opacity: 1;
+    border-style: solid;
+  }
+
   /* ── NUMBER INPUTS ── */
   .input-wrap {
     position: relative;
@@ -935,16 +947,18 @@
     </div>
   </div>
 
-  <!-- Q1: MONTHLY REVENUE RANGE -->
+  <!-- Q1: MONTHLY REVENUE (REQUIRED) -->
   <div class="question-card active" id="q1">
     <div class="q-number">Question 01</div>
     <div class="q-text">What's your business's approximate monthly revenue?</div>
-    <div class="q-hint">This helps us scale the estimates to your actual business size.</div>
+    <div class="q-hint">From your P&L or ecommerce platform — a verified source, not estimates.</div>
     <div class="select-wrap">
       <select class="select-input" id="q1-select" onchange="selectDropdown(this)">
         <option value="">Select a range...</option>
-        <option value="325000" data-q="1">$250K – $400K per month</option>
-        <option value="600000" data-q="1">$400K – $800K per month</option>
+        <option value="100000" data-q="1">$50K – $150K per month</option>
+        <option value="225000" data-q="1">$150K – $300K per month</option>
+        <option value="400000" data-q="1">$300K – $500K per month</option>
+        <option value="650000" data-q="1">$500K – $800K per month</option>
         <option value="1000000" data-q="1">$800K – $1.25M per month</option>
         <option value="1500000" data-q="1">$1.25M+ per month</option>
       </select>
@@ -958,43 +972,114 @@
   <div class="question-card" id="q2">
     <div class="q-number">Question 02</div>
     <div class="q-text">How much does your business spend per month on marketing and sales?</div>
-    <div class="q-hint">Include: ad spend, agency fees, marketing tools, sales team costs, software subscriptions. Everything that goes toward acquiring customers.</div>
-    <div class="input-wrap">
-      <span class="input-prefix">$</span>
-      <input type="number" class="number-input" id="q2-input" placeholder="e.g. 25000" onchange="validateQ2()">
+    <div class="q-hint">Total: ad spend + agencies + tools + team costs. Everything that goes toward acquiring customers.</div>
+    <div class="options">
+      <button class="option" data-q="2" data-val="3500" data-label="Under $5K/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">Under $5K / month</div><div class="option-sub">Light spend — early stage or organic-heavy</div></div>
+      </button>
+      <button class="option" data-q="2" data-val="10000" data-label="$5K-$15K/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$5K – $15K / month</div><div class="option-sub">Moderate spend across a few channels</div></div>
+      </button>
+      <button class="option" data-q="2" data-val="22000" data-label="$15K-$30K/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$15K – $30K / month</div><div class="option-sub">Active paid acquisition + some team costs</div></div>
+      </button>
+      <button class="option" data-q="2" data-val="45000" data-label="$30K-$60K/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$30K – $60K / month</div><div class="option-sub">Significant budget across multiple channels</div></div>
+      </button>
+      <button class="option" data-q="2" data-val="80000" data-label="$60K-$100K/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$60K – $100K / month</div><div class="option-sub">Serious acquisition engine with team + agencies</div></div>
+      </button>
+      <button class="option" data-q="2" data-val="125000" data-label="$100K+/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$100K+ / month</div><div class="option-sub">Heavy spend — full marketing department or multiple agencies</div></div>
+      </button>
+      <button class="option skip-option" data-q="2" data-val="skip" data-label="Skipped" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">I'm not sure — skip this</div><div class="option-sub">We'll estimate based on your revenue</div></div>
+      </button>
     </div>
     <div class="q-nav">
       <button class="btn-back" onclick="goBack(1)">← Back</button>
-      <button class="btn-next" id="next2" onclick="goNext(3)" disabled>Next →</button>
+      <button class="btn-next" id="next2" onclick="goNext(3)">Next →</button>
     </div>
   </div>
 
-  <!-- Q3: NEW CUSTOMERS PER MONTH -->
+  <!-- Q3: ESTIMATED AVG ROAS -->
   <div class="question-card" id="q3">
     <div class="q-number">Question 03</div>
-    <div class="q-text">How many new paying customers does your business acquire per month?</div>
-    <div class="q-hint">Count actual new customers who paid, not leads or prospects.</div>
-    <div class="input-wrap">
-      <input type="number" class="number-input" id="q3-input" placeholder="e.g. 15" onchange="validateQ3()">
+    <div class="q-text">What's your estimated average ROAS across all your ad platforms?</div>
+    <div class="q-hint">If you run ads on Meta, Google, TikTok, etc. — what's the average return on ad spend they report?</div>
+    <div class="options">
+      <button class="option" data-q="3" data-val="1.5" data-label="Under 2x ROAS" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">Under 2x</div><div class="option-sub">Spending $1, platforms say you get less than $2 back</div></div>
+      </button>
+      <button class="option" data-q="3" data-val="2.5" data-label="2x-3x ROAS" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">2x – 3x</div><div class="option-sub">Spending $1, platforms say you get $2–$3 back</div></div>
+      </button>
+      <button class="option" data-q="3" data-val="4" data-label="3x-5x ROAS" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">3x – 5x</div><div class="option-sub">Platforms claim strong returns on your ad spend</div></div>
+      </button>
+      <button class="option" data-q="3" data-val="6.5" data-label="5x-8x ROAS" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">5x – 8x</div><div class="option-sub">Platforms claim very high returns</div></div>
+      </button>
+      <button class="option" data-q="3" data-val="10" data-label="8x+ ROAS" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">8x+</div><div class="option-sub">Platforms say you're getting exceptional returns</div></div>
+      </button>
+      <button class="option skip-option" data-q="3" data-val="skip" data-label="Skipped" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">I don't track ROAS — skip this</div><div class="option-sub">That's actually important data to have</div></div>
+      </button>
     </div>
     <div class="q-nav">
       <button class="btn-back" onclick="goBack(2)">← Back</button>
-      <button class="btn-next" id="next3" onclick="goNext(4)" disabled>Next →</button>
+      <button class="btn-next" id="next3" onclick="goNext(4)">Next →</button>
     </div>
   </div>
 
-  <!-- Q4: PLATFORM-REPORTED CAC (WITH OPT-OUT) -->
+  <!-- Q4: ESTIMATED AVG CPA -->
   <div class="question-card" id="q4">
     <div class="q-number">Question 04</div>
-    <div class="q-text">What does your best-performing ad platform say your cost per acquisition is?</div>
-    <div class="q-hint">Check your Google Ads, Meta, or other ad platform dashboard. What's the CAC they report?</div>
-    <div class="input-wrap">
-      <span class="input-prefix">$</span>
-      <input type="number" class="number-input" id="q4-input" placeholder="e.g. 181" onchange="validateQ4()">
-    </div>
-    <div class="checkbox-wrap" id="q4-check-wrap">
-      <input type="checkbox" class="checkbox-input" id="q4-checkbox" onchange="toggleQ4Checkbox()">
-      <label class="checkbox-label" for="q4-checkbox">I don't know my platform CAC (we'll use $200 industry average)</label>
+    <div class="q-text">What's your estimated average cost per acquisition across all ad platforms?</div>
+    <div class="q-hint">What do your ad platforms report as the cost to acquire one customer? Average it across platforms.</div>
+    <div class="options">
+      <button class="option" data-q="4" data-val="35" data-label="Under $50 CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">Under $50</div><div class="option-sub">Very low acquisition costs per platform</div></div>
+      </button>
+      <button class="option" data-q="4" data-val="100" data-label="$50-$150 CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$50 – $150</div><div class="option-sub">Moderate CPA across platforms</div></div>
+      </button>
+      <button class="option" data-q="4" data-val="225" data-label="$150-$300 CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$150 – $300</div><div class="option-sub">Higher CPA — common in B2B or high-ticket</div></div>
+      </button>
+      <button class="option" data-q="4" data-val="400" data-label="$300-$500 CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$300 – $500</div><div class="option-sub">Significant cost per customer</div></div>
+      </button>
+      <button class="option" data-q="4" data-val="750" data-label="$500-$1,000 CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$500 – $1,000</div><div class="option-sub">High cost — typical for enterprise or luxury</div></div>
+      </button>
+      <button class="option" data-q="4" data-val="1500" data-label="$1,000+ CPA" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">$1,000+</div><div class="option-sub">Very high cost — complex or long sales cycles</div></div>
+      </button>
+      <button class="option skip-option" data-q="4" data-val="skip" data-label="Skipped" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">I don't know my CPA — skip this</div><div class="option-sub">Most businesses can't answer this either</div></div>
+      </button>
     </div>
     <div class="q-nav">
       <button class="btn-back" onclick="goBack(3)">← Back</button>
@@ -1002,27 +1087,39 @@
     </div>
   </div>
 
-  <!-- Q5: HIDDEN COST AWARENESS -->
+  <!-- Q5: NEW CUSTOMERS PER MONTH -->
   <div class="question-card" id="q5">
     <div class="q-number">Question 05</div>
-    <div class="q-text">Which of these costs do you include when you calculate your customer acquisition cost?</div>
-    <div class="q-hint">Most businesses only count ad spend. Your real cost is much higher.</div>
+    <div class="q-text">How many new paying customers does your business acquire per month?</div>
+    <div class="q-hint">Count actual new customers who paid. Not leads, not trials, not quotes sent.</div>
     <div class="options">
-      <button class="option" data-q="5" data-val="1.8" data-label="Just ad spend" onclick="selectOption(this)">
+      <button class="option" data-q="5" data-val="3" data-label="1-5 customers/mo" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Just ad spend</div><div class="option-sub">Ad platform costs only, nothing else</div></div>
+        <div><div class="option-text">1 – 5</div><div class="option-sub">Low volume, high-ticket or early stage</div></div>
       </button>
-      <button class="option" data-q="5" data-val="1.5" data-label="Ad spend + agency fees" onclick="selectOption(this)">
+      <button class="option" data-q="5" data-val="10" data-label="6-15 customers/mo" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Ad spend + agency fees</div><div class="option-sub">We add in what we pay agencies</div></div>
+        <div><div class="option-text">6 – 15</div><div class="option-sub">Moderate acquisition pace</div></div>
       </button>
-      <button class="option" data-q="5" data-val="1.2" data-label="Ad spend + agency + tools + some payroll" onclick="selectOption(this)">
+      <button class="option" data-q="5" data-val="23" data-label="16-30 customers/mo" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Ad spend + agency + tools + some payroll</div><div class="option-sub">We factor in marketing software and partial team costs</div></div>
+        <div><div class="option-text">16 – 30</div><div class="option-sub">Healthy growth engine</div></div>
       </button>
-      <button class="option" data-q="5" data-val="1.0" data-label="Everything: ads, tools, payroll, overhead, fulfillment" onclick="selectOption(this)">
+      <button class="option" data-q="5" data-val="50" data-label="31-75 customers/mo" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Everything: ads, tools, payroll, overhead, fulfillment</div><div class="option-sub">We count the true cost of getting and serving a customer</div></div>
+        <div><div class="option-text">31 – 75</div><div class="option-sub">Strong acquisition across channels</div></div>
+      </button>
+      <button class="option" data-q="5" data-val="112" data-label="75-150 customers/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">75 – 150</div><div class="option-sub">High volume operation</div></div>
+      </button>
+      <button class="option" data-q="5" data-val="200" data-label="150+ customers/mo" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">150+</div><div class="option-sub">Major volume — ecommerce or scale operation</div></div>
+      </button>
+      <button class="option skip-option" data-q="5" data-val="skip" data-label="Skipped" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">I don't know — skip this</div><div class="option-sub">We'll estimate from your other answers</div></div>
       </button>
     </div>
     <div class="q-nav">
@@ -1031,27 +1128,31 @@
     </div>
   </div>
 
-  <!-- Q6: ATTRIBUTION CONFIDENCE -->
+  <!-- Q6: MARKETING TOOLS & VENDORS -->
   <div class="question-card" id="q6">
     <div class="q-number">Question 06</div>
-    <div class="q-text">Do you know which marketing channels are actually profitable, not just which bring revenue?</div>
-    <div class="q-hint">Revenue and profit are different. A channel can drive many orders but lose money once you factor in real unit economics.</div>
+    <div class="q-text">How many marketing tools, agencies, or vendors do you pay for?</div>
+    <div class="q-hint">Count everything: ad platforms, email tools, CRM, agencies, freelancers, analytics, subscriptions. All of it.</div>
     <div class="options">
-      <button class="option" data-q="6" data-val="0.05" data-label="Yes, we track profitability by channel" onclick="selectOption(this)">
+      <button class="option" data-q="6" data-val="1.3" data-label="1-2 tools/vendors" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Yes, we track profitability by channel</div><div class="option-sub">We know exactly which channels make us money</div></div>
+        <div><div class="option-text">1 – 2</div><div class="option-sub">Lean setup — minimal overhead</div></div>
       </button>
-      <button class="option" data-q="6" data-val="0.15" data-label="Sort of, we see revenue but not true profit per channel" onclick="selectOption(this)">
+      <button class="option" data-q="6" data-val="1.5" data-label="3-5 tools/vendors" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Sort of, we see revenue but not true profit per channel</div><div class="option-sub">We know what's coming in, not what it costs us</div></div>
+        <div><div class="option-text">3 – 5</div><div class="option-sub">Typical small marketing stack</div></div>
       </button>
-      <button class="option" data-q="6" data-val="0.25" data-label="Not really, we look at total spend vs total revenue" onclick="selectOption(this)">
+      <button class="option" data-q="6" data-val="1.7" data-label="6-10 tools/vendors" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">Not really, we look at total spend vs total revenue</div><div class="option-sub">We see the overall picture but not channel by channel</div></div>
+        <div><div class="option-text">6 – 10</div><div class="option-sub">Growing stack — costs add up fast</div></div>
       </button>
-      <button class="option" data-q="6" data-val="0.35" data-label="No, we couldn't tell you" onclick="selectOption(this)">
+      <button class="option" data-q="6" data-val="1.9" data-label="11-20 tools/vendors" onclick="selectOption(this)">
         <div class="option-dot"></div>
-        <div><div class="option-text">No, we couldn't tell you</div><div class="option-sub">We know we're spending on marketing, we assume it's working</div></div>
+        <div><div class="option-text">11 – 20</div><div class="option-sub">Large stack — significant hidden overhead</div></div>
+      </button>
+      <button class="option" data-q="6" data-val="2.2" data-label="20+ tools/vendors" onclick="selectOption(this)">
+        <div class="option-dot"></div>
+        <div><div class="option-text">20+</div><div class="option-sub">Enterprise-level stack — major cost center most ignore</div></div>
       </button>
     </div>
     <div class="q-nav">
@@ -1170,7 +1271,7 @@
     <div class="gap-card">
       <div class="gap-row">
         <div class="gap-item">
-          <div class="gap-label">Platform Says</div>
+          <div class="gap-label">Platforms Report</div>
           <div class="gap-number" id="gap-platform">$0</div>
         </div>
         <div class="gap-item right">
@@ -1212,10 +1313,10 @@
 
     <!-- CTA -->
     <div class="cta-card">
-      <h2>Want Your Real Number? Not an Estimate.</h2>
-      <p>This calculator uses your estimates. On a free 15-minute call, I pull your actual data from 7 sources, calculate your precise blended CAC, and show you exactly where the gap is. No cost. No obligation. Just your real numbers.</p>
-      <a href="https://koalendar.com/e/revenue-challenge" class="cta-btn">Book a Free 15-Minute Call →</a>
-      <div class="cta-guarantee">Free · 15 minutes · Your real blended CAC from actual data · No obligation</div>
+      <h2>You Found the Gap. Now Find Exactly Who's Lying.</h2>
+      <p>This calculator uses your estimates. The $500 Challenge uses your real numbers. Pull two reports (ad spend + sales data). I calculate your real blended CAC live and show you the gap by vendor. You see exactly which channels make money and which ones lose it. If I don't find $50K+ in recoverable losses, full refund.</p>
+      <a href="https://koalendar.com/e/revenue-challenge" class="cta-btn">Book the $500 Challenge →</a>
+      <div class="cta-guarantee">$500 · Find $50K+ or full refund · Your $500 becomes credit toward any package</div>
     </div>
 
     <button class="reset-btn" onclick="resetCalc()">← Start Over</button>
@@ -1249,14 +1350,15 @@
   <input type="text"  name="WEBSITE"  id="mc-WEBSITE" value="">
   <input type="text"  name="REVENUE"  id="mc-REVENUE" value="">
   <input type="text"  name="MKTSPEND" id="mc-MKTSPEND" value="">
+  <input type="text"  name="AVGROAS"  id="mc-AVGROAS" value="">
+  <input type="text"  name="AVGCPA"   id="mc-AVGCPA"  value="">
   <input type="text"  name="NEWCUSTS" id="mc-NEWCUSTS" value="">
-  <input type="text"  name="PLATCAC" id="mc-PLATCAC" value="">
-  <input type="text"  name="HIDCOSTS" id="mc-HIDCOSTS" value="">
-  <input type="text"  name="ATTRGAP" id="mc-ATTRGAP" value="">
+  <input type="text"  name="VENDORS"  id="mc-VENDORS" value="">
   <input type="text"  name="BIZAGE"   id="mc-BIZAGE"  value="">
   <input type="text"  name="REALCAC"  id="mc-REALCAC" value="">
   <input type="text"  name="CACGAP"   id="mc-CACGAP"  value="">
   <input type="text"  name="LEAKAMT"  id="mc-LEAKAMT" value="">
+  <input type="text"  name="SKIPPED"  id="mc-SKIPPED" value="">
   <div style="position:absolute;left:-5000px;" aria-hidden="true">
     <input type="text" name="b_b4333ac3c716522ceb71c266e_0734806408" tabindex="-1" value="">
   </div>
@@ -1267,6 +1369,7 @@
   
   const answers = {};
   const answerLabels = {};
+  const skipped = {};
 
   // Helper: format number as currency
   function fmt(n) {
@@ -1320,74 +1423,29 @@
     }
   }
 
-  // Q2: Validate marketing spend
-  function validateQ2() {
-    const val = parseFloat(document.getElementById('q2-input').value);
-    if (val && val > 0) {
-      answers.q2 = val;
-      answerLabels.q2 = fmt(val);
-      document.getElementById('next2').disabled = false;
-    } else {
-      answers.q2 = null;
-      document.getElementById('next2').disabled = true;
-    }
-  }
-
-  // Q3: Validate new customers
-  function validateQ3() {
-    const val = parseFloat(document.getElementById('q3-input').value);
-    if (val && val > 0) {
-      answers.q3 = val;
-      answerLabels.q3 = val.toString();
-      document.getElementById('next3').disabled = false;
-    } else {
-      answers.q3 = null;
-      document.getElementById('next3').disabled = true;
-    }
-  }
-
-  // Q4: Validate platform CAC
-  function validateQ4() {
-    const val = parseFloat(document.getElementById('q4-input').value);
-    if (val && val > 0) {
-      answers.q4 = val;
-      answerLabels.q4 = fmt(val);
-      document.getElementById('next4').disabled = false;
-    } else {
-      answers.q4 = null;
-      document.getElementById('next4').disabled = false; // Can still proceed with checkbox
-    }
-  }
-
-  // Q4: Toggle checkbox to use default CAC
-  function toggleQ4Checkbox() {
-    const checked = document.getElementById('q4-checkbox').checked;
-    if (checked) {
-      answers.q4 = 200;
-      answerLabels.q4 = '$200 (default)';
-      document.getElementById('q4-input').value = '';
-      document.getElementById('next4').disabled = false;
-    } else {
-      answers.q4 = null;
-      answerLabels.q4 = '';
-    }
-  }
-
-  // Multiple choice options
+  // Multiple choice options (including skip)
   function selectOption(el) {
     const qNum = el.getAttribute('data-q');
-    const val = parseFloat(el.getAttribute('data-val'));
+    const rawVal = el.getAttribute('data-val');
     const label = el.getAttribute('data-label') || el.querySelector('.option-text').textContent;
 
     // Remove previously selected in this question
-    document.querySelectorAll(`[data-q="${qNum}"]`).forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('[data-q="' + qNum + '"]').forEach(function(o) { o.classList.remove('selected'); });
     el.classList.add('selected');
 
-    answers['q' + qNum] = val;
-    answerLabels['q' + qNum] = label;
+    // Handle skip vs real answer
+    if (rawVal === 'skip') {
+      answers['q' + qNum] = null;
+      answerLabels['q' + qNum] = 'Skipped';
+      skipped['q' + qNum] = true;
+    } else {
+      answers['q' + qNum] = parseFloat(rawVal);
+      answerLabels['q' + qNum] = label;
+      skipped['q' + qNum] = false;
+    }
 
-    // Enable next button for this question
-    const nextBtn = document.getElementById('next' + qNum);
+    // Enable next button
+    var nextBtn = document.getElementById('next' + qNum);
     if (nextBtn) nextBtn.disabled = false;
 
     updateProgress(parseInt(qNum), 7);
@@ -1395,24 +1453,24 @@
 
   // Navigation
   function goNext(nextQ) {
-    document.querySelectorAll('.question-card').forEach(q => q.classList.remove('active'));
+    document.querySelectorAll('.question-card').forEach(function(q) { q.classList.remove('active'); });
     document.getElementById('q' + nextQ).classList.add('active');
     updateProgress(nextQ, 7);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function goBack(prevQ) {
-    document.querySelectorAll('.question-card').forEach(q => q.classList.remove('active'));
+    document.querySelectorAll('.question-card').forEach(function(q) { q.classList.remove('active'); });
     document.getElementById('q' + prevQ).classList.add('active');
     updateProgress(prevQ, 7);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function updateProgress(current, total) {
-    const pct = (current / total) * 100;
+    var pct = (current / total) * 100;
     document.getElementById('progress-bar').style.width = pct + '%';
-    document.querySelectorAll('.progress-dot').forEach((dot, i) => {
-      const step = i + 1;
+    document.querySelectorAll('.progress-dot').forEach(function(dot, i) {
+      var step = i + 1;
       dot.classList.remove('active', 'done');
       if (step === current) {
         dot.classList.add('active');
@@ -1422,100 +1480,128 @@
     });
   }
 
+  // Count skips
+  function getSkipCount() {
+    var count = 0;
+    ['q2','q3','q4','q5'].forEach(function(q) {
+      if (skipped[q]) count++;
+    });
+    return count;
+  }
+
+  // Resolve all values with predictive defaults for skips
+  function resolveValues() {
+    var monthlyRevenue = answers.q1 || 600000;
+
+    // Q2: Marketing spend — skip = estimate 12% of revenue
+    var monthlySpend = skipped.q2 ? Math.round(monthlyRevenue * 0.12) : (answers.q2 || Math.round(monthlyRevenue * 0.12));
+
+    // Q3: ROAS — skip = 3x industry default
+    var platformROAS = skipped.q3 ? 3 : (answers.q3 || 3);
+
+    // Q4: CPA — skip = $250 industry default
+    var platformCPA = skipped.q4 ? 250 : (answers.q4 || 250);
+
+    // Q5: New customers — skip = derive from spend / platformCPA
+    var newCustomers;
+    if (skipped.q5) {
+      newCustomers = Math.max(1, Math.round(monthlySpend / platformCPA));
+    } else {
+      newCustomers = answers.q5 || Math.max(1, Math.round(monthlySpend / platformCPA));
+    }
+
+    // Q6: Hidden cost multiplier (from vendor count) — no skip
+    var hiddenCostMultiplier = answers.q6 || 1.5;
+
+    // Q7: Years in business
+    var yearsInBusiness = answers.q7 || 4;
+
+    // Attribution gap derived from ROAS
+    // Higher reported ROAS = platforms claiming more credit = bigger attribution gap
+    var attributionGap;
+    if (platformROAS >= 8) { attributionGap = 0.40; }
+    else if (platformROAS >= 5) { attributionGap = 0.30; }
+    else if (platformROAS >= 3) { attributionGap = 0.20; }
+    else if (platformROAS >= 2) { attributionGap = 0.15; }
+    else { attributionGap = 0.10; }
+
+    return {
+      monthlyRevenue: monthlyRevenue,
+      monthlySpend: monthlySpend,
+      platformROAS: platformROAS,
+      platformCPA: platformCPA,
+      newCustomers: newCustomers,
+      hiddenCostMultiplier: hiddenCostMultiplier,
+      yearsInBusiness: yearsInBusiness,
+      attributionGap: attributionGap
+    };
+  }
+
   // Show email gate
   function showEmailGate() {
     document.getElementById('progress-wrap').style.display = 'none';
-    const estCac = calculateEstimatedCAC();
+    document.querySelectorAll('.question-card').forEach(function(q) { q.classList.remove('active'); });
+    var v = resolveValues();
+    var adjustedSpend = v.monthlySpend * v.hiddenCostMultiplier;
+    var estCac = Math.round(adjustedSpend / v.newCustomers);
     document.getElementById('gate-number').textContent = fmt(estCac);
     document.getElementById('email-gate').classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // Calculate estimated CAC (for gate preview)
-  function calculateEstimatedCAC() {
-    const monthlyRevenue = answers.q1 || 600000;
-    const monthlySpend = answers.q2 || 25000;
-    const newCustomers = answers.q3 || 10;
-    const hiddenCostMultiplier = answers.q5 || 1.5;
-
-    const adjustedSpend = monthlySpend * hiddenCostMultiplier;
-    const realCAC = adjustedSpend / newCustomers;
-    return Math.round(realCAC);
   }
 
   // Email gate form submission
   document.getElementById('gate-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const email = document.getElementById('gate-email').value;
-    const fname = document.getElementById('gate-fname').value;
-    const phone = document.getElementById('gate-phone').value;
-    const website = document.getElementById('gate-website').value;
+    var email = document.getElementById('gate-email').value;
+    var fname = document.getElementById('gate-fname').value;
+    var phone = document.getElementById('gate-phone').value;
+    var website = document.getElementById('gate-website').value;
 
-    // Populate Mailchimp form
-    document.getElementById('mc-EMAIL').value = email;
-    document.getElementById('mc-FNAME').value = fname;
-    document.getElementById('mc-PHONE').value = phone;
-    document.getElementById('mc-WEBSITE').value = website;
-    document.getElementById('mc-REVENUE').value = answerLabels.q1 || '';
-    document.getElementById('mc-MKTSPEND').value = fmt(answers.q2 || 0);
-    document.getElementById('mc-NEWCUSTS').value = answers.q3 || '';
-    document.getElementById('mc-PLATCAC').value = fmt(answers.q4 || 200);
-    document.getElementById('mc-HIDCOSTS').value = answerLabels.q5 || '';
-    document.getElementById('mc-ATTRGAP').value = answerLabels.q6 || '';
-    document.getElementById('mc-BIZAGE').value = answerLabels.q7 || '';
+    var v = resolveValues();
+    var skipCount = getSkipCount();
 
-    // Calculate values for Mailchimp
-    const monthlyRevenue = answers.q1 || 600000;
-    const monthlySpend = answers.q2 || 25000;
-    const newCustomers = answers.q3 || 10;
-    const platformCAC = answers.q4 || 200;
-    const hiddenCostMultiplier = answers.q5 || 1.5;
-    
-    const adjustedSpend = monthlySpend * hiddenCostMultiplier;
-    const realCAC = Math.round(adjustedSpend / newCustomers);
-    const cacGap = realCAC - platformCAC;
-    const cacMultiplier = Math.round((realCAC / platformCAC) * 10) / 10;
-    const monthlyInvisibleCost = cacGap * newCustomers;
-    const annualInvisibleCost = monthlyInvisibleCost * 12;
+    // Core calculation
+    var adjustedSpend = v.monthlySpend * v.hiddenCostMultiplier;
+    var realBlendedCAC = Math.round(adjustedSpend / v.newCustomers);
+    var cacGap = realBlendedCAC - v.platformCPA;
+    var cacMultiplier = Math.round((realBlendedCAC / v.platformCPA) * 10) / 10;
+    var monthlyInvisibleCost = cacGap * v.newCustomers;
+    var annualInvisibleCost = monthlyInvisibleCost * 12;
 
-    document.getElementById('mc-REALCAC').value = fmt(realCAC);
-    document.getElementById('mc-CACGAP').value = cacMultiplier + 'x';
-    document.getElementById('mc-LEAKAMT').value = fmt(annualInvisibleCost);
-
-    // Submit to Mailchimp
-    window._mcCallback = function() {
-      if (window._mcScript && window._mcScript.parentNode) {
-        window._mcScript.parentNode.removeChild(window._mcScript);
-      }
-    };
-
-    const params = new URLSearchParams({
+    // Build Mailchimp params
+    var params = new URLSearchParams({
       EMAIL: email,
       FNAME: fname,
       PHONE: phone,
       WEBSITE: website,
       REVENUE: answerLabels.q1 || '',
-      MKTSPEND: fmt(answers.q2 || 0),
-      NEWCUSTS: answers.q3 || '',
-      PLATCAC: fmt(answers.q4 || 200),
-      HIDCOSTS: answerLabels.q5 || '',
-      ATTRGAP: answerLabels.q6 || '',
+      MKTSPEND: skipped.q2 ? 'Skipped (est. ' + fmt(v.monthlySpend) + ')' : (answerLabels.q2 || ''),
+      AVGROAS: skipped.q3 ? 'Skipped (est. 3x)' : (answerLabels.q3 || ''),
+      AVGCPA: skipped.q4 ? 'Skipped (est. $250)' : (answerLabels.q4 || ''),
+      NEWCUSTS: skipped.q5 ? 'Skipped (est. ' + v.newCustomers + ')' : (answerLabels.q5 || ''),
+      VENDORS: answerLabels.q6 || '',
       BIZAGE: answerLabels.q7 || '',
-      REALCAC: fmt(realCAC),
+      REALCAC: fmt(realBlendedCAC),
       CACGAP: cacMultiplier + 'x',
       LEAKAMT: fmt(annualInvisibleCost),
+      SKIPPED: skipCount + ' of 7',
       b_b4333ac3c716522ceb71c266e_0734806408: '',
       c: '_mcCallback'
     });
 
     // Track in GA4
-    pushEvent('calculator_lead_captured', { real_cac: realCAC, cac_gap: cacMultiplier, email_captured: true });
+    pushEvent('calculator_lead_captured', { real_cac: realBlendedCAC, cac_gap: cacMultiplier, email_captured: true, skipped: skipCount });
 
     // Dispatch custom event for abandon tracking
     window.dispatchEvent(new CustomEvent('lbm:calculator_completed'));
 
     // Submit JSONP to Mailchimp
+    window._mcCallback = function() {
+      if (window._mcScript && window._mcScript.parentNode) {
+        window._mcScript.parentNode.removeChild(window._mcScript);
+      }
+    };
     window._mcScript = document.createElement('script');
     window._mcScript.src = MAILCHIMP_URL + '?' + params.toString();
     document.body.appendChild(window._mcScript);
@@ -1529,7 +1615,7 @@
 
     // Set persistent known-contact cookie
     if (email) {
-      const expires = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString();
+      var expires = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString();
       document.cookie = 'lbm_known_email=' + encodeURIComponent(email) + ';expires=' + expires + ';path=/;SameSite=Lax;Secure';
     }
 
@@ -1540,41 +1626,36 @@
 
   // Show results
   function showResults() {
-    const monthlyRevenue = answers.q1 || 600000;
-    const monthlySpend = answers.q2 || 25000;
-    const newCustomers = answers.q3 || 10;
-    const platformCAC = answers.q4 || 200;
-    const hiddenCostMultiplier = answers.q5 || 1.5;
-    const attributionGap = answers.q6 || 0.15;
-    const yearsInBusiness = answers.q7 || 4;
+    var v = resolveValues();
+    var skipCount = getSkipCount();
 
     // Core calculation
-    const adjustedSpend = monthlySpend * hiddenCostMultiplier;
-    const realBlendedCAC = Math.round(adjustedSpend / newCustomers);
-    const cacGap = realBlendedCAC - platformCAC;
-    const cacMultiplier = realBlendedCAC / platformCAC;
+    var adjustedSpend = v.monthlySpend * v.hiddenCostMultiplier;
+    var realBlendedCAC = Math.round(adjustedSpend / v.newCustomers);
+    var cacGap = realBlendedCAC - v.platformCPA;
+    var cacMultiplier = realBlendedCAC / v.platformCPA;
 
     // Revenue per customer
-    const monthlyRevenuePerCust = monthlyRevenue / newCustomers;
-    const cacToRevenue = realBlendedCAC / monthlyRevenuePerCust;
+    var monthlyRevenuePerCust = v.monthlyRevenue / v.newCustomers;
+    var cacToRevenue = realBlendedCAC / monthlyRevenuePerCust;
 
     // Monthly and annual invisible costs
-    const monthlyInvisibleCost = cacGap * newCustomers;
-    const annualInvisibleCost = monthlyInvisibleCost * 12;
+    var monthlyInvisibleCost = cacGap * v.newCustomers;
+    var annualInvisibleCost = monthlyInvisibleCost * 12;
 
-    // Attribution waste (additional money misallocated due to bad attribution)
-    const attributionWaste = monthlySpend * attributionGap * 12;
+    // Attribution waste
+    var attributionWaste = v.monthlySpend * v.attributionGap * 12;
 
     // Total annual waste
-    const totalAnnualWaste = annualInvisibleCost + attributionWaste;
+    var totalAnnualWaste = annualInvisibleCost + attributionWaste;
 
     // Compound damage
-    const pastDamage = Math.round(totalAnnualWaste * yearsInBusiness);
-    const future5 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 5) - 1) / 0.08));
-    const future10 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 10) - 1) / 0.08));
+    var pastDamage = Math.round(totalAnnualWaste * v.yearsInBusiness);
+    var future5 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 5) - 1) / 0.08));
+    var future10 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 10) - 1) / 0.08));
 
     // Grade based on CAC to Revenue ratio
-    let grade, gradeColor, gradeTitle, gradeDesc;
+    var grade, gradeColor, gradeTitle, gradeDesc;
     if (cacToRevenue < 0.15) {
       grade = 'A'; gradeColor = '#4ade80';
       gradeTitle = 'Healthy CAC Ratio';
@@ -1597,16 +1678,36 @@
       gradeDesc = 'Your blended CAC is unsustainable. You're spending more to get a customer than they're worth. This requires immediate intervention.';
     }
 
+    // Penalize grade for skips — each skip drops one letter
+    var gradeOrder = ['A','B','C','D','F'];
+    var gradeIdx = gradeOrder.indexOf(grade);
+    gradeIdx = Math.min(4, gradeIdx + skipCount);
+    grade = gradeOrder[gradeIdx];
+
+    // Recalculate color/title/desc for penalized grade
+    if (grade === 'A') { gradeColor = '#4ade80'; gradeTitle = 'Healthy CAC Ratio'; gradeDesc = 'Your blended CAC is well under control relative to revenue. You have pricing power.'; }
+    else if (grade === 'B') { gradeColor = '#22d3ee'; gradeTitle = 'Good CAC Ratio'; gradeDesc = 'Your CAC is reasonable. There's room for optimization but you're not in danger.'; }
+    else if (grade === 'C') { gradeColor = '#fbbf24'; gradeTitle = 'Moderate CAC Ratio'; gradeDesc = 'Your CAC is taking a meaningful chunk of revenue. Growth is still possible but margins are tight.'; }
+    else if (grade === 'D') { gradeColor = '#fb923c'; gradeTitle = 'High CAC Ratio'; gradeDesc = 'Your CAC is consuming too much of your revenue. You need to fix this quickly.'; }
+    else { gradeColor = '#ff4444'; gradeTitle = 'Critical CAC Ratio'; gradeDesc = 'Your blended CAC is unsustainable. You're spending more to get a customer than they're worth. This requires immediate intervention.'; }
+
+    // Add skip warning to grade desc
+    if (skipCount > 0) {
+      gradeDesc += ' (You skipped ' + skipCount + ' of 7 questions — your grade was penalized. The questions you couldn't answer? That's exactly what we diagnose on the call.)';
+    }
+
     // Animate grade ring
-    const ring = document.getElementById('grade-ring-fill');
+    var ring = document.getElementById('grade-ring-fill');
     ring.style.stroke = gradeColor;
-    const healthScore = Math.max(0, Math.min(100, (1 - cacToRevenue) * 100));
-    const circumference = 408;
-    const offset = circumference - (healthScore / 100) * circumference;
-    setTimeout(() => { ring.style.strokeDashoffset = offset; }, 200);
+    var healthScore = Math.max(0, Math.min(100, (1 - cacToRevenue) * 100));
+    // Penalize health score for skips
+    healthScore = Math.max(0, healthScore - (skipCount * 15));
+    var circumference = 408;
+    var offset = circumference - (healthScore / 100) * circumference;
+    setTimeout(function() { ring.style.strokeDashoffset = offset; }, 200);
 
     // Set grade letter
-    const letterEl = document.getElementById('grade-letter');
+    var letterEl = document.getElementById('grade-letter');
     letterEl.textContent = grade;
     letterEl.style.color = gradeColor;
     letterEl.style.animation = 'none';
@@ -1619,16 +1720,16 @@
     document.getElementById('grade-desc').textContent = gradeDesc;
 
     // Highlight active grade pip
-    ['A','B','C','D','F'].forEach(g => {
+    ['A','B','C','D','F'].forEach(function(g) {
       document.getElementById('pip-' + g).classList.toggle('active', g === grade);
     });
 
     // Animate real CAC
     animateNumber(document.getElementById('real-cac'), 0, realBlendedCAC, 1400, true);
-    document.getElementById('real-cac-sub').textContent = 'Your platform says ' + fmt(platformCAC) + '. That\'s ' + cacMultiplier.toFixed(1) + 'x higher than what they show.';
+    document.getElementById('real-cac-sub').textContent = 'Your ad platforms report ~' + fmt(v.platformCPA) + ' CPA. Your real blended cost is ' + cacMultiplier.toFixed(1) + 'x higher.';
 
     // Gap card
-    animateNumber(document.getElementById('gap-platform'), 0, platformCAC, 1200, true);
+    animateNumber(document.getElementById('gap-platform'), 0, v.platformCPA, 1200, true);
     animateNumber(document.getElementById('gap-reality'), 0, realBlendedCAC, 1200, true);
     document.getElementById('gap-dollar').textContent = cacGap.toLocaleString();
 
@@ -1642,42 +1743,34 @@
     document.getElementById('compound-10yr').textContent = future10.toLocaleString();
 
     // Breakdown
-    const breakdown = [
+    var breakdown = [
       {
         label: 'Hidden Acquisition Costs',
-        desc: 'The gap between what you entered and your true adjusted spend',
+        desc: 'The gap between ad spend and true fully-loaded cost (tools, vendors, overhead)',
         amount: annualInvisibleCost
       },
       {
         label: 'Attribution Waste',
-        desc: 'Budget going to channels you think are profitable but actually aren\'t',
+        desc: 'Budget going to channels you think are profitable but actually aren't',
         amount: attributionWaste
       }
     ];
 
-    const list = document.getElementById('breakdown-list');
+    var list = document.getElementById('breakdown-list');
     list.innerHTML = '';
-    const maxAmount = Math.max(...breakdown.map(b => b.amount));
+    var maxAmount = Math.max.apply(null, breakdown.map(function(b) { return b.amount; }));
 
-    breakdown.forEach(item => {
-      const pct = Math.round((item.amount / maxAmount) * 100);
-      const el = document.createElement('div');
+    breakdown.forEach(function(item) {
+      var pct = Math.round((item.amount / maxAmount) * 100);
+      var el = document.createElement('div');
       el.className = 'breakdown-item';
-      el.innerHTML = `
-        <div class="breakdown-left">
-          <div class="breakdown-cat">${item.label}</div>
-          <div class="breakdown-desc">${item.desc}</div>
-          <div class="breakdown-bar-wrap">
-            <div class="breakdown-bar" style="width:0%" data-target="${pct}"></div>
-          </div>
-        </div>
-        <div class="breakdown-amount">${fmt(item.amount)}</div>`;
+      el.innerHTML = '<div class="breakdown-left"><div class="breakdown-cat">' + item.label + '</div><div class="breakdown-desc">' + item.desc + '</div><div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width:0%" data-target="' + pct + '"></div></div></div><div class="breakdown-amount">' + fmt(item.amount) + '</div>';
       list.appendChild(el);
     });
 
     // Animate bars
-    setTimeout(() => {
-      document.querySelectorAll('.breakdown-bar').forEach(bar => {
+    setTimeout(function() {
+      document.querySelectorAll('.breakdown-bar').forEach(function(bar) {
         bar.style.width = bar.dataset.target + '%';
       });
     }, 300);
@@ -1687,33 +1780,36 @@
       grade: grade, 
       cac_to_revenue_ratio: cacToRevenue.toFixed(2), 
       real_cac: realBlendedCAC,
-      platform_cac: platformCAC,
+      platform_cpa: v.platformCPA,
       cac_multiplier: cacMultiplier.toFixed(1),
-      annual_invisible_cost: annualInvisibleCost
+      annual_invisible_cost: annualInvisibleCost,
+      skipped: skipCount
     });
 
     // Show results panel
-    const panel = document.getElementById('results-panel');
+    var panel = document.getElementById('results-panel');
     panel.classList.add('visible');
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // Reset calculator
   function resetCalc() {
-    Object.keys(answers).forEach(k => delete answers[k]);
-    Object.keys(answerLabels).forEach(k => delete answerLabels[k]);
-    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-    document.querySelectorAll('.btn-next').forEach(b => b.disabled = true);
-    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"]').forEach(i => i.value = '');
+    Object.keys(answers).forEach(function(k) { delete answers[k]; });
+    Object.keys(answerLabels).forEach(function(k) { delete answerLabels[k]; });
+    Object.keys(skipped).forEach(function(k) { delete skipped[k]; });
+    document.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected'); });
+    document.querySelectorAll('.btn-next').forEach(function(b) { b.disabled = true; });
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(function(i) { i.value = ''; });
+    document.getElementById('q1-select').selectedIndex = 0;
     document.getElementById('results-panel').classList.remove('visible');
     document.getElementById('email-gate').classList.remove('visible');
     document.getElementById('progress-wrap').style.display = 'block';
-    document.querySelectorAll('.question-card').forEach(q => q.classList.remove('active'));
+    document.querySelectorAll('.question-card').forEach(function(q) { q.classList.remove('active'); });
     document.getElementById('q1').classList.add('active');
     document.getElementById('gate-form').reset();
     document.getElementById('grade-ring-fill').style.strokeDashoffset = '408';
     document.getElementById('grade-letter').style.opacity = '0';
-    document.querySelectorAll('.grade-pip').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.grade-pip').forEach(function(p) { p.classList.remove('active'); });
     updateProgress(1, 7);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
