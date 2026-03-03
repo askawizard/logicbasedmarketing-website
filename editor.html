@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LBM Site Editor</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>E</text></svg>">
+<!-- GrapesJS Core -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.10/css/grapes.min.css">
+<!-- GrapesJS Preset Webpage Plugin CSS -->
+<style>
+  /* ── AUTH SCREEN ── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black:  #0a0a0a;
+    --dark:   #111111;
+    --card:   #161616;
+    --border: #1e1e1e;
+    --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10);
+    --text:   #efefef;
+    --muted:  #6b6b6b;
+    --white:  #ffffff;
+    --red:    #ff5252;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  #auth-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--black);
+  }
+  #auth-screen.hidden { display: none; }
+
+  .auth-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px 40px;
+    width: 400px;
+    text-align: center;
+  }
+  .auth-box h1 {
+    font-size: 20px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .auth-box h1 span { color: var(--accent); }
+  .auth-box p { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  .auth-input {
+    width: 100%; padding: 14px 16px;
+    background: var(--black); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 14px;
+    outline: none; margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .auth-input:focus { border-color: var(--accent); }
+  .auth-btn {
+    width: 100%; padding: 14px;
+    background: var(--accent); color: var(--black);
+    font-weight: 800; font-size: 14px;
+    border: none; border-radius: 8px; cursor: pointer;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .auth-btn:hover { background: #d4f96a; }
+  .auth-error {
+    color: var(--red); font-size: 12px;
+    margin-top: 12px; display: none;
+  }
+
+  /* ── EDITOR TOOLBAR ── */
+  #editor-app { display: none; height: 100vh; }
+  #editor-app.active { display: flex; flex-direction: column; }
+
+  .editor-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 20px;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    flex-shrink: 0;
+  }
+  .toolbar-left { display: flex; align-items: center; gap: 16px; }
+  .toolbar-logo {
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .toolbar-logo span { color: var(--white); }
+
+  .page-selector {
+    padding: 8px 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text); font-size: 13px;
+    outline: none; cursor: pointer;
+    min-width: 240px;
+  }
+  .page-selector:focus { border-color: var(--accent); }
+  .page-selector option { background: var(--card); color: var(--text); }
+
+  .toolbar-right { display: flex; align-items: center; gap: 10px; }
+
+  .toolbar-btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .btn-secondary {
+    background: var(--card); color: var(--text);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-primary {
+    background: var(--accent); color: var(--black); border-color: var(--accent);
+    font-weight: 800;
+  }
+  .btn-primary:hover { background: #d4f96a; }
+  .btn-danger {
+    background: transparent; color: var(--red); border-color: var(--red);
+  }
+  .btn-danger:hover { background: rgba(255,82,82,0.1); }
+
+  .save-status {
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .save-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted);
+  }
+  .save-dot.modified { background: #ffa726; }
+  .save-dot.saving { background: var(--accent); animation: pulse 1s infinite; }
+  .save-dot.saved { background: #4caf50; }
+  .save-dot.error { background: var(--red); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── EDITOR CANVAS ── */
+  .editor-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ── GRAPESJS OVERRIDES ── */
+  .gjs-one-bg { background-color: var(--dark) !important; }
+  .gjs-two-color { color: var(--text) !important; }
+  .gjs-three-bg { background-color: var(--card) !important; }
+  .gjs-four-color, .gjs-four-color-h:hover { color: var(--accent) !important; }
+
+  .gjs-pn-panels { background: var(--dark) !important; }
+  .gjs-pn-panel { background: var(--dark) !important; }
+  .gjs-pn-views-container { background: var(--dark) !important; border-left: 1px solid var(--border) !important; }
+  .gjs-pn-views { border-bottom: 1px solid var(--border) !important; }
+
+  .gjs-block {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: var(--text) !important;
+    min-height: 70px !important;
+  }
+  .gjs-block:hover { border-color: var(--accent) !important; }
+  .gjs-block__media svg { fill: var(--accent) !important; }
+
+  .gjs-sm-sector-title,
+  .gjs-clm-tags .gjs-clm-tag {
+    background: var(--card) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+  }
+
+  .gjs-field { background: var(--black) !important; border-color: var(--border) !important; color: var(--text) !important; }
+  .gjs-field input, .gjs-field select { color: var(--text) !important; }
+
+  .gjs-cv-canvas { background: #1a1a1a !important; }
+
+  /* Layer manager */
+  .gjs-layer-name { color: var(--text) !important; }
+  .gjs-layers { background: var(--dark) !important; }
+
+  /* Rich Text Editor toolbar */
+  .gjs-rte-toolbar { background: var(--card) !important; border: 1px solid var(--border) !important; border-radius: 6px !important; }
+  .gjs-rte-actionbar { background: var(--card) !important; }
+  .gjs-rte-action { color: var(--text) !important; border-color: var(--border) !important; }
+  .gjs-rte-action:hover { color: var(--accent) !important; }
+
+  /* Toast notification */
+  .editor-toast {
+    position: fixed; bottom: 24px; right: 24px;
+    padding: 14px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    z-index: 10000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  .editor-toast.show { transform: translateY(0); opacity: 1; }
+  .editor-toast.success { border-color: #4caf50; color: #4caf50; }
+  .editor-toast.error { border-color: var(--red); color: var(--red); }
+  .editor-toast.info { border-color: var(--accent); color: var(--accent); }
+
+  /* Confirm modal */
+  .confirm-overlay {
+    position: fixed; inset: 0; z-index: 9998;
+    background: rgba(0,0,0,0.7);
+    display: none; align-items: center; justify-content: center;
+  }
+  .confirm-overlay.show { display: flex; }
+  .confirm-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    width: 440px;
+    text-align: center;
+  }
+  .confirm-box h3 { font-size: 16px; margin-bottom: 8px; }
+  .confirm-box p { color: var(--muted); font-size: 13px; margin-bottom: 24px; line-height: 1.6; }
+  .confirm-actions { display: flex; gap: 12px; justify-content: center; }
+  .confirm-actions button { min-width: 120px; }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed; inset: 0; z-index: 9997;
+    background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center;
+  }
+  .loading-overlay.show { display: flex; }
+  .loading-spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <h1><span>LBM</span> Site Editor</h1>
+    <p>Enter your editor password to continue</p>
+    <input type="password" class="auth-input" id="auth-password" placeholder="Password" autocomplete="off">
+    <button class="auth-btn" id="auth-submit">Unlock Editor</button>
+    <div class="auth-error" id="auth-error">Invalid password. Try again.</div>
+  </div>
+</div>
+
+<!-- EDITOR APP -->
+<div id="editor-app">
+  <!-- Toolbar -->
+  <div class="editor-toolbar">
+    <div class="toolbar-left">
+      <div class="toolbar-logo"><span>LBM</span> Editor</div>
+      <select class="page-selector" id="page-selector">
+        <option value="">Select a page to edit...</option>
+      </select>
+      <div class="save-status" id="save-status">
+        <span class="save-dot" id="save-dot"></span>
+        <span id="save-text">No changes</span>
+      </div>
+    </div>
+    <div class="toolbar-right">
+      <button class="toolbar-btn btn-secondary" id="btn-preview" title="Preview in new tab">Preview</button>
+      <button class="toolbar-btn btn-secondary" id="btn-undo" title="Undo">Undo</button>
+      <button class="toolbar-btn btn-secondary" id="btn-redo" title="Redo">Redo</button>
+      <button class="toolbar-btn btn-danger" id="btn-discard" title="Discard all changes">Discard</button>
+      <button class="toolbar-btn btn-primary" id="btn-publish" title="Save & deploy to live site">Publish</button>
+    </div>
+  </div>
+
+  <!-- GrapesJS Editor -->
+  <div class="editor-container">
+    <div id="gjs"></div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="confirm-overlay" id="confirm-modal">
+  <div class="confirm-box">
+    <h3 id="confirm-title">Confirm Action</h3>
+    <p id="confirm-message">Are you sure?</p>
+    <div class="confirm-actions">
+      <button class="toolbar-btn btn-secondary" id="confirm-cancel">Cancel</button>
+      <button class="toolbar-btn btn-primary" id="confirm-ok">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<!-- Toast -->
+<div class="editor-toast" id="toast"></div>
+
+<!-- GrapesJS Core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.10/grapes.min.js"></script>
+<!-- GrapesJS Preset Webpage Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@1.0.3/dist/index.js"></script>
+<!-- GrapesJS Blocks Basic -->
+<script src="https://cdn.jsdelivr.net/npm/grapesjs-blocks-basic@1.0.2/dist/index.js"></script>
+<!-- GrapesJS Custom Code -->
+<script src="https://cdn.jsdelivr.net/npm/grapesjs-custom-code@1.0.2/dist/index.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  // ═══════════════════════════════════════════
+  // CONFIG
+  // ═══════════════════════════════════════════
+  const WORKER_URL = 'https://lbm-editor.thewizard-dd8.workers.dev';
+  const SITE_URL = 'https://logicbasedmarketing.com';
+
+  // Page registry — all editable pages
+  const PAGES = [
+    { slug: 'index.html', label: 'Homepage', path: '/' },
+    { slug: 'calculator.html', label: 'Blended CAC Calculator', path: '/calculator' },
+    { slug: 'calculator-landing.html', label: 'Calculator Landing Page', path: '/calculator-landing' },
+    { slug: 'blog.html', label: 'Blog Index', path: '/blog' },
+    { slug: 'vegas.html', label: 'Las Vegas (Local SEO)', path: '/vegas' },
+    { slug: 'pricing.html', label: 'Pricing (Sales Tool)', path: '/pricing' },
+    { slug: 'one-pager.html', label: 'One-Pager (Sales Tool)', path: '/one-pager' },
+    { slug: 'proposal.html', label: 'Proposal (Sales Tool)', path: '/proposal' },
+    { slug: 'thank-you.html', label: 'Thank You Page', path: '/thank-you' },
+    { slug: 'privacy.html', label: 'Privacy Policy', path: '/privacy' },
+    // Blog posts
+    { slug: 'blog/10m-wall.html', label: 'Blog: The $10M Wall', path: '/blog/10m-wall' },
+    { slug: 'blog/23-signs-revenue-operations-broken.html', label: 'Blog: 23 Signs RevOps Broken', path: '/blog/23-signs-revenue-operations-broken' },
+    { slug: 'blog/best-tools-fractional-cro-revops.html', label: 'Blog: Best Tools for Fractional CRO', path: '/blog/best-tools-fractional-cro-revops' },
+    { slug: 'blog/cac30-metric.html', label: 'Blog: CAC30 Metric', path: '/blog/cac30-metric' },
+    { slug: 'blog/customer-acquisition-cost-statistics-2026.html', label: 'Blog: CAC Statistics 2026', path: '/blog/customer-acquisition-cost-statistics-2026' },
+    { slug: 'blog/customer-acquisition-cost-statistics.html', label: 'Blog: CAC Statistics', path: '/blog/customer-acquisition-cost-statistics' },
+    { slug: 'blog/founder-guide-revenue-operations.html', label: 'Blog: Founder Guide to RevOps', path: '/blog/founder-guide-revenue-operations' },
+    { slug: 'blog/fully-loaded-blended-cac.html', label: 'Blog: Fully Loaded Blended CAC', path: '/blog/fully-loaded-blended-cac' },
+    { slug: 'blog/how-to-fire-bad-marketing-vendor.html', label: 'Blog: How to Fire a Bad Vendor', path: '/blog/how-to-fire-bad-marketing-vendor' },
+    { slug: 'blog/marketing-attribution-guide.html', label: 'Blog: Marketing Attribution Guide', path: '/blog/marketing-attribution-guide' },
+    { slug: 'blog/marketing-attribution-statistics.html', label: 'Blog: Attribution Statistics', path: '/blog/marketing-attribution-statistics' },
+    { slug: 'blog/pre-growth-hire-checklist.html', label: 'Blog: Pre-Growth Hire Checklist', path: '/blog/pre-growth-hire-checklist' },
+    { slug: 'blog/revenue-leak-audit-process.html', label: 'Blog: Revenue Leak Audit Process', path: '/blog/revenue-leak-audit-process' },
+    { slug: 'blog/revenue-leak-report.html', label: 'Blog: Revenue Leak Report', path: '/blog/revenue-leak-report' },
+    { slug: 'blog/revenue-operations-small-business.html', label: 'Blog: RevOps for Small Business', path: '/blog/revenue-operations-small-business' },
+    { slug: 'blog/revenue-operations-statistics-2026.html', label: 'Blog: RevOps Statistics 2026', path: '/blog/revenue-operations-statistics-2026' },
+    { slug: 'blog/revenue-operations-statistics.html', label: 'Blog: RevOps Statistics', path: '/blog/revenue-operations-statistics' },
+    { slug: 'blog/what-40-businesses-taught-real-cac.html', label: 'Blog: What 40 Businesses Taught About CAC', path: '/blog/what-40-businesses-taught-real-cac' },
+  ];
+
+  // ═══════════════════════════════════════════
+  // STATE
+  // ═══════════════════════════════════════════
+  let authToken = null;
+  let editor = null;
+  let currentPage = null;
+  let originalHtml = '';
+  let hasChanges = false;
+
+  // ═══════════════════════════════════════════
+  // DOM REFS
+  // ═══════════════════════════════════════════
+  const $authScreen = document.getElementById('auth-screen');
+  const $authPassword = document.getElementById('auth-password');
+  const $authSubmit = document.getElementById('auth-submit');
+  const $authError = document.getElementById('auth-error');
+  const $editorApp = document.getElementById('editor-app');
+  const $pageSelector = document.getElementById('page-selector');
+  const $saveDot = document.getElementById('save-dot');
+  const $saveText = document.getElementById('save-text');
+  const $btnPreview = document.getElementById('btn-preview');
+  const $btnUndo = document.getElementById('btn-undo');
+  const $btnRedo = document.getElementById('btn-redo');
+  const $btnDiscard = document.getElementById('btn-discard');
+  const $btnPublish = document.getElementById('btn-publish');
+  const $confirmModal = document.getElementById('confirm-modal');
+  const $confirmTitle = document.getElementById('confirm-title');
+  const $confirmMessage = document.getElementById('confirm-message');
+  const $confirmCancel = document.getElementById('confirm-cancel');
+  const $confirmOk = document.getElementById('confirm-ok');
+  const $loading = document.getElementById('loading-overlay');
+  const $toast = document.getElementById('toast');
+
+  // ═══════════════════════════════════════════
+  // UTILITIES
+  // ═══════════════════════════════════════════
+  function showToast(message, type = 'info', duration = 3000) {
+    $toast.textContent = message;
+    $toast.className = `editor-toast ${type} show`;
+    setTimeout(() => { $toast.classList.remove('show'); }, duration);
+  }
+
+  function showLoading() { $loading.classList.add('show'); }
+  function hideLoading() { $loading.classList.remove('show'); }
+
+  function confirm(title, message) {
+    return new Promise((resolve) => {
+      $confirmTitle.textContent = title;
+      $confirmMessage.textContent = message;
+      $confirmModal.classList.add('show');
+      const cleanup = () => { $confirmModal.classList.remove('show'); };
+      $confirmOk.onclick = () => { cleanup(); resolve(true); };
+      $confirmCancel.onclick = () => { cleanup(); resolve(false); };
+    });
+  }
+
+  function updateSaveStatus(state, text) {
+    $saveDot.className = `save-dot ${state}`;
+    $saveText.textContent = text;
+  }
+
+  async function apiCall(endpoint, data = {}) {
+    const res = await fetch(`${WORKER_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || `API error ${res.status}`);
+    return json;
+  }
+
+  // ═══════════════════════════════════════════
+  // AUTH
+  // ═══════════════════════════════════════════
+  async function authenticate() {
+    const password = $authPassword.value.trim();
+    if (!password) return;
+
+    $authSubmit.textContent = 'Authenticating...';
+    $authSubmit.disabled = true;
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      const data = await res.json();
+
+      if (data.token) {
+        authToken = data.token;
+        sessionStorage.setItem('lbm_editor_token', authToken);
+        $authScreen.classList.add('hidden');
+        $editorApp.classList.add('active');
+        initEditor();
+      } else {
+        $authError.style.display = 'block';
+      }
+    } catch (e) {
+      $authError.textContent = 'Connection error. Is the editor worker running?';
+      $authError.style.display = 'block';
+    }
+
+    $authSubmit.textContent = 'Unlock Editor';
+    $authSubmit.disabled = false;
+  }
+
+  // Check for existing session
+  function checkSession() {
+    const token = sessionStorage.getItem('lbm_editor_token');
+    if (token) {
+      authToken = token;
+      $authScreen.classList.add('hidden');
+      $editorApp.classList.add('active');
+      initEditor();
+    }
+  }
+
+  $authSubmit.addEventListener('click', authenticate);
+  $authPassword.addEventListener('keydown', (e) => { if (e.key === 'Enter') authenticate(); });
+
+  // ═══════════════════════════════════════════
+  // GRAPESJS INIT
+  // ═══════════════════════════════════════════
+  function initEditor() {
+    // Populate page selector
+    PAGES.forEach(page => {
+      const opt = document.createElement('option');
+      opt.value = page.slug;
+      opt.textContent = page.label;
+      $pageSelector.appendChild(opt);
+    });
+
+    // Initialize GrapesJS
+    editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      width: 'auto',
+      fromElement: false,
+      storageManager: false, // We handle storage ourselves
+      canvas: {
+        styles: [
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap'
+        ]
+      },
+      plugins: ['grapesjs-preset-webpage', 'gjs-blocks-basic', 'grapesjs-custom-code'],
+      pluginsOpts: {
+        'grapesjs-preset-webpage': {
+          blocksBasicOpts: { flexGrid: true },
+          navbarOpts: false,
+          countdownOpts: false,
+          formsOpts: false,
+        },
+        'gjs-blocks-basic': {
+          flexGrid: true,
+          stylePrefix: 'lbm-',
+        }
+      },
+      // Device manager for responsive preview
+      deviceManager: {
+        devices: [
+          { name: 'Desktop', width: '' },
+          { name: 'Tablet', width: '768px', widthMedia: '992px' },
+          { name: 'Mobile', width: '375px', widthMedia: '480px' },
+        ]
+      },
+      // Style manager sectors
+      styleManager: {
+        sectors: [
+          {
+            name: 'Typography',
+            open: true,
+            properties: [
+              { property: 'font-family', type: 'select',
+                options: [
+                  { id: "'Inter', sans-serif", label: 'Inter' },
+                  { id: 'Arial, sans-serif', label: 'Arial' },
+                  { id: 'Georgia, serif', label: 'Georgia' },
+                  { id: "'Courier New', monospace", label: 'Courier New' },
+                ]
+              },
+              { property: 'font-size' },
+              { property: 'font-weight' },
+              { property: 'letter-spacing' },
+              { property: 'color' },
+              { property: 'line-height' },
+              { property: 'text-align' },
+              { property: 'text-decoration' },
+              { property: 'text-transform' },
+            ]
+          },
+          {
+            name: 'Layout',
+            open: false,
+            properties: [
+              { property: 'display' },
+              { property: 'flex-direction' },
+              { property: 'justify-content' },
+              { property: 'align-items' },
+              { property: 'gap' },
+              { property: 'padding' },
+              { property: 'margin' },
+              { property: 'width' },
+              { property: 'max-width' },
+              { property: 'height' },
+              { property: 'overflow' },
+            ]
+          },
+          {
+            name: 'Background',
+            open: false,
+            properties: [
+              { property: 'background-color' },
+              { property: 'background-image' },
+              { property: 'background-size' },
+              { property: 'background-position' },
+              { property: 'background-repeat' },
+            ]
+          },
+          {
+            name: 'Border',
+            open: false,
+            properties: [
+              { property: 'border-radius' },
+              { property: 'border' },
+              { property: 'box-shadow' },
+            ]
+          },
+          {
+            name: 'Position',
+            open: false,
+            properties: [
+              { property: 'position' },
+              { property: 'top' },
+              { property: 'right' },
+              { property: 'bottom' },
+              { property: 'left' },
+              { property: 'z-index' },
+            ]
+          }
+        ]
+      },
+    });
+
+    // Add custom LBM blocks
+    addLBMBlocks();
+
+    // Track changes
+    editor.on('change:changesCount', () => {
+      if (currentPage) {
+        hasChanges = true;
+        updateSaveStatus('modified', 'Unsaved changes');
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        publishPage();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        if (!e.shiftKey) { e.preventDefault(); editor.UndoManager.undo(); }
+        else { e.preventDefault(); editor.UndoManager.redo(); }
+      }
+    });
+
+    showToast('Editor ready. Select a page to begin.', 'info');
+  }
+
+  // ═══════════════════════════════════════════
+  // CUSTOM LBM BLOCKS
+  // ═══════════════════════════════════════════
+  function addLBMBlocks() {
+    const bm = editor.BlockManager;
+
+    bm.add('lbm-hero', {
+      label: 'Hero Section',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 120px 48px 80px; background: #0a0a0a; text-align: center;">
+          <div style="max-width: 800px; margin: 0 auto;">
+            <p style="color: #c8f65a; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;">YOUR TAGLINE HERE</p>
+            <h1 style="font-size: 48px; font-weight: 900; color: #ffffff; line-height: 1.1; margin-bottom: 24px;">Your Main Headline Goes Here</h1>
+            <p style="font-size: 18px; color: #6b6b6b; max-width: 600px; margin: 0 auto 40px;">Supporting text that explains the value proposition in one or two clear sentences.</p>
+            <a href="#" style="display: inline-block; padding: 16px 32px; background: #c8f65a; color: #0a0a0a; font-weight: 800; font-size: 14px; border-radius: 8px; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;">Call to Action</a>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-star' }
+    });
+
+    bm.add('lbm-card-grid', {
+      label: 'Card Grid (3-col)',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 80px 48px; background: #0a0a0a;">
+          <div style="max-width: 1100px; margin: 0 auto;">
+            <h2 style="font-size: 32px; font-weight: 800; color: #ffffff; text-align: center; margin-bottom: 48px;">Section Title</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+              <div style="background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 32px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Card Title 1</h3>
+                <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6;">Card description text goes here. Keep it concise and compelling.</p>
+              </div>
+              <div style="background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 32px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Card Title 2</h3>
+                <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6;">Card description text goes here. Keep it concise and compelling.</p>
+              </div>
+              <div style="background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 32px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Card Title 3</h3>
+                <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6;">Card description text goes here. Keep it concise and compelling.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-th' }
+    });
+
+    bm.add('lbm-cta', {
+      label: 'CTA Banner',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 80px 48px; background: linear-gradient(135deg, #111111, #0a0a0a); text-align: center; border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e;">
+          <div style="max-width: 700px; margin: 0 auto;">
+            <h2 style="font-size: 36px; font-weight: 800; color: #ffffff; margin-bottom: 16px;">Ready to Take Action?</h2>
+            <p style="font-size: 16px; color: #6b6b6b; margin-bottom: 32px;">A brief sentence that reinforces urgency or value.</p>
+            <a href="#" style="display: inline-block; padding: 16px 36px; background: #c8f65a; color: #0a0a0a; font-weight: 800; font-size: 14px; border-radius: 8px; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;">Get Started</a>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-bullhorn' }
+    });
+
+    bm.add('lbm-testimonial', {
+      label: 'Testimonial',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 64px 48px; background: #0a0a0a;">
+          <div style="max-width: 700px; margin: 0 auto; background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 40px;">
+            <p style="font-size: 18px; color: #efefef; font-style: italic; line-height: 1.7; margin-bottom: 20px;">"Quote from a client or partner that reinforces your credibility and results."</p>
+            <p style="font-size: 14px; color: #c8f65a; font-weight: 700;">— Client Name, Title at Company</p>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-quote-right' }
+    });
+
+    bm.add('lbm-stat-row', {
+      label: 'Stats Row',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 64px 48px; background: #111111; border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e;">
+          <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center;">
+            <div>
+              <p style="font-size: 42px; font-weight: 900; color: #c8f65a; margin-bottom: 8px;">$161K</p>
+              <p style="font-size: 13px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.06em;">Found Per Month</p>
+            </div>
+            <div>
+              <p style="font-size: 42px; font-weight: 900; color: #c8f65a; margin-bottom: 8px;">16×</p>
+              <p style="font-size: 13px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.06em;">Net Income Growth</p>
+            </div>
+            <div>
+              <p style="font-size: 42px; font-weight: 900; color: #c8f65a; margin-bottom: 8px;">$2,800</p>
+              <p style="font-size: 13px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.06em;">Real Blended CAC</p>
+            </div>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-bar-chart' }
+    });
+
+    bm.add('lbm-faq', {
+      label: 'FAQ Section',
+      category: 'LBM Sections',
+      content: `
+        <section style="padding: 80px 48px; background: #0a0a0a;">
+          <div style="max-width: 700px; margin: 0 auto;">
+            <h2 style="font-size: 32px; font-weight: 800; color: #ffffff; text-align: center; margin-bottom: 48px;">Questions & Answers</h2>
+            <div style="border-top: 1px solid #1e1e1e;">
+              <div style="padding: 24px 0; border-bottom: 1px solid #1e1e1e;">
+                <h3 style="font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Question goes here?</h3>
+                <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6;">Answer text goes here. Keep it clear and direct.</p>
+              </div>
+              <div style="padding: 24px 0; border-bottom: 1px solid #1e1e1e;">
+                <h3 style="font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Another question?</h3>
+                <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6;">Answer text goes here. Keep it clear and direct.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `,
+      attributes: { class: 'fa fa-question-circle' }
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // PAGE LOADING
+  // ═══════════════════════════════════════════
+  async function loadPage(slug) {
+    if (!slug) return;
+
+    if (hasChanges) {
+      const proceed = await confirm(
+        'Unsaved Changes',
+        'You have unsaved changes on the current page. Loading a new page will discard them. Continue?'
+      );
+      if (!proceed) {
+        $pageSelector.value = currentPage;
+        return;
+      }
+    }
+
+    showLoading();
+    updateSaveStatus('', 'Loading...');
+
+    try {
+      const result = await apiCall('/api/load', { slug });
+      originalHtml = result.html;
+      currentPage = slug;
+
+      // Parse and load into GrapesJS
+      // Extract body content and styles for the editor
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(result.html, 'text/html');
+
+      // Get all styles (inline + link tags)
+      const styles = [];
+      doc.querySelectorAll('style').forEach(s => styles.push(s.textContent));
+
+      // Get body content
+      const bodyContent = doc.body.innerHTML;
+
+      // Set components and styles
+      editor.setComponents(bodyContent);
+      editor.setStyle(styles.join('\n'));
+
+      // Add external stylesheets to canvas
+      const canvas = editor.Canvas;
+      const frameEl = canvas.getFrameEl();
+      if (frameEl) {
+        const head = frameEl.contentDocument.head;
+        // Add Inter font
+        const fontLink = frameEl.contentDocument.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';
+        fontLink.rel = 'stylesheet';
+        head.appendChild(fontLink);
+      }
+
+      hasChanges = false;
+      editor.UndoManager.clear();
+      updateSaveStatus('saved', 'Loaded — no changes');
+      showToast(`Loaded: ${PAGES.find(p => p.slug === slug)?.label}`, 'success');
+
+    } catch (e) {
+      showToast(`Failed to load page: ${e.message}`, 'error', 5000);
+      updateSaveStatus('error', 'Load failed');
+    }
+
+    hideLoading();
+  }
+
+  // ═══════════════════════════════════════════
+  // PAGE SAVING / PUBLISHING
+  // ═══════════════════════════════════════════
+  async function publishPage() {
+    if (!currentPage) {
+      showToast('No page selected', 'error');
+      return;
+    }
+    if (!hasChanges) {
+      showToast('No changes to publish', 'info');
+      return;
+    }
+
+    const pageName = PAGES.find(p => p.slug === currentPage)?.label || currentPage;
+    const proceed = await confirm(
+      'Publish Changes',
+      `This will save your changes to "${pageName}" and deploy them to the live site. The update will be live in ~30 seconds. Continue?`
+    );
+    if (!proceed) return;
+
+    showLoading();
+    updateSaveStatus('saving', 'Publishing...');
+
+    try {
+      // Rebuild the full HTML document
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(originalHtml, 'text/html');
+
+      // Get updated content from GrapesJS
+      const updatedBody = editor.getHtml();
+      const updatedCss = editor.getCss();
+
+      // Replace body content
+      doc.body.innerHTML = updatedBody;
+
+      // Update or add style tag with editor CSS
+      let editorStyle = doc.querySelector('style[data-gjs]');
+      if (!editorStyle) {
+        editorStyle = doc.createElement('style');
+        editorStyle.setAttribute('data-gjs', 'true');
+        // Insert after last existing style tag in head
+        const lastStyle = doc.head.querySelector('style:last-of-type');
+        if (lastStyle) {
+          lastStyle.after(editorStyle);
+        } else {
+          doc.head.appendChild(editorStyle);
+        }
+      }
+      editorStyle.textContent = updatedCss;
+
+      const fullHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+      await apiCall('/api/save', {
+        slug: currentPage,
+        html: fullHtml,
+        message: `Editor: update ${currentPage}`
+      });
+
+      originalHtml = fullHtml;
+      hasChanges = false;
+      updateSaveStatus('saved', 'Published — deploying...');
+      showToast('Published! Changes will be live in ~30 seconds.', 'success', 5000);
+
+      // After 30s, update status
+      setTimeout(() => {
+        if (!hasChanges) updateSaveStatus('saved', 'Live');
+      }, 30000);
+
+    } catch (e) {
+      showToast(`Publish failed: ${e.message}`, 'error', 5000);
+      updateSaveStatus('error', 'Publish failed');
+    }
+
+    hideLoading();
+  }
+
+  // ═══════════════════════════════════════════
+  // TOOLBAR ACTIONS
+  // ═══════════════════════════════════════════
+  $pageSelector.addEventListener('change', () => loadPage($pageSelector.value));
+
+  $btnPreview.addEventListener('click', () => {
+    if (!currentPage) return;
+    const page = PAGES.find(p => p.slug === currentPage);
+    if (page) window.open(SITE_URL + page.path, '_blank');
+  });
+
+  $btnUndo.addEventListener('click', () => { if (editor) editor.UndoManager.undo(); });
+  $btnRedo.addEventListener('click', () => { if (editor) editor.UndoManager.redo(); });
+
+  $btnDiscard.addEventListener('click', async () => {
+    if (!hasChanges || !currentPage) return;
+    const proceed = await confirm('Discard Changes', 'This will revert all changes to the last saved version. This cannot be undone.');
+    if (proceed) {
+      $pageSelector.dispatchEvent(new Event('change'));
+      showToast('Changes discarded', 'info');
+    }
+  });
+
+  $btnPublish.addEventListener('click', publishPage);
+
+  // Warn on page leave with unsaved changes
+  window.addEventListener('beforeunload', (e) => {
+    if (hasChanges) {
+      e.preventDefault();
+      e.returnValue = 'You have unsaved changes.';
+    }
+  });
+
+  // ═══════════════════════════════════════════
+  // BOOT
+  // ═══════════════════════════════════════════
+  checkSession();
+
+})();
+</script>
+</body>
+</html>
