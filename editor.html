@@ -155,6 +155,14 @@
     flex: 1;
     display: flex;
     overflow: hidden;
+    position: relative;
+  }
+
+  #gjs {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   /* ── GRAPESJS OVERRIDES ── */
@@ -795,31 +803,53 @@
       currentPage = slug;
 
       // Parse and load into GrapesJS
-      // Extract body content and styles for the editor
       const parser = new DOMParser();
       const doc = parser.parseFromString(result.html, 'text/html');
 
-      // Get all styles (inline + link tags)
-      const styles = [];
-      doc.querySelectorAll('style').forEach(s => styles.push(s.textContent));
+      // Collect all CSS: inline <style> tags + external <link> hrefs
+      const inlineStyles = [];
+      doc.querySelectorAll('style').forEach(s => inlineStyles.push(s.textContent));
+      const linkHrefs = [];
+      doc.querySelectorAll('link[rel="stylesheet"]').forEach(l => linkHrefs.push(l.href));
 
-      // Get body content
-      const bodyContent = doc.body.innerHTML;
+      // Get body content (strip <script> tags so GrapesJS doesn't choke)
+      const bodyClone = doc.body.cloneNode(true);
+      bodyClone.querySelectorAll('script').forEach(s => s.remove());
+      const bodyContent = bodyClone.innerHTML;
 
-      // Set components and styles
+      // Set components (HTML) and styles (CSS) in GrapesJS
       editor.setComponents(bodyContent);
-      editor.setStyle(styles.join('\n'));
+      editor.setStyle(inlineStyles.join('\n'));
 
-      // Add external stylesheets to canvas
-      const canvas = editor.Canvas;
-      const frameEl = canvas.getFrameEl();
-      if (frameEl) {
-        const head = frameEl.contentDocument.head;
+      // Inject actual page CSS + fonts into the canvas iframe
+      const frameEl = editor.Canvas.getFrameEl();
+      if (frameEl && frameEl.contentDocument) {
+        const iframeHead = frameEl.contentDocument.head;
+
         // Add Inter font
         const fontLink = frameEl.contentDocument.createElement('link');
         fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';
         fontLink.rel = 'stylesheet';
-        head.appendChild(fontLink);
+        iframeHead.appendChild(fontLink);
+
+        // Add external stylesheets from the original page
+        linkHrefs.forEach(href => {
+          const link = frameEl.contentDocument.createElement('link');
+          link.href = href;
+          link.rel = 'stylesheet';
+          iframeHead.appendChild(link);
+        });
+
+        // Add inline styles as a <style> tag in the iframe
+        if (inlineStyles.length) {
+          const styleEl = frameEl.contentDocument.createElement('style');
+          styleEl.textContent = inlineStyles.join('\n');
+          iframeHead.appendChild(styleEl);
+        }
+
+        // Set iframe body background to match the site
+        frameEl.contentDocument.body.style.background = '#0a0a0a';
+        frameEl.contentDocument.body.style.margin = '0';
       }
 
       hasChanges = false;
