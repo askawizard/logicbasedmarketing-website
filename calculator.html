@@ -1233,6 +1233,7 @@
       <div class="results-label">⚠ Your Estimated Real Blended CAC</div>
       <div class="results-title">Here's The Gap Between<br>What You Think & Reality</div>
       <div class="results-sub">Based on your answers. These are conservative estimates based on your inputs.</div>
+      <div id="email-sent-notice" style="display:none;margin-top:12px;padding:8px 16px;background:rgba(200,246,90,0.1);border:1px solid rgba(200,246,90,0.25);border-radius:8px;font-size:13px;color:#c8f65a;text-align:center;">We just sent these results to your email.</div>
     </div>
 
     <!-- REVENUE HEALTH GRADE -->
@@ -1341,32 +1342,11 @@
   </div>
 </div>
 
-<!-- MAILCHIMP HIDDEN FORM -->
-<iframe name="mc-target" id="mc-target" style="display:none;" aria-hidden="true"></iframe>
-<form id="mc-hidden-form" action="https://logicbasedmarketing.us17.list-manage.com/subscribe/post?u=b4333ac3c716522ceb71c266e&id=0734806408&f_id=00545ce3f0" method="POST" target="mc-target" style="display:none;" aria-hidden="true">
-  <input type="email" name="EMAIL"    id="mc-EMAIL"   value="">
-  <input type="text"  name="FNAME"    id="mc-FNAME"   value="">
-  <input type="text"  name="PHONE"    id="mc-PHONE"   value="">
-  <input type="text"  name="WEBSITE"  id="mc-WEBSITE" value="">
-  <input type="text"  name="REVENUE"  id="mc-REVENUE" value="">
-  <input type="text"  name="MKTSPEND" id="mc-MKTSPEND" value="">
-  <input type="text"  name="AVGROAS"  id="mc-AVGROAS" value="">
-  <input type="text"  name="AVGCPA"   id="mc-AVGCPA"  value="">
-  <input type="text"  name="NEWCUSTS" id="mc-NEWCUSTS" value="">
-  <input type="text"  name="VENDORS"  id="mc-VENDORS" value="">
-  <input type="text"  name="BIZAGE"   id="mc-BIZAGE"  value="">
-  <input type="text"  name="REALCAC"  id="mc-REALCAC" value="">
-  <input type="text"  name="CACGAP"   id="mc-CACGAP"  value="">
-  <input type="text"  name="LEAKAMT"  id="mc-LEAKAMT" value="">
-  <input type="text"  name="SKIPPED"  id="mc-SKIPPED" value="">
-  <div style="position:absolute;left:-5000px;" aria-hidden="true">
-    <input type="text" name="b_b4333ac3c716522ceb71c266e_0734806408" tabindex="-1" value="">
-  </div>
-</form>
+<!-- Calculator results are now submitted to the Cloudflare Worker via fetch POST -->
 
 <script>
-  const MAILCHIMP_URL = 'https://logicbasedmarketing.us17.list-manage.com/subscribe/post-json';
-  
+  const WORKER_URL = 'https://lbm-chatbot.thewizard-dd8.workers.dev';
+
   const answers = {};
   const answerLabels = {};
   const skipped = {};
@@ -1569,26 +1549,30 @@
     var monthlyInvisibleCost = cacGap * v.newCustomers;
     var annualInvisibleCost = monthlyInvisibleCost * 12;
 
-    // Build Mailchimp params
-    var params = new URLSearchParams({
-      EMAIL: email,
-      FNAME: fname,
-      PHONE: phone,
-      WEBSITE: website,
-      REVENUE: answerLabels.q1 || '',
-      MKTSPEND: skipped.q2 ? 'Skipped (est. ' + fmt(v.monthlySpend) + ')' : (answerLabels.q2 || ''),
-      AVGROAS: skipped.q3 ? 'Skipped (est. 3x)' : (answerLabels.q3 || ''),
-      AVGCPA: skipped.q4 ? 'Skipped (est. $250)' : (answerLabels.q4 || ''),
-      NEWCUSTS: skipped.q5 ? 'Skipped (est. ' + v.newCustomers + ')' : (answerLabels.q5 || ''),
-      VENDORS: answerLabels.q6 || '',
-      BIZAGE: answerLabels.q7 || '',
-      REALCAC: fmt(realBlendedCAC),
-      CACGAP: cacMultiplier + 'x',
-      LEAKAMT: fmt(annualInvisibleCost),
-      SKIPPED: skipCount + ' of 7',
-      b_b4333ac3c716522ceb71c266e_0734806408: '',
-      c: '_mcCallback'
-    });
+    // Attribution waste + total annual waste
+    var attributionGap = v.platformROAS >= 8 ? 0.4 : v.platformROAS >= 5 ? 0.3 : v.platformROAS >= 3 ? 0.2 : v.platformROAS >= 2 ? 0.15 : 0.1;
+    var attributionWaste = v.monthlySpend * attributionGap * 12;
+    var totalAnnualWaste = annualInvisibleCost + attributionWaste;
+
+    // Compound damage
+    var pastDamage = Math.round(totalAnnualWaste * v.yearsInBusiness);
+    var future5 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 5) - 1) / 0.08));
+    var future10 = Math.round(totalAnnualWaste * ((Math.pow(1.08, 10) - 1) / 0.08));
+
+    // Grade
+    var monthlyRevenuePerCust = v.monthlyRevenue / v.newCustomers;
+    var cacToRevenue = realBlendedCAC / monthlyRevenuePerCust;
+    var grade;
+    if (cacToRevenue < 0.15) grade = 'A';
+    else if (cacToRevenue < 0.25) grade = 'B';
+    else if (cacToRevenue < 0.40) grade = 'C';
+    else if (cacToRevenue < 0.60) grade = 'D';
+    else grade = 'F';
+    // Penalize for skips
+    var gradeOrder = ['A','B','C','D','F'];
+    var gradeIdx = gradeOrder.indexOf(grade);
+    gradeIdx = Math.min(4, gradeIdx + skipCount);
+    grade = gradeOrder[gradeIdx];
 
     // Track in GA4
     pushEvent('calculator_lead_captured', { real_cac: realBlendedCAC, cac_gap: cacMultiplier, email_captured: true, skipped: skipCount });
@@ -1596,22 +1580,40 @@
     // Dispatch custom event for abandon tracking
     window.dispatchEvent(new CustomEvent('lbm:calculator_completed'));
 
-    // Submit JSONP to Mailchimp
-    window._mcCallback = function() {
-      if (window._mcScript && window._mcScript.parentNode) {
-        window._mcScript.parentNode.removeChild(window._mcScript);
+    // Submit to Worker (background, non-blocking) — handles Mailchimp + results email
+    fetch('https://lbm-chatbot.thewizard-dd8.workers.dev/api/calculator-results', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        firstName: fname,
+        phone: phone,
+        website: website,
+        revenue: answerLabels.q1 || '',
+        monthlySpend: v.monthlySpend,
+        platformROAS: v.platformROAS,
+        platformCPA: v.platformCPA,
+        newCustomers: v.newCustomers,
+        vendors: answerLabels.q6 || '',
+        yearsInBusiness: answerLabels.q7 || '',
+        realBlendedCAC: realBlendedCAC,
+        cacGap: realBlendedCAC - v.platformCPA,
+        cacMultiplier: cacMultiplier,
+        annualInvisibleCost: annualInvisibleCost,
+        attributionWaste: attributionWaste,
+        totalAnnualWaste: totalAnnualWaste,
+        pastDamage: pastDamage,
+        future5: future5,
+        future10: future10,
+        grade: grade,
+        skipCount: skipCount
+      })
+    }).then(function(r) { return r.json(); }).then(function(res) {
+      if (res.success) {
+        var notice = document.getElementById('email-sent-notice');
+        if (notice) notice.style.display = 'block';
       }
-    };
-    window._mcScript = document.createElement('script');
-    window._mcScript.src = MAILCHIMP_URL + '?' + params.toString();
-    document.body.appendChild(window._mcScript);
-
-    // Cleanup after 8 seconds
-    setTimeout(function() {
-      if (window._mcScript && window._mcScript.parentNode) {
-        window._mcScript.parentNode.removeChild(window._mcScript);
-      }
-    }, 8000);
+    }).catch(function() { /* Silent fail — results already on screen */ });
 
     // Set persistent known-contact cookie
     if (email) {
