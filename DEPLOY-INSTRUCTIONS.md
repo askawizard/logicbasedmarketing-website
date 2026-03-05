@@ -110,7 +110,7 @@ Don't touch any of this yet.
 The outreach templates are built in `outreach-templates.md`. Start here:
 
 1. Go to LinkedIn
-2. Search: your ICP (founder, COO, VP Operations, $3M-$15M companies)
+2. Search: your ICP (founder, COO, VP Operations, small businesses with serious ad spend)
 3. Send **Connection Request + Note** from DM Sequence C in the templates
 4. Follow up on day 3 and day 7 with the follow-up messages
 5. Anyone who engages on your content → DM Sequence B immediately
