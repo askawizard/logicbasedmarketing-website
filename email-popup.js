@@ -44,7 +44,7 @@
     '  <div class="lbm-popup-stats">',
     '    <div class="lbm-popup-stat"><span class="lbm-popup-num">$161K</span><span class="lbm-popup-label">waste found in 30 days</span></div>',
     '    <div class="lbm-popup-stat"><span class="lbm-popup-num">15.5&times;</span><span class="lbm-popup-label">real vs. reported CAC</span></div>',
-    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">Free</span><span class="lbm-popup-label">no email required</span></div>',
+    '    <div class="lbm-popup-stat"><span class="lbm-popup-num">Free</span><span class="lbm-popup-label">takes 90 seconds</span></div>',
     '  </div>',
     '  <a href="/calculator.html" id="lbm-popup-cta">Calculate Your Real Blended CAC &rarr;</a>',
     '  <div class="lbm-popup-sub">Then book a call to verify it against your real numbers.</div>',
