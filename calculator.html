@@ -1405,6 +1405,12 @@
 
   // Multiple choice options (including skip)
   function selectOption(el) {
+    // Fire calculator_started on first interaction (once per session)
+    if (!window._lbmCalcStarted) {
+      window._lbmCalcStarted = true;
+      window.dispatchEvent(new CustomEvent('lbm:calculator_started'));
+    }
+
     const qNum = el.getAttribute('data-q');
     const rawVal = el.getAttribute('data-val');
     const label = el.getAttribute('data-label') || el.querySelector('.option-text').textContent;
@@ -1782,6 +1788,7 @@
 
 <script src="/chat-widget.js" defer></script>
 <script src="/email-popup.js" defer></script>
+<script src="/abandon-tracking.js" defer></script>
 <div style="text-align:center;padding:16px 20px;font-size:11px;color:#666;border-top:1px solid #333;margin-top:40px;">Results referenced on this site reflect specific client engagements and are not guaranteed for every business. Individual results vary based on industry, data quality, and business model.</div>
 </body>
 </html>
