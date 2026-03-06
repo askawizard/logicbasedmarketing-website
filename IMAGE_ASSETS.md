@@ -62,7 +62,7 @@ Create page-specific OG images for social media sharing and search result previe
 | Page | File Suggestion | Current OG | Recommended Visual |
 |------|-----------------|-----------|-------------------|
 | `index.html` | `og-logic-based.jpg` | headshot.jpg | Hero messaging: "You don't have a leads problem. Find the real revenue leak." + stat ($161K/month). Dark theme, lime accent. |
-| `pricing.html` | `og-pricing.jpg` | (inferred to use headshot) | Pricing tiers with "$161K/month recovered" callout. Conveys value. |
+| `pricing.html` | `og-pricing.jpg` | (inferred to use headshot) | Pricing tiers with "$161K/month identified" callout. Conveys value. |
 | `blog.html` | `og-blog-hub.jpg` | headshot.jpg | Blog hub visual: collection of article previews or "insights" theme. |
 | `vegas.html` | `og-vegas-local.jpg` | headshot.jpg | "Fractional CRO in Las Vegas" + map pin or local indicator. Geo-specific. |
 | `calculator.html` | `og-calculator.jpg` | (inferred) | "Revenue Leak Calculator" with sample output or funnel visualization. Interactive feel. |
@@ -189,7 +189,7 @@ Redacted screenshots and before/after comparisons add credibility to "[ANONYMIZE
 | Asset | File Suggestion | Dimensions | Concept | Where Used |
 |-------|-----------------|-----------|---------|-----------|
 | Before Dashboard | `case-study-before-dashboard.jpg` | 1200×800px | Dashboard showing missed revenue leaks (redacted sensitive data) | Case study page, homepage |
-| After Dashboard | `case-study-after-dashboard.jpg` | 1200×800px | Same dashboard after optimization—showing recovered value | Case study page |
+| After Dashboard | `case-study-after-dashboard.jpg` | 1200×800px | Same dashboard after optimization, showing identified savings | Case study page |
 | Conversion Flow (Before) | `case-study-funnel-before.jpg` | 800×600px | Funnel with leak points highlighted | Blog posts about recovery |
 | Conversion Flow (After) | `case-study-funnel-after.jpg` | 800×600px | Optimized funnel showing improved metrics | Case study, methodology |
 | Attribution Model | `case-study-attribution.jpg` | 1000×600px | Multi-touch attribution showing how revenue actually flows | Attribution guide blog |
