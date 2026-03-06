@@ -1315,12 +1315,21 @@
     <div class="breakdown-title">Where The Gap Comes From</div>
     <div class="breakdown-list" id="breakdown-list"></div>
 
+    <!-- BONUS BANNER -->
+    <div id="calc-bonus-banner" style="background:linear-gradient(135deg,rgba(200,246,90,0.15),rgba(200,246,90,0.05));border:2px solid var(--accent);border-radius:16px;padding:24px;text-align:center;margin-bottom:16px;">
+      <div style="display:inline-block;background:var(--accent);color:var(--black);font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:10px;">Limited Time Bonus</div>
+      <div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px;">Free Lead Optimization Audit</div>
+      <div style="font-size:13px;color:var(--accent);font-weight:600;margin-bottom:8px;">$1,500 Value. Book in the next <span id="calc-countdown" style="font-weight:900;">20:00</span> to lock it in.</div>
+      <div style="font-size:12px;color:var(--muted);">Most businesses can 2-4x their leads with a few free or low-cost fixes.</div>
+    </div>
+
     <!-- CTA -->
     <div class="cta-card">
       <h2>You Found the Gap. Now See What's Actually Happening.</h2>
       <p>This calculator uses your estimates. The Free $50,000 Challenge uses your real numbers. I show you the gap between what your vendors claim and what your bank account says. In real dollars, by vendor. You see exactly which channels make money and which ones lose it. The Challenge is free. I find $50K+ guaranteed. You see the numbers, then decide what's next.</p>
-      <a href="https://koalendar.com/e/revenue-challenge" class="cta-btn">Take The Free $50,000 Challenge →</a>
-      <div class="cta-guarantee">100% Free · I find $50K+ in savings · The Challenge costs you nothing</div>
+      <a href="/booking" class="cta-btn">Take The Free $50,000 Challenge &rarr;</a>
+      <div class="cta-guarantee">100% Free &middot; I find $50K+ in savings &middot; The Challenge costs you nothing</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted);">I only take 3 new clients per month. Each one gets my full attention.</div>
     </div>
 
     <button class="reset-btn" onclick="resetCalc()">← Start Over</button>
@@ -1337,7 +1346,7 @@
   </div>
   <div class="stat">
     <span class="stat-num">15×</span>
-    <span class="stat-label">Gap found in one diagnostic</span>
+    <span class="stat-label">Gap found in one engagement</span>
   </div>
   <div class="stat">
     <span class="stat-num">$161K/mo</span>
@@ -1792,6 +1801,40 @@
 <script src="/chat-widget.js" defer></script>
 <script src="/email-popup.js" defer></script>
 <script src="/abandon-tracking.js" defer></script>
+<script>
+// Bonus countdown timer (shared with booking page via localStorage)
+(function() {
+  var BONUS_KEY = 'lbm_bonus_expires';
+  var BONUS_DURATION = 20 * 60 * 1000;
+  var el = document.getElementById('calc-countdown');
+  var banner = document.getElementById('calc-bonus-banner');
+  if (!el || !banner) return;
+
+  var stored = localStorage.getItem(BONUS_KEY);
+  var expiresAt;
+  if (stored) {
+    expiresAt = parseInt(stored, 10);
+  } else {
+    expiresAt = Date.now() + BONUS_DURATION;
+    localStorage.setItem(BONUS_KEY, expiresAt.toString());
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  function tick() {
+    var remaining = expiresAt - Date.now();
+    if (remaining <= 0) {
+      banner.style.display = 'none';
+      return;
+    }
+    var m = Math.floor(remaining / 60000);
+    var s = Math.floor((remaining % 60000) / 1000);
+    el.textContent = pad(m) + ':' + pad(s);
+    if (remaining < 5 * 60 * 1000) el.style.color = '#ff4444';
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
 <div style="text-align:center;padding:16px 20px;font-size:11px;color:#666;border-top:1px solid #333;margin-top:40px;">Results referenced on this site reflect specific client engagements and are not guaranteed for every business. Individual results vary based on industry, data quality, and business model.<br><a href="/privacy.html" style="color:#888;text-decoration:underline;">Privacy Policy</a></div>
 </body>
 </html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WWQCMM9');</script>
+<!-- End Google Tag Manager -->
+<title>Book Your Free $50,000 Challenge | Logic Based Marketing</title>
+<meta name="description" content="Book your free 15-minute discovery call. I'll find $50K+ in wasted ad spend or it's free. Limited spots each month.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: #222222;
+    --accent: #c8f65a;
+    --accent-dim: rgba(200, 246, 90, 0.12);
+    --accent-glow: rgba(200, 246, 90, 0.25);
+    --red: #ff4444;
+    --text: #f0f0f0;
+    --muted: #888888;
+    --white: #ffffff;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+  }
+  .logo { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .logo span { color: var(--white); }
+
+  /* MAIN */
+  .main { max-width: 720px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  /* BONUS BANNER */
+  .bonus-banner {
+    background: linear-gradient(135deg, rgba(200,246,90,0.15), rgba(200,246,90,0.05));
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 28px 32px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bonus-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(200,246,90,0.08) 0%, transparent 70%);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .bonus-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .bonus-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .bonus-value {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .bonus-desc {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  /* COUNTDOWN */
+  .countdown-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .countdown-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .countdown-timer {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-timer.urgent { color: var(--red); }
+  .countdown-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* HEADLINE */
+  .headline {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .headline h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .headline p {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* PROOF STATS */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .proof-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .proof-num {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .proof-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* WHAT YOU GET */
+  .what-you-get {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  .what-you-get h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .get-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+  }
+  .get-check {
+    color: var(--accent);
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .get-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .get-text strong { color: var(--white); }
+
+  /* BONUS ITEM */
+  .bonus-item {
+    background: rgba(200,246,90,0.08);
+    border: 1px solid rgba(200,246,90,0.25);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .bonus-item .get-text { color: var(--accent); font-weight: 600; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 18px;
+    font-weight: 800;
+    padding: 18px 48px;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(200,246,90,0.3);
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(200,246,90,0.5);
+  }
+  .cta-guarantee {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+  .cta-guarantee strong { color: var(--accent); }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  .testimonial-quote {
+    font-size: 15px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .testimonial-attr {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* SCARCITY */
+  .scarcity-bar {
+    background: rgba(255,68,68,0.08);
+    border: 1px solid rgba(255,68,68,0.25);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .scarcity-text {
+    font-size: 14px;
+    color: #ff8888;
+    font-weight: 600;
+  }
+  .scarcity-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* EXPIRED STATE */
+  .bonus-expired { display: none; }
+  .bonus-expired.visible { display: block; }
+  .expired-banner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .expired-banner p { font-size: 14px; color: var(--muted); }
+  .expired-banner strong { color: var(--white); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 11px;
+    color: #666;
+    border-top: 1px solid #333;
+  }
+  .footer a { color: #888; text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .header { padding: 14px 16px; }
+    .main { padding: 24px 16px 40px; }
+    .bonus-banner { padding: 20px 16px; }
+    .bonus-title { font-size: 18px; }
+    .countdown-timer { font-size: 36px; }
+    .proof-grid { grid-template-columns: 1fr; gap: 8px; }
+    .proof-stat { display: flex; align-items: center; justify-content: space-between; }
+    .proof-label { margin-top: 0; text-align: right; }
+    .cta-btn { font-size: 16px; padding: 16px 32px; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+  <a href="/" style="text-decoration:none;"><div class="logo">Logic<span>Based</span> Marketing</div></a>
+  <a href="/" style="font-size:12px;color:var(--muted);text-decoration:none;">&larr; Back to site</a>
+</header>
+
+<div class="main">
+
+  <!-- BONUS BANNER -->
+  <div class="bonus-banner" id="bonus-banner">
+    <div class="bonus-tag">Limited Time Bonus</div>
+    <div class="bonus-title">Free Lead Optimization Audit</div>
+    <div class="bonus-value">$1,500 Value. Yours free if you book right now.</div>
+    <div class="bonus-desc">Most businesses can 2-4x their leads with a few free or low-cost fixes. I'll audit your lead capture, forms, landing pages, and follow-up sequence. You get specific recommendations you can implement the same week.</div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap" id="countdown-wrap">
+    <div class="countdown-label">Bonus expires in</div>
+    <div class="countdown-timer" id="countdown">20:00</div>
+    <div class="countdown-note">Book your call before the timer runs out to lock in the free audit</div>
+  </div>
+
+  <!-- EXPIRED STATE (hidden by default) -->
+  <div class="bonus-expired" id="expired-state">
+    <div class="expired-banner">
+      <p><strong>The bonus has expired.</strong> You can still book The Free $50,000 Challenge below. I'll find $50K+ in wasted spend or it's free.</p>
+    </div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline">
+    <h1>I'll Find $50,000 In Wasted Ad Spend. Free.</h1>
+    <p>15-minute discovery call. No pitch. I ask about your business, your numbers, and your goals. If it's a fit, we schedule The Free $50,000 Challenge.</p>
+  </div>
+
+  <!-- PROOF STATS -->
+  <div class="proof-grid">
+    <div class="proof-stat">
+      <div class="proof-num">$161K/mo</div>
+      <div class="proof-label">Wasted spend found in one engagement</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num">16x</div>
+      <div class="proof-label">Net income growth ($250K to $4M)</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num">15x</div>
+      <div class="proof-label">Average gap between reported and real CAC</div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="what-you-get">
+    <h3>What happens on the call:</h3>
+    <div class="get-item">
+      <span class="get-check">&#10003;</span>
+      <div class="get-text"><strong>15 minutes.</strong> I ask about your ad spend, your channels, and where you think the waste is.</div>
+    </div>
+    <div class="get-item">
+      <span class="get-check">&#10003;</span>
+      <div class="get-text"><strong>No pitch.</strong> If your business isn't a fit, I'll tell you. I only take 3 new clients per month.</div>
+    </div>
+    <div class="get-item">
+      <span class="get-check">&#10003;</span>
+      <div class="get-text"><strong>If it's a fit,</strong> we schedule The Free $50,000 Challenge. Two focused sessions where I pull your real data and show you exactly where the money is hiding.</div>
+    </div>
+    <div class="get-item">
+      <span class="get-check">&#10003;</span>
+      <div class="get-text"><strong>The guarantee:</strong> I find $50K+ in wasted spend, or it's free. You pay nothing.</div>
+    </div>
+    <div class="bonus-item" id="bonus-checklist-item">
+      <span class="get-check">&#9733;</span>
+      <div class="get-text">BONUS: Free Lead Optimization Audit ($1,500 value). I audit your lead capture and give you specific fixes to 2-4x your leads.</div>
+    </div>
+  </div>
+
+  <!-- SCARCITY -->
+  <div class="scarcity-bar">
+    <div class="scarcity-text">I only take 3 new Challenge clients per month.</div>
+    <div class="scarcity-sub">Each engagement requires deep, hands-on analysis of your real data.</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a href="https://koalendar.com/e/revenue-challenge" class="cta-btn" id="cta-btn">Book Your Free Discovery Call &rarr;</a>
+    <div class="cta-guarantee"><strong>100% Free</strong> &middot; No obligation &middot; 15 minutes &middot; I find $50K+ or you pay nothing</div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="testimonial">
+    <div class="testimonial-quote">"We thought our CAC was $181. Tyler found it was actually $2,800. That single insight changed how we allocated our entire budget. Net income went from $250K to $4M."</div>
+    <div class="testimonial-attr">Distribution company, $9M/year revenue</div>
+  </div>
+
+  <!-- SECOND CTA -->
+  <div class="cta-section">
+    <a href="https://koalendar.com/e/revenue-challenge" class="cta-btn">Book Your Free Discovery Call &rarr;</a>
+    <div class="cta-guarantee" style="margin-top:16px;font-size:12px;">The call is free. The Challenge is free. You see the numbers, then decide.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Results referenced on this site reflect specific client engagements and are not guaranteed for every business. Individual results vary based on industry, data quality, and business model.<br>
+  <a href="/privacy.html">Privacy Policy</a>
+</div>
+
+<script src="email-popup.js"></script>
+<script src="chat-widget.js"></script>
+<script>
+  // 20-minute countdown timer
+  (function() {
+    var BONUS_KEY = 'lbm_bonus_expires';
+    var BONUS_DURATION = 20 * 60 * 1000; // 20 minutes in ms
+    var timerEl = document.getElementById('countdown');
+    var wrapEl = document.getElementById('countdown-wrap');
+    var bannerEl = document.getElementById('bonus-banner');
+    var expiredEl = document.getElementById('expired-state');
+    var bonusCheckEl = document.getElementById('bonus-checklist-item');
+    var ctaBtn = document.getElementById('cta-btn');
+
+    // Get or set expiry time
+    var stored = localStorage.getItem(BONUS_KEY);
+    var expiresAt;
+    if (stored) {
+      expiresAt = parseInt(stored, 10);
+    } else {
+      expiresAt = Date.now() + BONUS_DURATION;
+      localStorage.setItem(BONUS_KEY, expiresAt.toString());
+    }
+
+    function pad(n) { return n < 10 ? '0' + n : n; }
+
+    function tick() {
+      var remaining = expiresAt - Date.now();
+      if (remaining <= 0) {
+        // Expired
+        timerEl.textContent = '00:00';
+        wrapEl.style.display = 'none';
+        bannerEl.style.display = 'none';
+        expiredEl.classList.add('visible');
+        if (bonusCheckEl) bonusCheckEl.style.display = 'none';
+        ctaBtn.textContent = 'Book Your Free Discovery Call \u2192';
+        return;
+      }
+      var mins = Math.floor(remaining / 60000);
+      var secs = Math.floor((remaining % 60000) / 1000);
+      timerEl.textContent = pad(mins) + ':' + pad(secs);
+
+      // Turn red under 5 minutes
+      if (remaining < 5 * 60 * 1000) {
+        timerEl.classList.add('urgent');
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    tick();
+  })();
+
+  // Track booking click
+  document.querySelectorAll('.cta-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'booking_click',
+          bonus_active: document.getElementById('countdown-wrap').style.display !== 'none'
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
