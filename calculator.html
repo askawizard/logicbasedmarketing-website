@@ -1569,7 +1569,7 @@
     // Dispatch custom event for abandon tracking
     window.dispatchEvent(new CustomEvent('lbm:calculator_completed'));
 
-    // Submit to Worker (background, non-blocking) — handles Mailchimp + results email
+    // Submit to Worker (background, non-blocking). Handles Mailchimp + results email
     fetch('https://lbm-chatbot.thewizard-dd8.workers.dev/api/calculator-results', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1601,7 +1601,7 @@
         var notice = document.getElementById('email-sent-notice');
         if (notice) notice.style.display = 'block';
       }
-    }).catch(function() { /* Silent fail — results already on screen */ });
+    }).catch(function() { /* Silent fail. Results already on screen */ });
 
     // Set persistent known-contact cookie
     if (email) {
@@ -1789,6 +1789,6 @@
 <script src="/chat-widget.js" defer></script>
 <script src="/email-popup.js" defer></script>
 <script src="/abandon-tracking.js" defer></script>
-<div style="text-align:center;padding:16px 20px;font-size:11px;color:#666;border-top:1px solid #333;margin-top:40px;">Results referenced on this site reflect specific client engagements and are not guaranteed for every business. Individual results vary based on industry, data quality, and business model.</div>
+<div style="text-align:center;padding:16px 20px;font-size:11px;color:#666;border-top:1px solid #333;margin-top:40px;">Results referenced on this site reflect specific client engagements and are not guaranteed for every business. Individual results vary based on industry, data quality, and business model.<br><a href="/privacy.html" style="color:#888;text-decoration:underline;">Privacy Policy</a></div>
 </body>
 </html>

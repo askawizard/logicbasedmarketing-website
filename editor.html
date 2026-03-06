@@ -344,7 +344,7 @@
   const WORKER_URL = 'https://lbm-editor.thewizard-dd8.workers.dev';
   const SITE_URL = 'https://logicbasedmarketing.com';
 
-  // Page registry — all editable pages
+  // Page registry. All editable pages
   const PAGES = [
     { slug: 'index.html', label: 'Homepage', path: '/' },
     { slug: 'calculator.html', label: 'All-In CAC Calculator', path: '/calculator' },
@@ -722,7 +722,7 @@
         <section style="padding: 64px 48px; background: #0a0a0a;">
           <div style="max-width: 700px; margin: 0 auto; background: #161616; border: 1px solid #1e1e1e; border-radius: 12px; padding: 40px;">
             <p style="font-size: 18px; color: #efefef; font-style: italic; line-height: 1.7; margin-bottom: 20px;">"Quote from a client or partner that reinforces your credibility and results."</p>
-            <p style="font-size: 14px; color: #c8f65a; font-weight: 700;">— Client Name, Title at Company</p>
+            <p style="font-size: 14px; color: #c8f65a; font-weight: 700;">Client Name, Title at Company</p>
           </div>
         </section>
       `,
@@ -854,7 +854,7 @@
 
       hasChanges = false;
       editor.UndoManager.clear();
-      updateSaveStatus('saved', 'Loaded — no changes');
+      updateSaveStatus('saved', 'Loaded, no changes');
       showToast(`Loaded: ${PAGES.find(p => p.slug === slug)?.label}`, 'success');
 
     } catch (e) {
@@ -925,7 +925,7 @@
 
       originalHtml = fullHtml;
       hasChanges = false;
-      updateSaveStatus('saved', 'Published — deploying...');
+      updateSaveStatus('saved', 'Published, deploying...');
       showToast('Published! Changes will be live in ~30 seconds.', 'success', 5000);
 
       // After 30s, update status
