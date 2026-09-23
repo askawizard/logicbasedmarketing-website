@@ -8,7 +8,7 @@
 <!-- End Google Tag Manager -->
 <title>Tyler Sass | Portfolio</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Tyler Sass: GTM engineer and B2B closer. Revenue systems built with Claude Code, and the sales record they produced.">
+<meta name="description" content="Tyler Sass: 15 years in paid media, marketing ops, revenue operations and B2B sales. Revenue systems built with Claude Code, and the closing record behind them.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,8 +61,12 @@
 
   /* Ledger of numbers */
   .ledger { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-block: 1px solid var(--border); margin-block: 12px 8px; }
-  .ledger div { padding: 22px 20px; border-right: 1px solid var(--border); }
-  .ledger div:last-child { border-right: 0; }
+  .ledger > div { padding: 22px 20px; border-right: 1px solid var(--border); }
+  .ledger > div:nth-child(4n) { border-right: 0; }
+  .ledger > div:nth-child(-n+4) { border-bottom: 1px solid var(--border); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+  .stats .sn { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--white); }
+  .stats .sl { font-size: 12.5px; color: var(--soft); }
   .ledger .n { font-family: var(--mono); font-size: clamp(24px, 3vw, 32px); font-weight: 600; color: var(--white); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
   .ledger .n small { font-size: .55em; color: var(--accent); margin-left: 2px; }
   .ledger .l { font-size: 13px; color: var(--soft); margin-top: 4px; }
@@ -127,8 +131,8 @@
     .intro { grid-template-columns: 1fr; padding-top: 48px; }
     .photo { width: 120px; order: -1; }
     .ledger { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .ledger div:nth-child(2) { border-right: 0; }
-    .ledger div:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .ledger > div { border-right: 1px solid var(--border) !important; border-bottom: 1px solid var(--border) !important; }
+    .ledger > div:nth-child(2n) { border-right: 0 !important; }
     .record, .builds { grid-template-columns: 1fr; }
     .job { grid-template-columns: 1fr; gap: 4px; }
   }
@@ -149,9 +153,9 @@
 
   <header class="intro">
     <div>
-      <div class="eyebrow">Tyler Sass · Portfolio</div>
-      <h1>I build revenue systems with Claude Code. <em>Then I close on them.</em></h1>
-      <p class="lede">GTM engineer, revenue operator, and B2B closer. In five months at a $12M B2B industrial equipment company I built the attribution, routing, quoting and order-to-cash systems by myself, then used them to close <b>$521,528</b> at a higher quote-to-close rate than the company's 20-year top rep.</p>
+      <div class="eyebrow">Tyler Sass · 15 years in revenue</div>
+      <h1>Fifteen years building revenue engines. <em>I build them, then I close on them.</em></h1>
+      <p class="lede">Paid media, marketing operations, revenue operations and B2B sales since 2010. Today I build revenue systems with Claude Code and AI agents, and I sell on what I build: <b>$521,528 closed personally</b> at a quote-to-close rate that beats a 20-year industry veteran.</p>
       <div class="links">
         <a class="btn primary" href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a>
         <a class="btn" href="https://www.linkedin.com/in/tyler-sass-85237b97/" target="_blank" rel="noopener">LinkedIn</a>
@@ -161,29 +165,33 @@
   </header>
 
   <div class="ledger" role="list">
-    <div role="listitem"><div class="n">$521,528</div><div class="l">closed in my first 5 months of selling, 327 deals</div></div>
-    <div role="listitem"><div class="n">43.7<small>%</small></div><div class="l">quote-to-close (48% peak) vs 36.8% for a 20-year veteran</div></div>
-    <div role="listitem"><div class="n">+32<small>%</small></div><div class="l">closed-won revenue Google Ads can bid on</div></div>
-    <div role="listitem"><div class="n">62</div><div class="l">systems shipped solo with Claude Code, 12 running in production</div></div>
+    <div role="listitem"><div class="n">15<small>yrs</small></div><div class="l">paid media, marketing ops, RevOps and B2B sales</div></div>
+    <div role="listitem"><div class="n">$521,528</div><div class="l">closed personally across 327 B2B deals</div></div>
+    <div role="listitem"><div class="n">43.7<small>%</small></div><div class="l">quote-to-close, peaking at 48%, vs 36.8% for a 20-year veteran</div></div>
+    <div role="listitem"><div class="n">62</div><div class="l">revenue systems shipped with Claude Code, 12 in production</div></div>
+    <div role="listitem"><div class="n">92.68<small>%</small></div><div class="l">cut in cost per lead ($41 to $3) across 40 clients</div></div>
+    <div role="listitem"><div class="n">500<small>%</small></div><div class="l">paid-search conversion lift</div></div>
+    <div role="listitem"><div class="n">+32<small>%</small></div><div class="l">closed-won revenue fed back to Google Ads</div></div>
+    <div role="listitem"><div class="n">75<small>%</small></div><div class="l">of leads converted to investor consultations</div></div>
   </div>
-  <p class="fine">Figures from CRM, accounting and phone-system records, April 20 to September 17, 2026. Company and customers kept confidential.</p>
+  <p class="fine">Figures from CRM, accounting, ad-platform and phone-system records. Companies and customers kept confidential.</p>
 
   <section aria-labelledby="h-record">
-    <h2 id="h-record">The sales record</h2>
+    <h2 id="h-record">The closer</h2>
     <div class="record">
       <div>
-        <p>I started selling from a cold start on April 20, 2026. By month four I was averaging <b>$109,698 a month</b>, a <b>$1.32M annual run-rate</b>, before the 5.7-month industry ramp was even over.</p>
-        <p>Same market, same price book, same window: I converted <b>327 of 749 quotes</b>. The company's top rep, with 20 years in the industry, converted 640 of 1,741. I also made <b>66% of the team's outbound dials</b>, held the best inbound answer rate on the team (66.1%), and logged <b>5,591 live conversations</b>.</p>
-        <p>For six weeks I also covered a $12M account book, triaged 505 opportunities, and set the team record of 92 deals in a month while doing it.</p>
+        <p>Full-cycle B2B selling at a $12M industrial equipment company: <b>$521,528 closed personally</b> across 327 deals, a <b>$1.32M annual run-rate</b>, and a best month of <b>$151,361</b>.</p>
+        <p>Same market, same price book: I convert <b>43.7% of quotes</b>. The company's top rep, with 20 years in the industry, converts 36.8%. I also make <b>66% of the team's outbound dials</b>, hold the best inbound answer rate on the team (66.1%), and have logged <b>5,591 live conversations</b>.</p>
+        <p>I covered a $12M account book, triaged 505 opportunities, and set the team record of 92 deals in a month while doing it. Before this I wrote the sales playbook for an investment firm and trained its team to a 20% higher close rate.</p>
       </div>
-      <div class="versus" aria-label="Quote-to-close comparison and monthly revenue">
+      <div class="versus" aria-label="Quote-to-close comparison">
         <div class="bar"><div class="who">Tyler <b>43.7%</b></div><div class="track"><div class="fill me" style="width:87.4%"></div></div></div>
-        <div class="bar"><div class="who">20-year top rep <b>36.8%</b></div><div class="track"><div class="fill" style="width:73.6%"></div></div></div>
-        <div class="months" aria-label="Revenue closed per full month">
-          <div class="m"><span class="v">$76.8K</span><div class="col" style="height:56px"></div><span class="k">May</span></div>
-          <div class="m"><span class="v">$72.4K</span><div class="col" style="height:53px"></div><span class="k">Jun</span></div>
-          <div class="m"><span class="v">$151.4K</span><div class="col" style="height:110px"></div><span class="k">Jul</span></div>
-          <div class="m"><span class="v">$138.3K</span><div class="col" style="height:101px"></div><span class="k">Aug</span></div>
+        <div class="bar"><div class="who">20-year industry veteran <b>36.8%</b></div><div class="track"><div class="fill" style="width:73.6%"></div></div></div>
+        <div class="stats">
+          <div><div class="sn">$151,361</div><div class="sl">best month</div></div>
+          <div><div class="sn">92</div><div class="sl">deals in a month, team record</div></div>
+          <div><div class="sn">5,591</div><div class="sl">live sales conversations</div></div>
+          <div><div class="sn">$1.32M</div><div class="sl">annual run-rate</div></div>
         </div>
       </div>
     </div>
@@ -232,22 +240,37 @@
   </section>
 
   <section aria-labelledby="h-earlier">
-    <h2 id="h-earlier">Before this</h2>
+    <h2 id="h-earlier">Fifteen years, one throughline</h2>
     <div class="earlier">
+      <div class="job">
+        <div class="when">2025 to present</div>
+        <div><h3>Account Executive &amp; Revenue Operations</h3><div class="org">$12M B2B industrial equipment company</div>
+        <p>Built the company's attribution, lead routing, quoting, order-to-cash and reconciliation systems with Claude Code, then closed $521,528 on them at 43.7% of quotes.</p></div>
+      </div>
       <div class="job">
         <div class="when">2020 to 2024</div>
         <div><h3>Growth Marketing Manager &amp; Sales Training Consultant</h3><div class="org">Courtlandt Financial Group · real-estate investments for accredited investors</div>
         <p>Ran growth end to end: offers, funnels, landing pages and paid media. Built the HubSpot CRM and lead funnel that converted 75% of leads into 1.5-hour investor consultations. Wrote the sales playbook and trained the team to a 20% higher close rate.</p></div>
       </div>
       <div class="job">
-        <div class="when">2015 to present</div>
-        <div><h3>Founder</h3><div class="org">Logic Based Marketing · AI software and revenue consulting</div>
-        <p>Built, marketed and sold HypnoChat, an AI lead-generation SaaS, by myself: shipped the product, ran the paid acquisition, closed the customers.</p></div>
+        <div class="when">2018 to 2020</div>
+        <div><h3>Data Analyst &amp; Media Buyer</h3><div class="org">Gunn Jerkens Marketing Communications</div>
+        <p>Ran paid media and analytics for 40 B2B and real-estate clients across Google, Bing, Taboola, YouTube, Spotify and Waze. Cut cost per lead 92.68%, from $41 to $3.</p></div>
       </div>
       <div class="job">
-        <div class="when">2015 to 2020</div>
-        <div><h3>Data Analyst &amp; Media Buyer · Digital Marketing Specialist</h3><div class="org">Gunn Jerkens · IQAir</div>
-        <p>Cut cost per lead 92.68% ($41 to $3) across 40 B2B and real-estate clients. Drove a 500% paid-search conversion lift at IQAir.</p></div>
+        <div class="when">2015 to 2018</div>
+        <div><h3>Digital Marketing Specialist</h3><div class="org">IQAir</div>
+        <p>Drove a 500% paid-search conversion lift. Ran Google Analytics, HubSpot, SEO and direct-response campaigns.</p></div>
+      </div>
+      <div class="job">
+        <div class="when">2015 to present</div>
+        <div><h3>Founder</h3><div class="org">Logic Based Marketing · AI software and revenue consulting</div>
+        <p>Built, marketed and sold HypnoChat, an AI lead-generation SaaS, by myself: shipped the product, ran the paid acquisition, closed the customers. Revenue operations consulting for businesses with serious ad spend.</p></div>
+      </div>
+      <div class="job">
+        <div class="when">2010 to 2015</div>
+        <div><h3>Magician</h3><div class="org">Disneyland Resort · Magic Shop</div>
+        <p>Five years of live demonstration selling as a performer, salesman and mentor to new hires. Where I learned to hold a room and close.</p></div>
       </div>
     </div>
   </section>
