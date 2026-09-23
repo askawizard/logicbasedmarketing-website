@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WWQCMM9');</script>
+<!-- End Google Tag Manager -->
+<title>Tyler Sass | Portfolio</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tyler Sass: GTM engineer and B2B closer. Revenue systems built with Claude Code, and the sales record they produced.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8f65a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='20' fill='%230a0a0a'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a; --dark: #111111; --card: #161616;
+    --border: #1e1e1e; --border-hi: #2a2a2a; --accent: #c8f65a;
+    --accent-dim: rgba(200,246,90,0.10);
+    --text: #efefef; --soft: #a3a3a3; --muted: #6b6b6b; --white: #ffffff;
+    --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 5;
+  }
+  .nav-logo {
+    font-size: 13px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-cta { font-size: 13px; font-weight: 700; color: var(--black); background: var(--accent); padding: 8px 14px; border-radius: 6px; text-decoration: none; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding-inline: 24px; }
+
+  /* Intro */
+  .intro { padding-block: 72px 40px; display: grid; grid-template-columns: 1fr 200px; gap: 48px; align-items: center; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  h1 { font-size: clamp(34px, 5.6vw, 58px); font-weight: 900; letter-spacing: -0.035em; line-height: 1.04; color: var(--white); text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lede { margin-top: 20px; font-size: 18px; color: var(--soft); max-width: 60ch; }
+  .lede b { color: var(--text); font-weight: 600; }
+  .links { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; padding: 11px 18px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; border: 1px solid var(--border-hi); color: var(--text); }
+  .btn.primary { background: var(--accent); color: var(--black); border-color: var(--accent); }
+  .btn:hover { border-color: var(--accent); }
+  .photo { width: 200px; aspect-ratio: 1; max-width: 100%; border-radius: 16px; object-fit: cover; border: 1px solid var(--border-hi); filter: grayscale(.15); }
+
+  /* Ledger of numbers */
+  .ledger { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-block: 1px solid var(--border); margin-block: 12px 8px; }
+  .ledger div { padding: 22px 20px; border-right: 1px solid var(--border); }
+  .ledger div:last-child { border-right: 0; }
+  .ledger .n { font-family: var(--mono); font-size: clamp(24px, 3vw, 32px); font-weight: 600; color: var(--white); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .ledger .n small { font-size: .55em; color: var(--accent); margin-left: 2px; }
+  .ledger .l { font-size: 13px; color: var(--soft); margin-top: 4px; }
+  .fine { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  section { padding-block: 56px 8px; }
+  h2 { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; gap: 12px; align-items: center; }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  /* Sales record */
+  .record { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: start; }
+  .record p { color: var(--soft); max-width: 60ch; }
+  .record p + p { margin-top: 12px; }
+  .record b { color: var(--text); }
+  .versus { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: grid; gap: 16px; }
+  .bar { display: grid; gap: 6px; }
+  .bar .who { display: flex; justify-content: space-between; font-size: 13px; color: var(--soft); }
+  .bar .who b { font-family: var(--mono); color: var(--white); font-weight: 600; }
+  .track { height: 12px; background: #1b1b1b; border-radius: 6px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 6px; background: var(--muted); }
+  .fill.me { background: var(--accent); }
+  .months { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: end; height: 150px; margin-top: 4px; }
+  .months .m { display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 6px; height: 100%; text-align: center; }
+  .months .col { background: var(--accent); border-radius: 5px 5px 0 0; opacity: .85; }
+  .months .v { font-family: var(--mono); font-size: 11.5px; color: var(--text); }
+  .months .k { font-size: 11.5px; color: var(--muted); }
+
+  /* Builds */
+  .builds { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+  .build { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+  .build h3 { font-size: 19px; font-weight: 800; color: var(--white); letter-spacing: -0.01em; line-height: 1.25; }
+  .build .res { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .build p { font-size: 14.5px; color: var(--soft); }
+  .build .stack { font-size: 12px; color: var(--muted); }
+
+  /* Earlier */
+  .earlier { display: grid; gap: 0; }
+  .job { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding-block: 18px; border-top: 1px solid var(--border); }
+  .job:last-child { border-bottom: 1px solid var(--border); }
+  .job .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .job h3 { font-size: 16px; color: var(--white); font-weight: 700; }
+  .job .org { font-size: 13.5px; color: var(--muted); }
+  .job p { font-size: 14.5px; color: var(--soft); margin-top: 6px; max-width: 70ch; }
+
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tools span { font-size: 13px; padding: 6px 11px; border: 1px solid var(--border-hi); border-radius: 999px; color: var(--text); }
+  .tools span.ai { border-color: rgba(200,246,90,.45); color: var(--accent); }
+
+  .close { margin-block: 64px 80px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 36px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; }
+  .close h2 { all: unset; display: block; font-size: 26px; font-weight: 900; color: var(--white); letter-spacing: -0.02em; }
+  .close p { color: var(--soft); margin-top: 6px; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; }
+  .footer-logo { font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .footer-logo span { color: var(--white); }
+  footer p { font-size: 12px; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  @media (max-width: 860px) {
+    nav { padding: 16px 20px; }
+    .intro { grid-template-columns: 1fr; padding-top: 48px; }
+    .photo { width: 120px; order: -1; }
+    .ledger { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .ledger div:nth-child(2) { border-right: 0; }
+    .ledger div:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .record, .builds { grid-template-columns: 1fr; }
+    .job { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWQCMM9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a href="/" class="nav-logo">Logic<span>Based</span> Marketing</a>
+  <a href="mailto:tyler@logicbasedmarketing.com" class="nav-cta">Email Tyler</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="intro">
+    <div>
+      <div class="eyebrow">Tyler Sass · Portfolio</div>
+      <h1>I build revenue systems with Claude Code. <em>Then I close on them.</em></h1>
+      <p class="lede">GTM engineer, revenue operator, and B2B closer. In five months at a $12M B2B industrial equipment company I built the attribution, routing, quoting and order-to-cash systems by myself, then used them to close <b>$521,528</b> at a higher quote-to-close rate than the company's 20-year top rep.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:tyler@logicbasedmarketing.com">tyler@logicbasedmarketing.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/tyler-sass-85237b97/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <img class="photo" src="/images/headshot.jpg" alt="Tyler Sass" width="200" height="200">
+  </header>
+
+  <div class="ledger" role="list">
+    <div role="listitem"><div class="n">$521,528</div><div class="l">closed in my first 5 months of selling, 327 deals</div></div>
+    <div role="listitem"><div class="n">43.7<small>%</small></div><div class="l">quote-to-close (48% peak) vs 36.8% for a 20-year veteran</div></div>
+    <div role="listitem"><div class="n">+32<small>%</small></div><div class="l">closed-won revenue Google Ads can bid on</div></div>
+    <div role="listitem"><div class="n">62</div><div class="l">systems shipped solo with Claude Code, 12 running in production</div></div>
+  </div>
+  <p class="fine">Figures from CRM, accounting and phone-system records, April 20 to September 17, 2026. Company and customers kept confidential.</p>
+
+  <section aria-labelledby="h-record">
+    <h2 id="h-record">The sales record</h2>
+    <div class="record">
+      <div>
+        <p>I started selling from a cold start on April 20, 2026. By month four I was averaging <b>$109,698 a month</b>, a <b>$1.32M annual run-rate</b>, before the 5.7-month industry ramp was even over.</p>
+        <p>Same market, same price book, same window: I converted <b>327 of 749 quotes</b>. The company's top rep, with 20 years in the industry, converted 640 of 1,741. I also made <b>66% of the team's outbound dials</b>, held the best inbound answer rate on the team (66.1%), and logged <b>5,591 live conversations</b>.</p>
+        <p>For six weeks I also covered a $12M account book, triaged 505 opportunities, and set the team record of 92 deals in a month while doing it.</p>
+      </div>
+      <div class="versus" aria-label="Quote-to-close comparison and monthly revenue">
+        <div class="bar"><div class="who">Tyler <b>43.7%</b></div><div class="track"><div class="fill me" style="width:87.4%"></div></div></div>
+        <div class="bar"><div class="who">20-year top rep <b>36.8%</b></div><div class="track"><div class="fill" style="width:73.6%"></div></div></div>
+        <div class="months" aria-label="Revenue closed per full month">
+          <div class="m"><span class="v">$76.8K</span><div class="col" style="height:56px"></div><span class="k">May</span></div>
+          <div class="m"><span class="v">$72.4K</span><div class="col" style="height:53px"></div><span class="k">Jun</span></div>
+          <div class="m"><span class="v">$151.4K</span><div class="col" style="height:110px"></div><span class="k">Jul</span></div>
+          <div class="m"><span class="v">$138.3K</span><div class="col" style="height:101px"></div><span class="k">Aug</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-builds">
+    <h2 id="h-builds">What I built</h2>
+    <div class="builds">
+      <article class="build">
+        <h3>Closed-loop attribution: Salesforce to Google Ads</h3>
+        <div class="res">+32% trainable revenue · $591K → $781K · 111 wins matched</div>
+        <p>Built a combined web-plus-phone click-ID so Google Ads could learn from phone sales, not just web checkouts. 69% of the new signal came from phone deals that a standard field mapping would have dropped. Stress-tested 22 of 22 cases before go-live.</p>
+        <div class="stack">Salesforce · Google Ads offline conversions · GA4</div>
+      </article>
+      <article class="build">
+        <h3>One-click quote to checkout</h3>
+        <div class="res">~30 minutes → 1 click</div>
+        <p>A sales console that drafts the quote with AI, generates the PDF, charges the card, sends the receipt and hands the order to shipping in one step. Every path that could double-charge a card or book a sale twice is closed: retries, timeouts, accounting outages, two contacts at one buyer.</p>
+        <div class="stack">Claude API · Stripe · QuickBooks · ShipStation · Salesforce</div>
+      </article>
+      <article class="build">
+        <h3>Lead routing and the follow-up board</h3>
+        <div class="res">$150,730 in live quotes put back into follow-up</div>
+        <p>Fixed routing that defaulted 87% of 1,395 inbound leads to one rep, rerouted by source, and traced a recurring reassignment loop to a third-party app. Rebuilt the rep follow-up board so all 143 quoted opportunities show, up from 50.</p>
+        <div class="stack">Salesforce · lead source data · third-party app audit</div>
+      </article>
+      <article class="build">
+        <h3>Order-to-cash automation</h3>
+        <div class="res">4 to 6 hours a day of manual entry eliminated</div>
+        <p>Auto-matched 5,526 web product variations to the accounting system, built hourly payment reconciliation across Stripe and QuickBooks, a duplicate-deal detector ($15,884 caught), and monitors that alert when a scheduled job silently dies.</p>
+        <div class="stack">Python · QuickBooks API · Stripe · WooCommerce · scheduled jobs</div>
+      </article>
+      <article class="build">
+        <h3>Call intelligence from 3,009 recorded calls</h3>
+        <div class="res">Lost deals named financing 126 times, price 73</div>
+        <p>Mined every recorded sales call to learn why deals were won and lost, clustered 1,715 transcripts into 26 pain themes, and turned it into a sales-training tool. The finding moved the pitch to financing-first on large equipment deals.</p>
+        <div class="stack">Transcription · Claude · RingCentral</div>
+      </article>
+      <article class="build">
+        <h3>Revenue-true email measurement</h3>
+        <div class="res">$419K a year · automated flows earn 57× broadcasts</div>
+        <p>Showed email drives about 10 times the revenue web analytics credited it with, and that automated flows earn $11,645 per 1,000 recipients against $205 for one-off sends.</p>
+        <div class="stack">Klaviyo · GA4 · order data</div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-earlier">
+    <h2 id="h-earlier">Before this</h2>
+    <div class="earlier">
+      <div class="job">
+        <div class="when">2020 to 2024</div>
+        <div><h3>Growth Marketing Manager &amp; Sales Training Consultant</h3><div class="org">Courtlandt Financial Group · real-estate investments for accredited investors</div>
+        <p>Ran growth end to end: offers, funnels, landing pages and paid media. Built the HubSpot CRM and lead funnel that converted 75% of leads into 1.5-hour investor consultations. Wrote the sales playbook and trained the team to a 20% higher close rate.</p></div>
+      </div>
+      <div class="job">
+        <div class="when">2015 to present</div>
+        <div><h3>Founder</h3><div class="org">Logic Based Marketing · AI software and revenue consulting</div>
+        <p>Built, marketed and sold HypnoChat, an AI lead-generation SaaS, by myself: shipped the product, ran the paid acquisition, closed the customers.</p></div>
+      </div>
+      <div class="job">
+        <div class="when">2015 to 2020</div>
+        <div><h3>Data Analyst &amp; Media Buyer · Digital Marketing Specialist</h3><div class="org">Gunn Jerkens · IQAir</div>
+        <p>Cut cost per lead 92.68% ($41 to $3) across 40 B2B and real-estate clients. Drove a 500% paid-search conversion lift at IQAir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tools">
+    <h2 id="h-tools">Tools I build with</h2>
+    <div class="tools">
+      <span class="ai">Claude Code</span><span class="ai">Claude API</span><span class="ai">MCP servers</span><span class="ai">AI agents</span>
+      <span>Python</span><span>TypeScript</span><span>Cloudflare Workers</span><span>n8n</span>
+      <span>Salesforce</span><span>HubSpot</span><span>QuickBooks</span><span>Stripe</span><span>Google Ads</span><span>GA4</span><span>Klaviyo</span><span>RingCentral</span><span>ShipStation</span>
+    </div>
+  </section>
+
+  <div class="close">
+    <div>
+      <h2>Want to see a system running?</h2>
+      <p>I'll screen-share live builds on a call. Fifteen minutes is enough.</p>
+    </div>
+    <a class="btn primary" href="mailto:tyler@logicbasedmarketing.com?subject=Portfolio">Email Tyler</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Logic<span>Based</span> Marketing</div>
+  <p style="margin-top:12px;"><a href="/">Home</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/tyler-sass-85237b97/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+  <p style="margin-top:16px;">&copy; 2026 Logic Based Marketing &middot; Tyler Sass</p>
+</footer>
+
+</body>
+</html>
