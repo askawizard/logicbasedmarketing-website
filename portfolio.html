@@ -85,6 +85,9 @@
   .record p { max-width: 60ch; }
   .record p + p { margin-top: 12px; }
   .record b { color: var(--ink); font-weight: 600; }
+  .bigs { display: grid; gap: 22px; border-top: 2px solid var(--ink); padding-top: 18px; }
+  .bigs .bn { font-family: var(--mono); font-size: 38px; color: var(--ink); line-height: 1.1; }
+  .bigs .bl { font-size: 14.5px; color: var(--muted); margin-top: 4px; max-width: 40ch; }
   table.rec { width: 100%; border-collapse: collapse; font-size: 15px; }
   table.rec th { text-align: left; font-weight: 500; color: var(--muted); padding: 9px 0; border-bottom: 1px solid var(--rule); }
   table.rec td { text-align: right; font-family: var(--mono); color: var(--ink); padding: 9px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
@@ -135,7 +138,7 @@
 <header class="top">
   <div class="in">
     <a class="mark" href="#top">Tyler Sass</a>
-    <nav aria-label="Sections"><a href="#work">Work</a><a href="portfolio/work.html">All case studies</a><a href="portfolio/sales-record.html">Sales record</a><a href="#career">Career</a><a href="#contact">Contact</a></nav>
+    <nav aria-label="Sections"><a href="#work">Work</a><a href="portfolio/work.html">All case studies</a><a href="#career">Career</a><a href="#contact">Contact</a></nav>
   </div>
 </header>
 
@@ -265,7 +268,7 @@
         </div>
       </div>
     </article>
-    <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center"><a class="btn" href="portfolio/work.html">See all case studies</a><a href="portfolio/sales-record.html">Read the full sales record</a></p>
+    <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center"><a class="btn" href="portfolio/work.html">See all case studies</a></p>
   </section>
 
   <section id="record" aria-labelledby="h-record">
@@ -280,15 +283,10 @@
           <div class="bar"><div class="who">20-year industry veteran <b>36.8%</b></div><div class="track"><div class="fill" style="width:73.6%"></div></div></div>
         </div>
       </div>
-      <table class="rec">
-        <tr><th scope="row">Annual sales run-rate</th><td>$1.32M</td></tr>
-        <tr><th scope="row">Quote-to-close, peak</th><td>48%</td></tr>
-        <tr><th scope="row">Best month</th><td>$151.4K</td></tr>
-        <tr><th scope="row">Deals in a month (team record)</th><td>92</td></tr>
-        <tr><th scope="row">Share of team outbound dials</th><td>66%</td></tr>
-        <tr><th scope="row">Inbound answer rate (team best)</th><td>66.1%</td></tr>
-        <tr><th scope="row">Live sales conversations</th><td>5,591</td></tr>
-      </table>
+      <div class="bigs">
+        <div><div class="bn">43.7%</div><div class="bl">quote-to-close, against 36.8% for a 20-year industry veteran on the same market and price book</div></div>
+        <div><div class="bn">$1.32M</div><div class="bl">annual sales run-rate, closed personally</div></div>
+      </div>
     </div>
   </section>
 
